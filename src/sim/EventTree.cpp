@@ -31,11 +31,11 @@ namespace MQSimEngine
 	/// Add
 	/// args: ByVal key As IComparable, ByVal data As Object
 	/// key is object that implements IComparable interface
-	/// performance tip: change to use use int type (such as the hashcode)
+	/// performance tip: change to use int type (such as the hashcode)
 	///</summary>
 	void EventTree::Add(sim_time_type key, Sim_Event* data)
 	{
-		// traverse tree - find where node belongs
+		// traverse tree - find where node belongs (find the parent node)
 		// create new node
 		EventTreeNode* node = new EventTreeNode();
 		// grab the rbTree node of the tree
@@ -249,7 +249,7 @@ namespace MQSimEngine
 		sim_time_type key = event->Fire_time;
 		EventTreeNode* treeNode = rbTree;     // begin at root
 
-												// traverse tree until node is found
+		// traverse tree until node is found (sentinel node is the key of successful)
 		while (treeNode != SentinelNode)
 		{
 			if (key == treeNode->Key) {

@@ -57,6 +57,7 @@ namespace MQSimEngine
 	{
 		started = true;
 
+		// Set _triggersSetUp flag to "true"
 		for(std::unordered_map<sim_object_id_type, Sim_Object*>::iterator obj = _ObjectList.begin();
 			obj != _ObjectList.end();
 			++obj) {
@@ -65,10 +66,11 @@ namespace MQSimEngine
 			}
 		}
 
+		// Check setting and configuration, e.g., Flash, FTL, etc.
 		for (std::unordered_map<sim_object_id_type, Sim_Object*>::iterator obj = _ObjectList.begin();
 			obj != _ObjectList.end();
 			++obj) {
-			obj->second->Validate_simulation_config();
+			obj->second->Validate_simulation_config(); 
 		}
 		
 		for (std::unordered_map<sim_object_id_type, Sim_Object*>::iterator obj = _ObjectList.begin();
@@ -77,6 +79,7 @@ namespace MQSimEngine
 			obj->second->Start_simulation();
 		}
 		
+		// Start simulation
 		Sim_Event* ev = NULL;
 		while (true) {
 			if (_EventList->Count == 0 || stop) {
