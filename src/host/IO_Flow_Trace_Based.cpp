@@ -73,6 +73,7 @@ void IO_Flow_Trace_Based::SATA_consume_io_request(Host_IO_Request *io_request)
 	IO_Flow_Base::SATA_consume_io_request(io_request);
 }
 
+// 開始 simulation 的時候就把所有的 trace 變成
 void IO_Flow_Trace_Based::Start_simulation()
 {
 	IO_Flow_Base::Start_simulation();

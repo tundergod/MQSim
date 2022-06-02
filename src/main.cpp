@@ -111,6 +111,8 @@ std::vector<std::vector<IO_Flow_Parameter_Set*>*>* read_workload_definitions(con
 					std::vector<IO_Flow_Parameter_Set*>* scenario_definition = new std::vector<IO_Flow_Parameter_Set*>;
 					for (auto flow_def = xml_io_scenario->first_node(); flow_def; flow_def = flow_def->next_sibling()) {
 						IO_Flow_Parameter_Set* flow;
+
+						// Parse if (1) input traces or (2) selt-generated
 						if (strcmp(flow_def->name(), "IO_Flow_Parameter_Set_Synthetic") == 0) {
 							flow = new IO_Flow_Parameter_Set_Synthetic;
 							((IO_Flow_Parameter_Set_Synthetic*)flow)->XML_deserialize(flow_def);
@@ -132,6 +134,7 @@ std::vector<std::vector<IO_Flow_Parameter_Set*>*>* read_workload_definitions(con
 		}
 	}
 
+	// if read workload.xml fail, use default workload
 	if (use_default_workloads) {
 		std::vector<IO_Flow_Parameter_Set*>* scenario_definition = new std::vector<IO_Flow_Parameter_Set*>;
 		IO_Flow_Parameter_Set_Synthetic* io_flow_1 = new IO_Flow_Parameter_Set_Synthetic;
@@ -269,10 +272,11 @@ int main(int argc, char* argv[])
 	command_line_args(argv, ssd_config_file_path, workload_defs_file_path);
 
 	Execution_Parameter_Set* exec_params = new Execution_Parameter_Set;
-	read_configuration_parameters(ssd_config_file_path, exec_params);
+	read_configuration_parameters(ssd_config_file_path, exec_params); // raad input config.xml file into SSD_Device_Configuration
 	std::vector<std::vector<IO_Flow_Parameter_Set*>*>* io_scenarios = read_workload_definitions(workload_defs_file_path);
 
 	int cntr = 1;
+	// Create SSD device for each IO_workload ? 
 	for (auto io_scen = io_scenarios->begin(); io_scen != io_scenarios->end(); io_scen++, cntr++) {
 		time_t start_time = time(0);
 		char* dt = ctime(&start_time);
@@ -280,7 +284,7 @@ int main(int argc, char* argv[])
 		PRINT_MESSAGE("******************************")
 		PRINT_MESSAGE("Executing scenario " << cntr << " out of " << io_scenarios->size() << " .......")
 
-		//The simulator should always be reset, before starting the actual simulation
+		// The simulator should always be reset, before starting the actual simulation
 		Simulator->Reset();
 
 		exec_params->Host_Configuration.IO_Flow_Definitions.clear();
@@ -288,10 +292,13 @@ int main(int argc, char* argv[])
 			exec_params->Host_Configuration.IO_Flow_Definitions.push_back(*io_flow_def);
 		}
 
-		SSD_Device ssd(&exec_params->SSD_Device_Configuration, &exec_params->Host_Configuration.IO_Flow_Definitions);//Create SSD_Device based on the specified parameters
-		exec_params->Host_Configuration.Input_file_path = workload_defs_file_path.substr(0, workload_defs_file_path.find_last_of("."));//Create Host_System based on the specified parameters
+		// Create SSD_Device based on the specified parameters
+		SSD_Device ssd(&exec_params->SSD_Device_Configuration, &exec_params->Host_Configuration.IO_Flow_Definitions);
+		
+		// Create Host_System based on the specified parameters, including the input workload and ssd (device and host interface) configuration
+		exec_params->Host_Configuration.Input_file_path = workload_defs_file_path.substr(0, workload_defs_file_path.find_last_of("."));
 		Host_System host(&exec_params->Host_Configuration, exec_params->SSD_Device_Configuration.Enabled_Preconditioning, ssd.Host_interface);
-		host.Attach_ssd_device(&ssd);
+		host.Attach_ssd_device(&ssd); // Attach the host system (PCIe Link) to SSD devices
 
 		Simulator->Start_simulation();
 

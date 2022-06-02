@@ -79,6 +79,8 @@ Host_System::Host_System(Host_Parameter_Set* parameters, bool preconditioning_re
 		}
 		Simulator->AddObject(io_flow);
 	}
+
+	// attach the IO workflow into the PCIe Link
 	this->PCIe_root_complex->Set_io_flows(&this->IO_flows);
 	if (((SSD_Components::Host_Interface_NVMe*)ssd_host_interface)->GetType() == HostInterface_Types::SATA) {
 		this->SATA_hba->Set_io_flows(&this->IO_flows);
