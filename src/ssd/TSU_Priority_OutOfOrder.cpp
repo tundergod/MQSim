@@ -111,6 +111,7 @@ TSU_Priority_OutOfOrder::~TSU_Priority_OutOfOrder()
 
 void TSU_Priority_OutOfOrder::Start_simulation()
 {
+    DEBUG("TSU_Priority_OutOfOrder::Start_simulation()");
 }
 
 void TSU_Priority_OutOfOrder::Validate_simulation_config()

@@ -285,6 +285,7 @@ namespace SSD_Components
 			Simulator->Register_sim_event(Simulator->Time() + estimate_dram_access_time(request_info->Size_in_bytes, dram_row_size,
 				dram_busrt_size, dram_burst_transfer_time_ddr, dram_tRCD, dram_tCL, dram_tRP),
 				this, request_info, static_cast<int>(request_info->next_event_type));
+			DEBUG("RegisterEvent (Data_Cache_Manager_Flash_Simple::service_dram_access_request, IF dram_execution_queue size == 1): " << Simulator->Time());
 		}
 	}
 
@@ -316,6 +317,7 @@ namespace SSD_Components
 			Simulator->Register_sim_event(Simulator->Time() + estimate_dram_access_time(new_transfer_info->Size_in_bytes, dram_row_size, dram_busrt_size,
 				dram_burst_transfer_time_ddr, dram_tRCD, dram_tCL, dram_tRP),
 				this, new_transfer_info, static_cast<int>(new_transfer_info->next_event_type));
+			DEBUG("RegisterEvent (Data_Cache_Manager_Flash_Simple::Execute_simulator_event, IF dram_execution_queue > 0): " << Simulator->Time());
 		}
 
 		delete transfer_inf;

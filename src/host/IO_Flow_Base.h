@@ -93,16 +93,16 @@ namespace Host_Components
 		void NVMe_update_and_submit_completion_queue_tail();
 
 		//Variables used to collect statistics
-		unsigned int STAT_generated_request_count, STAT_generated_read_request_count, STAT_generated_write_request_count;
+		unsigned int STAT_generated_request_count, STAT_generated_read_request_count, STAT_generated_write_request_count, STAT_generated_reset_request_count;
 		unsigned int STAT_ignored_request_count;
-		unsigned int STAT_serviced_request_count, STAT_serviced_read_request_count, STAT_serviced_write_request_count;
-		sim_time_type STAT_sum_device_response_time, STAT_sum_device_response_time_read, STAT_sum_device_response_time_write;
-		sim_time_type STAT_min_device_response_time, STAT_min_device_response_time_read, STAT_min_device_response_time_write;
-		sim_time_type STAT_max_device_response_time, STAT_max_device_response_time_read, STAT_max_device_response_time_write;
-		sim_time_type STAT_sum_request_delay, STAT_sum_request_delay_read, STAT_sum_request_delay_write;
-		sim_time_type STAT_min_request_delay, STAT_min_request_delay_read, STAT_min_request_delay_write;
-		sim_time_type STAT_max_request_delay, STAT_max_request_delay_read, STAT_max_request_delay_write;
-		sim_time_type STAT_transferred_bytes_total, STAT_transferred_bytes_read, STAT_transferred_bytes_write;
+		unsigned int STAT_serviced_request_count, STAT_serviced_read_request_count, STAT_serviced_write_request_count, STAT_serviced_reset_request_count;
+		sim_time_type STAT_sum_device_response_time, STAT_sum_device_response_time_read, STAT_sum_device_response_time_write, STAT_sum_device_response_time_reset;
+		sim_time_type STAT_min_device_response_time, STAT_min_device_response_time_read, STAT_min_device_response_time_write, STAT_min_device_response_time_reset;
+		sim_time_type STAT_max_device_response_time, STAT_max_device_response_time_read, STAT_max_device_response_time_write, STAT_max_device_response_time_reset;
+		sim_time_type STAT_sum_request_delay, STAT_sum_request_delay_read, STAT_sum_request_delay_write, STAT_sum_request_delay_reset;
+		sim_time_type STAT_min_request_delay, STAT_min_request_delay_read, STAT_min_request_delay_write, STAT_min_request_delay_reset;
+		sim_time_type STAT_max_request_delay, STAT_max_request_delay_read, STAT_max_request_delay_write, STAT_max_request_delay_reset;
+		sim_time_type STAT_transferred_bytes_total, STAT_transferred_bytes_read, STAT_transferred_bytes_write, STAT_transferred_bytes_reset;
 		int progress;
 		int next_progress_step = 0;
 

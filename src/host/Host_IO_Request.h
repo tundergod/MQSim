@@ -5,7 +5,7 @@
 
 namespace Host_Components
 {
-	enum class Host_IO_Request_Type { READ, WRITE };
+	enum class Host_IO_Request_Type { READ, WRITE, RESET };
 	class Host_IO_Request
 	{
 	public:

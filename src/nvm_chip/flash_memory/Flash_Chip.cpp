@@ -55,6 +55,7 @@ namespace NVM
 		
 		void Flash_Chip::Start_simulation()
 		{
+			DEBUG("Flash_Chip::Start_simulation()");
 		}
 
 		void Flash_Chip::Validate_simulation_config()
@@ -114,6 +115,7 @@ namespace NVM
 			targetDie->Expected_finish_time = Simulator->Time() + Get_command_execution_latency(command->CommandCode, command->Address[0].PageID);
 			targetDie->CommandFinishEvent = Simulator->Register_sim_event(targetDie->Expected_finish_time,
 				this, command, static_cast<int>(Chip_Sim_Event_Type::COMMAND_FINISHED));
+			DEBUG("RegisterEvent (Flash_Chip::start_command_execution): " << Simulator->Time());
 			targetDie->CurrentCMD = command;
 			targetDie->Status = DieStatus::BUSY;
 			idleDieNo--;
@@ -246,6 +248,8 @@ namespace NVM
 			targetDie->Expected_finish_time = Simulator->Time() + targetDie->RemainingSuspendedExecTime;
 			targetDie->CommandFinishEvent = Simulator->Register_sim_event(targetDie->Expected_finish_time,
 				this, targetDie->CurrentCMD, static_cast<int>(Chip_Sim_Event_Type::COMMAND_FINISHED));
+			DEBUG("RegisterEvent (Flash_Chip::Resume): " << Simulator->Time());
+
 			if (targetDie->Expected_finish_time > this->expectedFinishTime) {
 				this->expectedFinishTime = targetDie->Expected_finish_time;
 			}

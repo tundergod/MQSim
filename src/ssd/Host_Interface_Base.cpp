@@ -4,10 +4,11 @@
 namespace SSD_Components
 {
 	Input_Stream_Base::Input_Stream_Base() :
-		STAT_number_of_read_requests(0), STAT_number_of_write_requests(0), 
-		STAT_number_of_read_transactions(0), STAT_number_of_write_transactions(0),
+		STAT_number_of_read_requests(0), STAT_number_of_write_requests(0), STAT_number_of_reset_requests(0),
+		STAT_number_of_read_transactions(0), STAT_number_of_write_transactions(0), STAT_number_of_reset_transactions(0),
 		STAT_sum_of_read_transactions_execution_time(0), STAT_sum_of_read_transactions_transfer_time(0), STAT_sum_of_read_transactions_waiting_time(0),
-		STAT_sum_of_write_transactions_execution_time(0), STAT_sum_of_write_transactions_transfer_time(0), STAT_sum_of_write_transactions_waiting_time(0)
+		STAT_sum_of_write_transactions_execution_time(0), STAT_sum_of_write_transactions_transfer_time(0), STAT_sum_of_write_transactions_waiting_time(0),
+		STAT_sum_of_reset_transactions_execution_time(0), STAT_sum_of_reset_transactions_transfer_time(0), STAT_sum_of_reset_transactions_waiting_time(0)
 	{}
 	
 	Input_Stream_Manager_Base::~Input_Stream_Manager_Base()
@@ -31,9 +32,9 @@ namespace SSD_Components
 	Host_Interface_Base* Host_Interface_Base::_my_instance = NULL;
 
 	Host_Interface_Base::Host_Interface_Base(const sim_object_id_type& id, HostInterface_Types type, LHA_type max_logical_sector_address, unsigned int sectors_per_page, 
-		Data_Cache_Manager_Base* cache)
+		Data_Cache_Manager_Base* cache, GC_and_WL_Unit_Base *gcwl)
 		: MQSimEngine::Sim_Object(id), type(type), max_logical_sector_address(max_logical_sector_address), 
-		sectors_per_page(sectors_per_page), cache(cache)
+		sectors_per_page(sectors_per_page), cache(cache), gcwl(gcwl)
 	{
 		_my_instance = this;
 	}
@@ -49,6 +50,7 @@ namespace SSD_Components
 		Sim_Object::Setup_triggers();
 		cache->Connect_to_user_request_serviced_signal(handle_user_request_serviced_signal_from_cache);
 		cache->Connect_to_user_memory_transaction_serviced_signal(handle_user_memory_transaction_serviced_signal_from_cache);
+		//gcwl->Connect_to_user_request_serviced_signal(handle_user_request_serviced_signal_from_gcwl);;
 	}
 
 	void Host_Interface_Base::Validate_simulation_config()
@@ -81,7 +83,12 @@ namespace SSD_Components
 	{
 		this->pcie_switch = pcie_switch;
 	}
-
+/*
+	void Host_Interface_Base::Set_GC_and_WL_Unit(GC_and_WL_Unit_Base* gcwl)
+	{
+		this->gc_and_wl_unit = gcwl;
+	}
+*/
 	LHA_type Host_Interface_Base::Get_max_logical_sector_address()
 	{
 		return max_logical_sector_address;
@@ -110,6 +117,11 @@ namespace SSD_Components
 				this->input_streams[transaction->Stream_id]->STAT_sum_of_write_transactions_execution_time += transaction->STAT_execution_time;
 				this->input_streams[transaction->Stream_id]->STAT_sum_of_write_transactions_transfer_time += transaction->STAT_transfer_time;
 				this->input_streams[transaction->Stream_id]->STAT_sum_of_write_transactions_waiting_time += (Simulator->Time() - transaction->Issue_time) - transaction->STAT_execution_time - transaction->STAT_transfer_time;
+				break;
+			case Transaction_Type::RESET:
+				this->input_streams[transaction->Stream_id]->STAT_sum_of_reset_transactions_execution_time += transaction->STAT_execution_time;
+				this->input_streams[transaction->Stream_id]->STAT_sum_of_reset_transactions_transfer_time += transaction->STAT_transfer_time;
+				this->input_streams[transaction->Stream_id]->STAT_sum_of_reset_transactions_waiting_time += (Simulator->Time() - transaction->Issue_time) - transaction->STAT_execution_time - transaction->STAT_transfer_time;
 				break;
 			default:
 				break;
@@ -181,9 +193,43 @@ namespace SSD_Components
 		}
 		return (uint32_t)(input_streams[stream_id]->STAT_sum_of_write_transactions_waiting_time / input_streams[stream_id]->STAT_number_of_write_transactions / SIM_TIME_TO_MICROSECONDS_COEFF);
 	}
+
+	uint32_t Input_Stream_Manager_Base::Get_average_reset_transaction_turnaround_time(stream_id_type stream_id)//in microseconds
+	{
+		if (input_streams[stream_id]->STAT_number_of_reset_transactions == 0) {
+			return 0;
+		}
+		return (uint32_t)((input_streams[stream_id]->STAT_sum_of_reset_transactions_execution_time + input_streams[stream_id]->STAT_sum_of_reset_transactions_transfer_time + input_streams[stream_id]->STAT_sum_of_reset_transactions_waiting_time)
+			/ input_streams[stream_id]->STAT_number_of_reset_transactions / SIM_TIME_TO_MICROSECONDS_COEFF);
+	}
+
+	uint32_t Input_Stream_Manager_Base::Get_average_reset_transaction_execution_time(stream_id_type stream_id)//in microseconds
+	{
+		if (input_streams[stream_id]->STAT_number_of_reset_transactions == 0) {
+			return 0;
+		}
+		return (uint32_t)(input_streams[stream_id]->STAT_sum_of_reset_transactions_execution_time / input_streams[stream_id]->STAT_number_of_reset_transactions / SIM_TIME_TO_MICROSECONDS_COEFF);
+	}
+
+	uint32_t Input_Stream_Manager_Base::Get_average_reset_transaction_transfer_time(stream_id_type stream_id)//in microseconds
+	{
+		if (input_streams[stream_id]->STAT_number_of_reset_transactions == 0) {
+			return 0;
+		}
+		return (uint32_t)(input_streams[stream_id]->STAT_sum_of_reset_transactions_transfer_time / input_streams[stream_id]->STAT_number_of_reset_transactions / SIM_TIME_TO_MICROSECONDS_COEFF);
+	}
+
+	uint32_t Input_Stream_Manager_Base::Get_average_reset_transaction_waiting_time(stream_id_type stream_id)//in microseconds
+	{
+		if (input_streams[stream_id]->STAT_number_of_reset_transactions == 0) {
+			return 0;
+		}
+		return (uint32_t)(input_streams[stream_id]->STAT_sum_of_reset_transactions_waiting_time / input_streams[stream_id]->STAT_number_of_reset_transactions / SIM_TIME_TO_MICROSECONDS_COEFF);
+	}
 	
 	Request_Fetch_Unit_Base::Request_Fetch_Unit_Base(Host_Interface_Base* host_interface) :
 		host_interface(host_interface)
 	{
 	}
+
 }

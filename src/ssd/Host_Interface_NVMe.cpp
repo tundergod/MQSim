@@ -73,19 +73,32 @@ inline void Input_Stream_Manager_NVMe::Handle_new_arrived_request(User_Request *
 	{ //Circular queue implementation
 		((Input_Stream_NVMe *)input_streams[request->Stream_id])->Submission_head_informed_to_host = 0;
 	}
+
 	if (request->Type == UserRequestType::READ)
 	{
+		DEBUG("Handle_new_arrived_request: READ");
 		((Input_Stream_NVMe *)input_streams[request->Stream_id])->Waiting_user_requests.push_back(request);
 		((Input_Stream_NVMe *)input_streams[request->Stream_id])->STAT_number_of_read_requests++;
 		segment_user_request(request);
 
 		((Host_Interface_NVMe *)host_interface)->broadcast_user_request_arrival_signal(request);
 	}
-	else
-	{ //This is a write request
+	else if (request->Type == UserRequestType::WRITE)
+	{
+		DEBUG("Handle_new_arrived_request: WRITE");
 		((Input_Stream_NVMe *)input_streams[request->Stream_id])->Waiting_user_requests.push_back(request);
 		((Input_Stream_NVMe *)input_streams[request->Stream_id])->STAT_number_of_write_requests++;
 		((Host_Interface_NVMe *)host_interface)->request_fetch_unit->Fetch_write_data(request);
+	}
+	else if (request->Type == UserRequestType::RESET)
+	{
+		DEBUG("Handle_new_arrived_request: RESET");
+		((Input_Stream_NVMe *)input_streams[request->Stream_id])->Waiting_user_requests.push_back(request);
+		((Input_Stream_NVMe *)input_streams[request->Stream_id])->STAT_number_of_reset_requests++;
+		((Host_Interface_NVMe *)host_interface)->broadcast_user_request_arrival_signal(request);
+	}
+	else{
+		PRINT_ERROR("Handle_new_arrived_request: Unknown request type");
 	}
 }
 
@@ -306,6 +319,12 @@ void Request_Fetch_Unit_NVMe::Process_pcie_read_message(uint64_t address, void *
 			new_request->SizeInSectors = sqe->Command_specific[2] & (LHA_type)(0x0000ffff);
 			new_request->Size_in_byte = new_request->SizeInSectors * SECTOR_SIZE_IN_BYTE;
 			break;
+		case NVME_RESET_OPCODE:
+			new_request->Type = UserRequestType::RESET;
+			new_request->Start_LBA = ((LHA_type)sqe->Command_specific[1]) << 31 | (LHA_type)sqe->Command_specific[0]; //Command Dword 10 and Command Dword 11
+			new_request->SizeInSectors = sqe->Command_specific[2] & (LHA_type)(0x0000ffff);
+			new_request->Size_in_byte = new_request->SizeInSectors * SECTOR_SIZE_IN_BYTE;
+			break;
 		default:
 			throw std::invalid_argument("NVMe command is not supported!");
 		}
@@ -378,7 +397,7 @@ void Request_Fetch_Unit_NVMe::Send_read_data(User_Request *request)
 
 Host_Interface_NVMe::Host_Interface_NVMe(const sim_object_id_type &id,
 										 LHA_type max_logical_sector_address, uint16_t submission_queue_depth, uint16_t completion_queue_depth,
-										 unsigned int no_of_input_streams, uint16_t queue_fetch_size, unsigned int sectors_per_page, Data_Cache_Manager_Base *cache) : Host_Interface_Base(id, HostInterface_Types::NVME, max_logical_sector_address, sectors_per_page, cache),
+										 unsigned int no_of_input_streams, uint16_t queue_fetch_size, unsigned int sectors_per_page, Data_Cache_Manager_Base *cache) : Host_Interface_Base(id, HostInterface_Types::NVME, max_logical_sector_address, sectors_per_page, cache, gcwl),
 																																									   submission_queue_depth(submission_queue_depth), completion_queue_depth(completion_queue_depth), no_of_input_streams(no_of_input_streams)
 {
 	this->input_stream_manager = new Input_Stream_Manager_NVMe(this, queue_fetch_size);
@@ -406,6 +425,7 @@ void Host_Interface_NVMe::Validate_simulation_config()
 
 void Host_Interface_NVMe::Start_simulation()
 {
+	DEBUG("Host_Interface_NVMe::Start_simulation()");
 }
 
 void Host_Interface_NVMe::Execute_simulator_event(MQSimEngine::Sim_Event *event) {}

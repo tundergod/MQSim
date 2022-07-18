@@ -51,7 +51,8 @@ void read_configuration_parameters(const string ssd_config_file_path, Execution_
 		exec_params->XML_serialize(xmlwriter);
 		xmlwriter.Close();
 		PRINT_MESSAGE("[====================] Done!\n")
-	} else {
+	} 
+	else {
 		//Read input workload parameters
 		string line((std::istreambuf_iterator<char>(ssd_config_file)),
 			std::istreambuf_iterator<char>());
@@ -300,6 +301,7 @@ int main(int argc, char* argv[])
 		Host_System host(&exec_params->Host_Configuration, exec_params->SSD_Device_Configuration.Enabled_Preconditioning, ssd.Host_interface);
 		host.Attach_ssd_device(&ssd); // Attach the host system (PCIe Link) to SSD devices
 
+		DEBUG("start simulation!")
 		Simulator->Start_simulation();
 
 		time_t end_time = time(0);

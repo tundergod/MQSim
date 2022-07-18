@@ -8,6 +8,7 @@
 #include "Address_Mapping_Unit_Base.h"
 #include "Flash_Block_Manager_Base.h"
 #include "GC_and_WL_Unit_Base.h"
+#include "Data_Cache_Manager_Base.h"
 #include "NVM_PHY_ONFI.h"
 #include "Stats.h"
 
@@ -19,8 +20,9 @@ namespace SSD_Components
 	class Address_Mapping_Unit_Base;
 	class GC_and_WL_Unit_Base;
 	class TSU_Base;
+	class Data_Cache_Manager_Base;
 
-	class FTL : public NVM_Firmware
+	class FTL: public NVM_Firmware
 	{
 	public:
 		FTL(const sim_object_id_type& id, Data_Cache_Manager_Base* data_cache, 

@@ -8,6 +8,7 @@
 #include "../host/PCIe_Message.h"
 #include "User_Request.h"
 #include "Data_Cache_Manager_Base.h"
+//#include "GC_and_WL_Unit_Base.h"
 #include <stdint.h>
 #include <cstring>
 
@@ -27,7 +28,7 @@ namespace SSD_Components
 	delete REQ;
 
 	class Data_Cache_Manager_Base;
-	class Host_Interface_Base;
+	class GC_and_WL_Unit_Base;
 
 	class Input_Stream_Base
 	{
@@ -36,10 +37,13 @@ namespace SSD_Components
 		virtual ~Input_Stream_Base();
 		unsigned int STAT_number_of_read_requests;
 		unsigned int STAT_number_of_write_requests;
+		unsigned int STAT_number_of_reset_requests;
 		unsigned int STAT_number_of_read_transactions;
 		unsigned int STAT_number_of_write_transactions;
+		unsigned int STAT_number_of_reset_transactions;
 		sim_time_type STAT_sum_of_read_transactions_execution_time, STAT_sum_of_read_transactions_transfer_time, STAT_sum_of_read_transactions_waiting_time;
 		sim_time_type STAT_sum_of_write_transactions_execution_time, STAT_sum_of_write_transactions_transfer_time, STAT_sum_of_write_transactions_waiting_time;
+		sim_time_type STAT_sum_of_reset_transactions_execution_time, STAT_sum_of_reset_transactions_transfer_time, STAT_sum_of_reset_transactions_waiting_time;
 	};
 
 	class Input_Stream_Manager_Base
@@ -62,6 +66,10 @@ namespace SSD_Components
 		uint32_t Get_average_write_transaction_execution_time(stream_id_type stream_id);//in microseconds
 		uint32_t Get_average_write_transaction_transfer_time(stream_id_type stream_id);//in microseconds
 		uint32_t Get_average_write_transaction_waiting_time(stream_id_type stream_id);//in microseconds
+		uint32_t Get_average_reset_transaction_turnaround_time(stream_id_type stream_id);//in microseconds
+		uint32_t Get_average_reset_transaction_execution_time(stream_id_type stream_id);//in microseconds
+		uint32_t Get_average_reset_transaction_transfer_time(stream_id_type stream_id);//in microseconds
+		uint32_t Get_average_reset_transaction_waiting_time(stream_id_type stream_id);//in microseconds
 	protected:
 		Host_Interface_Base* host_interface;
 		virtual void segment_user_request(User_Request* user_request) = 0;
@@ -97,9 +105,10 @@ namespace SSD_Components
 		friend class Request_Fetch_Unit_Base;
 		friend class Request_Fetch_Unit_NVMe;
 		friend class Request_Fetch_Unit_SATA;
+		friend class GC_and_WL_Unit_Page_Level;
 	public:
 		Host_Interface_Base(const sim_object_id_type& id, HostInterface_Types type, LHA_type max_logical_sector_address, 
-			unsigned int sectors_per_page, Data_Cache_Manager_Base* cache);
+			unsigned int sectors_per_page, Data_Cache_Manager_Base* cache, GC_and_WL_Unit_Base* gcwl);
 		virtual ~Host_Interface_Base();
 		void Setup_triggers();
 		void Validate_simulation_config();
@@ -107,7 +116,9 @@ namespace SSD_Components
 		typedef void(*UserRequestArrivedSignalHandlerType) (User_Request*);
 		void Connect_to_user_request_arrived_signal(UserRequestArrivedSignalHandlerType function)
 		{
+			DEBUG("Host_Interface_Base add function to function queue");
 			connected_user_request_arrived_signal_handlers.push_back(function);
+			DEBUG("Host_Interface_Base add function to function queue finish");
 		}
 
 		void Consume_pcie_message(Host_Components::PCIe_Message* message)
@@ -135,12 +146,14 @@ namespace SSD_Components
 		Input_Stream_Manager_Base* input_stream_manager;
 		Request_Fetch_Unit_Base* request_fetch_unit;
 		Data_Cache_Manager_Base* cache;
+		GC_and_WL_Unit_Base* gcwl;
 		std::vector<UserRequestArrivedSignalHandlerType> connected_user_request_arrived_signal_handlers;
 
 		void broadcast_user_request_arrival_signal(User_Request* user_request)
 		{
 			for (std::vector<UserRequestArrivedSignalHandlerType>::iterator it = connected_user_request_arrived_signal_handlers.begin();
 				it != connected_user_request_arrived_signal_handlers.end(); it++) {
+				DEBUG("host interface broadcasting user request arrival signal");
 				(*it)(user_request);
 			}
 		}

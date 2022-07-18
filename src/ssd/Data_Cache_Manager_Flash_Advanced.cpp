@@ -526,6 +526,7 @@ namespace SSD_Components
 			Simulator->Register_sim_event(Simulator->Time() + estimate_dram_access_time(request_info->Size_in_bytes, dram_row_size,
 				dram_busrt_size, dram_burst_transfer_time_ddr, dram_tRCD, dram_tCL, dram_tRP),
 				this, request_info, static_cast<int>(request_info->next_event_type));
+			DEBUG("RegisterEvent (Data_Cache_Manager_Flash_Advanced::service_dram_access_request, IF memory_channel_is_busy == FALSE): " << Simulator->Time());
 			memory_channel_is_busy = true;
 			dram_execution_list_turn = request_info->Stream_id;
 		}
@@ -561,6 +562,7 @@ namespace SSD_Components
 				Simulator->Register_sim_event(Simulator->Time() + estimate_dram_access_time(transfer_info->Size_in_bytes, dram_row_size, dram_busrt_size,
 					dram_burst_transfer_time_ddr, dram_tRCD, dram_tCL, dram_tRP),
 					this, transfer_info, static_cast<int>(transfer_info->next_event_type));
+				DEBUG("RegisterEvent (Data_Cache_Manager_Flash_Advanced::Execute_simulator_event): " << Simulator->Time());
 				memory_channel_is_busy = true;
 			}
 		} else {
@@ -573,6 +575,7 @@ namespace SSD_Components
 					Simulator->Register_sim_event(Simulator->Time() + estimate_dram_access_time(transfer_info->Size_in_bytes, dram_row_size, dram_busrt_size,
 						dram_burst_transfer_time_ddr, dram_tRCD, dram_tCL, dram_tRP),
 						this, transfer_info, static_cast<int>(transfer_info->next_event_type));
+					DEBUG("RegisterEvent (Data_Cache_Manager_Flash_Advanced::Execute_simulator_event): " << Simulator->Time());
 					memory_channel_is_busy = true;
 					break;
 				}

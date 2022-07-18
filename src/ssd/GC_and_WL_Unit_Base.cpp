@@ -1,16 +1,17 @@
 #include "GC_and_WL_Unit_Base.h"
+#include "Host_Interface_Base.h"
 
 namespace SSD_Components
 {
-	GC_and_WL_Unit_Base* GC_and_WL_Unit_Base::_my_instance;
+	GC_and_WL_Unit_Base* GC_and_WL_Unit_Base::_my_instance = NULL;
 	
 	GC_and_WL_Unit_Base::GC_and_WL_Unit_Base(const sim_object_id_type& id,
-		Address_Mapping_Unit_Base* address_mapping_unit, Flash_Block_Manager_Base* block_manager, TSU_Base* tsu, NVM_PHY_ONFI* flash_controller,
+		Address_Mapping_Unit_Base* address_mapping_unit, Flash_Block_Manager_Base* block_manager, Host_Interface_Base* host_interface, TSU_Base* tsu, NVM_PHY_ONFI* flash_controller,
 		GC_Block_Selection_Policy_Type block_selection_policy, double gc_threshold, bool preemptible_gc_enabled, double gc_hard_threshold,
 		unsigned int channel_count, unsigned int chip_no_per_channel, unsigned int die_no_per_chip, unsigned int plane_no_per_die,
 		unsigned int block_no_per_plane, unsigned int page_no_per_block, unsigned int sector_no_per_page, 
 		bool use_copyback, double rho, unsigned int max_ongoing_gc_reqs_per_plane, bool dynamic_wearleveling_enabled, bool static_wearleveling_enabled, unsigned int static_wearleveling_threshold, int seed) :
-		Sim_Object(id), address_mapping_unit(address_mapping_unit), block_manager(block_manager), tsu(tsu), flash_controller(flash_controller), force_gc(false),
+		Sim_Object(id), address_mapping_unit(address_mapping_unit), block_manager(block_manager), host_interface(host_interface), tsu(tsu), flash_controller(flash_controller), force_gc(false),
 		block_selection_policy(block_selection_policy), gc_threshold(gc_threshold),	use_copyback(use_copyback), 
 		preemptible_gc_enabled(preemptible_gc_enabled), gc_hard_threshold(gc_hard_threshold),
 		random_generator(seed), max_ongoing_gc_reqs_per_plane(max_ongoing_gc_reqs_per_plane),
@@ -36,7 +37,9 @@ namespace SSD_Components
 	void GC_and_WL_Unit_Base::Setup_triggers()
 	{
 		Sim_Object::Setup_triggers();
+		DEBUG("GC_and_WL_Unit_Base::Setup_triggers()");
 		flash_controller->ConnectToTransactionServicedSignal(handle_transaction_serviced_signal_from_PHY);
+		host_interface->Connect_to_user_request_arrived_signal(handle_user_request_arrived_signal);
 	}
 
 	void GC_and_WL_Unit_Base::handle_transaction_serviced_signal_from_PHY(NVM_Transaction_Flash* transaction)
@@ -168,6 +171,7 @@ namespace SSD_Components
 
 	void GC_and_WL_Unit_Base::Start_simulation()
 	{
+		DEBUG("GC_and_WL_Unit_Base::Start_simulation()");
 	}
 
 	void GC_and_WL_Unit_Base::Validate_simulation_config()
@@ -299,5 +303,24 @@ namespace SSD_Components
 
 			tsu->Schedule();
 		}
+	}
+	
+	void GC_and_WL_Unit_Base::broadcast_user_request_serviced_signal(User_Request* nvm_transaction)
+	{
+		for (std::vector<UserRequestServicedSignalHanderType>::iterator it = connected_user_request_serviced_signal_handlers.begin();
+			it != connected_user_request_serviced_signal_handlers.end(); it++) {
+			(*it)(nvm_transaction);
+		}
+	}
+
+	void GC_and_WL_Unit_Base::handle_user_request_arrived_signal(User_Request* user_request)
+	{
+		DEBUG("GC_and_WL_Unit_Base::handle_user_request_arrived_signal()");
+		_my_instance->process_zone_reset_request(user_request);
+	}
+
+	void GC_and_WL_Unit_Base::Set_host_interface(Host_Interface_Base* host_interface)
+	{
+		this->host_interface = host_interface;
 	}
 }

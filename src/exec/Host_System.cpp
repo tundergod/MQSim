@@ -11,6 +11,7 @@
 Host_System::Host_System(Host_Parameter_Set* parameters, bool preconditioning_required, SSD_Components::Host_Interface_Base* ssd_host_interface):
 	MQSimEngine::Sim_Object("Host"), preconditioning_required(preconditioning_required)
 {
+	DEBUG("Create Host_System");
 	Simulator->AddObject(this);
 
 	//Create the main components of the host system
@@ -59,6 +60,8 @@ Host_System::Host_System(Host_Parameter_Set* parameters, bool preconditioning_re
 					flow_param->Seed, flow_param->Stop_Time, flow_param->Initial_Occupancy_Percentage / double(100.0), flow_param->Total_Requests_To_Generate, ssd_host_interface->GetType(), this->PCIe_root_complex, this->SATA_hba,
 					parameters->Enable_ResponseTime_Logging, parameters->ResponseTime_Logging_Period_Length, parameters->Input_file_path + ".IO_Flow.No_" + std::to_string(flow_id) + ".log");
 				this->IO_flows.push_back(io_flow);
+
+				DEBUG("Create IO_Flow_Synthetic: " << io_flow->ID());
 				break;
 			}
 			case Flow_Type::TRACE: {
@@ -72,6 +75,8 @@ Host_System::Host_System(Host_Parameter_Set* parameters, bool preconditioning_re
 					parameters->Enable_ResponseTime_Logging, parameters->ResponseTime_Logging_Period_Length, parameters->Input_file_path + ".IO_Flow.No_" + std::to_string(flow_id) + ".log");
 
 				this->IO_flows.push_back(io_flow);
+
+				DEBUG("Create IO_Flow_Trace: " << io_flow->ID());
 				break;
 			}
 			default:
@@ -115,6 +120,7 @@ const std::vector<Host_Components::IO_Flow_Base*> Host_System::Get_io_flows()
 
 void Host_System::Start_simulation()
 {
+	DEBUG("Host_System::Start_simulation()")
 	switch (ssd_device->Host_interface->GetType()) {
 		case HostInterface_Types::NVME:
 			for (uint16_t flow_cntr = 0; flow_cntr < IO_flows.size(); flow_cntr++) {

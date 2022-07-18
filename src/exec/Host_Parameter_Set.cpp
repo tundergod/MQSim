@@ -60,7 +60,10 @@ void Host_Parameter_Set::XML_deserialize(rapidxml::xml_node<> *node)
 				std::string val = param->value();
 				ResponseTime_Logging_Period_Length = std::stoul(val);
 			}
+
+			DEBUG("HOST XML: " << param->name() << ": " << param->value());
 		}
+		DEBUG( std::endl << "******************************" << std::endl);
 	} catch (...) {
 		PRINT_ERROR("Error in the Host_Parameter_Set!")
 	}

@@ -1,6 +1,7 @@
 #ifndef GC_AND_WL_UNIT_BASE_H
 #define GC_AND_WL_UNIT_BASE_H
 
+//#include <vector>
 #include "../sim/Sim_Object.h"
 #include "../nvm_chip/flash_memory/Flash_Chip.h"
 #include "../nvm_chip/flash_memory/Physical_Page_Address.h"
@@ -8,6 +9,8 @@
 #include "Flash_Block_Manager_Base.h"
 #include "TSU_Base.h"
 #include "NVM_PHY_ONFI.h"
+#include "GC_and_WL_Unit_Base.h"
+#include "Host_Interface_Base.h"
 
 
 namespace SSD_Components
@@ -31,15 +34,18 @@ namespace SSD_Components
 	class NVM_PHY_ONFI;
 	class PlaneBookKeepingType;
 	class Block_Pool_Slot_Type;
+	class Host_Interface_Base;
 
 	/*
 	* This class implements thet the Garbage Collection and Wear Leveling module of MQSim.
 	*/
 	class GC_and_WL_Unit_Base : public MQSimEngine::Sim_Object
 	{
+		friend class GC_and_WL_Unit_Page_Level;
+
 	public:
 		GC_and_WL_Unit_Base(const sim_object_id_type& id, 
-			Address_Mapping_Unit_Base* address_mapping_unit, Flash_Block_Manager_Base* block_manager, TSU_Base* tsu, NVM_PHY_ONFI* flash_controller,
+			Address_Mapping_Unit_Base* address_mapping_unit, Flash_Block_Manager_Base* block_manager, Host_Interface_Base* host_interface, TSU_Base* tsu, NVM_PHY_ONFI* flash_controller,
 			GC_Block_Selection_Policy_Type block_selection_policy, double gc_threshold,	bool preemptible_gc_enabled, double gc_hard_threshold,
 			unsigned int channel_count, unsigned int chip_no_per_channel, unsigned int die_no_per_chip, unsigned int plane_no_per_die,
 			unsigned int block_no_per_plane, unsigned int page_no_per_block, unsigned int sector_no_per_page,
@@ -50,6 +56,10 @@ namespace SSD_Components
 		void Validate_simulation_config();
 		void Execute_simulator_event(MQSimEngine::Sim_Event*);
 
+		
+		typedef void(*UserRequestServicedSignalHanderType) (User_Request*);
+		void Connect_to_user_request_serviced_signal(UserRequestServicedSignalHanderType);
+
 		virtual bool GC_is_in_urgent_mode(const NVM::FlashMemory::Flash_Chip*) = 0;
 		virtual void Check_gc_required(const unsigned int BlockPoolSize, const NVM::FlashMemory::Physical_Page_Address& planeAddress) = 0;
 		GC_Block_Selection_Policy_Type Get_gc_policy();
@@ -58,11 +68,13 @@ namespace SSD_Components
 		bool Use_dynamic_wearleveling();
 		bool Use_static_wearleveling();
 		bool Stop_servicing_writes(const NVM::FlashMemory::Physical_Page_Address& plane_address);
-	protected:
+		void Set_host_interface(Host_Interface_Base* host_interface);
+	protected:	
+		static GC_and_WL_Unit_Base* _my_instance;
 		GC_Block_Selection_Policy_Type block_selection_policy;
-		static GC_and_WL_Unit_Base * _my_instance;
 		Address_Mapping_Unit_Base* address_mapping_unit;
 		Flash_Block_Manager_Base* block_manager;
+		Host_Interface_Base* host_interface;
 		TSU_Base* tsu;
 		NVM_PHY_ONFI* flash_controller;
 		bool force_gc;
@@ -76,6 +88,13 @@ namespace SSD_Components
 		bool dynamic_wearleveling_enabled;
 		bool static_wearleveling_enabled;
 		unsigned int static_wearleveling_threshold;
+
+		// RESET command for ZNS
+		std::vector<UserRequestServicedSignalHanderType> connected_user_request_serviced_signal_handlers;
+		void broadcast_user_request_serviced_signal(User_Request* user_request);
+
+		static void handle_user_request_arrived_signal(User_Request* user_request);
+		virtual void process_zone_reset_request(User_Request* user_request) = 0;
 
 		//Used to implement: "Preemptible I/O Scheduling of Garbage Collection for Solid State Drives", TCAD 2013.
 		bool preemptible_gc_enabled;

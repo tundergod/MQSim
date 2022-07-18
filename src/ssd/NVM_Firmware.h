@@ -10,7 +10,7 @@
 namespace SSD_Components
 {
 	class Data_Cache_Manager_Base;
-	class NVM_Firmware : public MQSimEngine::Sim_Object
+	class NVM_Firmware: public MQSimEngine::Sim_Object
 	{
 	public:
 		NVM_Firmware(const sim_object_id_type& id, Data_Cache_Manager_Base* data_cache_manager);

@@ -630,6 +630,8 @@ void Device_Parameter_Set::XML_deserialize(rapidxml::xml_node<> *node)
 			{
 				Flash_Parameters.XML_deserialize(param);
 			}
+
+			if (strcmp(param->name(), "Flash_Parameter_Set")) DEBUG("DEVICE XML: " << param->name() << ": " << param->value());
 		}
 	}
 	catch (...)

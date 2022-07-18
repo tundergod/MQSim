@@ -57,6 +57,12 @@ private:
 	bool generate_aligned_addresses;
 	unsigned int alignment_value;
 	int seed;
+
+	// ZNS for RESET
+	unsigned int written_zone_no;
+	unsigned int zone_reset_threshold;
+	unsigned int total_lba_current_zone;
+	unsigned int max_lba_zone;
 };
 } // namespace Host_Components
 

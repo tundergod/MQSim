@@ -28,6 +28,8 @@ SSD_Device::SSD_Device(Device_Parameter_Set *parameters, std::vector<IO_Flow_Par
 	device->Preconditioning_required = parameters->Enabled_Preconditioning;
 	device->Memory_Type = parameters->Memory_Type;
 
+	DEBUG("Create SSD_Device");
+
 	switch (Memory_Type)
 	{
 	case NVM::NVM_Type::FLASH:
@@ -364,7 +366,9 @@ SSD_Device::SSD_Device(Device_Parameter_Set *parameters, std::vector<IO_Flow_Par
 			break;
 		}
 		Simulator->AddObject(device->Host_interface);
-		dcm->Set_host_interface(device->Host_interface);
+		dcm->Set_host_interface(device->Host_interface); 
+		gcwl->Set_host_interface(device->Host_interface); // attach host interface to receive reset command
+		//device->Host_interface->Set_GC_and_WL_Unit(gcwl); // attach gc unit to host interface
 		break;
 	}
 	default:
@@ -414,6 +418,7 @@ void SSD_Device::Perform_preconditioning(std::vector<Utils::Workload_Statistics 
 
 void SSD_Device::Start_simulation()
 {
+	DEBUG("SSD_Device::Start_simulation()");
 }
 
 void SSD_Device::Validate_simulation_config()

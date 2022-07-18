@@ -208,7 +208,10 @@ void Flash_Parameter_Set::XML_deserialize(rapidxml::xml_node<> *node)
 				std::string val = param->value();
 				Page_Metadat_Capacity = std::stoul(val);
 			}
+
+			DEBUG("FLASH XML: " << param->name() << ": " << param->value());
 		}
+		DEBUG( std::endl << "******************************" << std::endl);
 	} catch (...) {
 		PRINT_ERROR("Error in the Flash_Parameter_Set!")
 	}

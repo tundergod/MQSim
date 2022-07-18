@@ -58,6 +58,7 @@ namespace MQSimEngine
 		started = true;
 
 		// Set _triggersSetUp flag to "true"
+		DEBUG("Engine::Setup_triggers()");
 		for(std::unordered_map<sim_object_id_type, Sim_Object*>::iterator obj = _ObjectList.begin();
 			obj != _ObjectList.end();
 			++obj) {
@@ -67,12 +68,14 @@ namespace MQSimEngine
 		}
 
 		// Check setting and configuration, e.g., Flash, FTL, etc.
+		DEBUG("Engine::Validate_simulation_config()");
 		for (std::unordered_map<sim_object_id_type, Sim_Object*>::iterator obj = _ObjectList.begin();
 			obj != _ObjectList.end();
 			++obj) {
 			obj->second->Validate_simulation_config(); 
 		}
 		
+		DEBUG("Engine::Start_simulation()");
 		for (std::unordered_map<sim_object_id_type, Sim_Object*>::iterator obj = _ObjectList.begin();
 			obj != _ObjectList.end();
 			++obj) {
@@ -82,7 +85,7 @@ namespace MQSimEngine
 		// Start simulation
 		Sim_Event* ev = NULL;
 		while (true) {
-			if (_EventList->Count == 0 || stop) {
+			if (/*_EventList->Count == 0 ||*/ stop) {
 				break;
 			}
 
@@ -94,6 +97,7 @@ namespace MQSimEngine
 			while (ev != NULL) {
 				if(!ev->Ignore) {
 					ev->Target_sim_object->Execute_simulator_event(ev);
+					DEBUG(std::endl << " --- Event time: " << ev->Fire_time << std::endl);
 				}
 				Sim_Event* consumed_event = ev;
 				ev = ev->Next_event;
@@ -120,8 +124,7 @@ namespace MQSimEngine
 
 	Sim_Event* Engine::Register_sim_event(sim_time_type fireTime, Sim_Object* targetObject, void* parameters, int type)
 	{
-		Sim_Event* ev = new Sim_Event(fireTime, targetObject, parameters, type);
-		DEBUG("RegisterEvent " << fireTime << " " << targetObject)
+		Sim_Event* ev = new Sim_Event(fireTime, targetObject, parameters, type);		
 		_EventList->Insert_sim_event(ev);
 		return ev;
 	}

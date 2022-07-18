@@ -37,10 +37,15 @@ Host_IO_Request *IO_Flow_Trace_Based::Generate_next_request()
 		request->Type = Host_IO_Request_Type::WRITE;
 		STAT_generated_write_request_count++;
 	}
-	else
+	else if (current_trace_line[ASCIITraceTypeColumn].compare(ASCIITraceWriteCode) == 1)
 	{
 		request->Type = Host_IO_Request_Type::READ;
 		STAT_generated_read_request_count++;
+	}
+	else if (current_trace_line[ASCIITraceTypeColumn].compare(ASCIITraceWriteCode) == 2)
+	{
+		request->Type = Host_IO_Request_Type::RESET;
+		STAT_generated_reset_request_count++;
 	}
 
 	char *pEnd;
@@ -76,6 +81,7 @@ void IO_Flow_Trace_Based::SATA_consume_io_request(Host_IO_Request *io_request)
 // 開始 simulation 的時候就把所有的 trace 變成
 void IO_Flow_Trace_Based::Start_simulation()
 {
+	DEBUG("IO_Flow_Trace_Based::Start_simulation()");
 	IO_Flow_Base::Start_simulation();
 	std::string trace_line;
 	char *pEnd;
@@ -124,6 +130,7 @@ void IO_Flow_Trace_Based::Start_simulation()
 	Utils::Helper_Functions::Remove_cr(trace_line);
 	Utils::Helper_Functions::Tokenize(trace_line, ASCIILineDelimiter, current_trace_line);
 	Simulator->Register_sim_event(std::strtoll(current_trace_line[ASCIITraceTimeColumn].c_str(), &pEnd, 10), this);
+	DEBUG("RegisterEvent (IO_Flow_Trace_Based::Start_simulation): " << Simulator->Time());
 }
 
 void IO_Flow_Trace_Based::Validate_simulation_config()
@@ -161,6 +168,7 @@ void IO_Flow_Trace_Based::Execute_simulator_event(MQSimEngine::Sim_Event *)
 		}
 		char *pEnd;
 		Simulator->Register_sim_event(time_offset + std::strtoll(current_trace_line[ASCIITraceTimeColumn].c_str(), &pEnd, 10), this);
+		DEBUG("RegisterEvent (IO_Flow_Trace_Based::Start_simulation, IF generated < required): " << Simulator->Time());
 	}
 }
 

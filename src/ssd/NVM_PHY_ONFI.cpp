@@ -3,6 +3,7 @@
 namespace SSD_Components {
 	void NVM_PHY_ONFI::ConnectToTransactionServicedSignal(TransactionServicedHandlerType function)
 	{
+		DEBUG("NVM_PHY_ONFI add function to function queue");
 		connectedTransactionServicedHandlers.push_back(function);
 	}
 

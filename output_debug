@@ -1,0 +1,556 @@
+HOST XML: PCIe_Lane_Bandwidth: 1.00000
+HOST XML: PCIe_Lane_Count: 4
+HOST XML: SATA_Processing_Delay: 400000
+HOST XML: Enable_ResponseTime_Logging: true
+HOST XML: ResponseTime_Logging_Period_Length: 1000000
+
+******************************
+
+DEVICE XML: Seed: 321
+DEVICE XML: Enabled_Preconditioning: false
+DEVICE XML: Memory_Type: FLASH
+DEVICE XML: HostInterface_Type: NVME
+DEVICE XML: IO_Queue_Depth: 65535
+DEVICE XML: Queue_Fetch_Size: 512
+DEVICE XML: Caching_Mechanism: ADVANCED
+DEVICE XML: Data_Cache_Sharing_Mode: SHARED
+DEVICE XML: Data_Cache_Capacity: 268435456
+DEVICE XML: Data_Cache_DRAM_Row_Size: 8192
+DEVICE XML: Data_Cache_DRAM_Data_Rate: 100
+DEVICE XML: Data_Cache_DRAM_Data_Busrt_Size: 1
+DEVICE XML: Data_Cache_DRAM_tRCD: 13
+DEVICE XML: Data_Cache_DRAM_tCL: 13
+DEVICE XML: Data_Cache_DRAM_tRP: 13
+DEVICE XML: Address_Mapping: PAGE_LEVEL
+DEVICE XML: Ideal_Mapping_Table: false
+DEVICE XML: CMT_Capacity: 2097152
+DEVICE XML: CMT_Sharing_Mode: SHARED
+DEVICE XML: Plane_Allocation_Scheme: CWDP
+DEVICE XML: Transaction_Scheduling_Policy: PRIORITY_OUT_OF_ORDER
+DEVICE XML: Overprovisioning_Ratio: 0.07
+DEVICE XML: GC_Exec_Threshold: 0.05000
+DEVICE XML: GC_Block_Selection_Policy: RGA
+DEVICE XML: Use_Copyback_for_GC: false
+DEVICE XML: Preemptible_GC_Enabled: false
+DEVICE XML: GC_Hard_Threshold: 0.005000
+DEVICE XML: Dynamic_Wearleveling_Enabled: true
+DEVICE XML: Static_Wearleveling_Enabled: true
+DEVICE XML: Static_Wearleveling_Threshold: 100
+DEVICE XML: Preferred_suspend_erase_time_for_read: 700000
+DEVICE XML: Preferred_suspend_erase_time_for_write: 700000
+DEVICE XML: Preferred_suspend_write_time_for_read: 100000
+DEVICE XML: Flash_Channel_Count: 8
+DEVICE XML: Flash_Channel_Width: 1
+DEVICE XML: Channel_Transfer_Rate: 333
+DEVICE XML: Chip_No_Per_Channel: 4
+DEVICE XML: Flash_Comm_Protocol: NVDDR2
+FLASH XML: Flash_Technology: MLC
+FLASH XML: CMD_Suspension_Support: ERASE
+FLASH XML: Page_Read_Latency_LSB: 75000
+FLASH XML: Page_Read_Latency_CSB: 75000
+FLASH XML: Page_Read_Latency_MSB: 75000
+FLASH XML: Page_Program_Latency_LSB: 750000
+FLASH XML: Page_Program_Latency_CSB: 750000
+FLASH XML: Page_Program_Latency_MSB: 750000
+FLASH XML: Block_Erase_Latency: 3800000
+FLASH XML: Block_PE_Cycles_Limit: 10000
+FLASH XML: Suspend_Erase_Time: 700000
+FLASH XML: Suspend_Program_Time: 100000
+FLASH XML: Die_No_Per_Chip: 4
+FLASH XML: Plane_No_Per_Die: 4
+FLASH XML: Block_No_Per_Plane: 2048
+FLASH XML: Page_No_Per_Block: 256
+FLASH XML: Page_Capacity: 8192
+FLASH XML: Page_Metadat_Capacity: 448
+
+******************************
+
+DEVICE XML: Flash_Parameter_Set: 
+
+******************************
+
+MQSim started at Thu Jul 14 15:50:35 2022
+
+******************************
+Executing scenario 1 out of 1 .......
+RegisterEvent 1 0x7fb6cc7ffa00
+* Generate_next_request(): Host: Request generated - Read, LBA:1004066320, Size_in_bytes:8
+RegisterEvent 9 0x7fb71618ab50
+* Generate_next_request(): Host: Request generated - Write, LBA:1647269168, Size_in_bytes:8
+* Generate_next_request(): Host: Request generated - Read, LBA:1253721904, Size_in_bytes:8
+* Generate_next_request(): Host: Request generated - Write, LBA:427728736, Size_in_bytes:8
+* Generate_next_request(): Host: Request generated - Write, LBA:191883840, Size_in_bytes:8
+* Generate_next_request(): Host: Request generated - Write, LBA:1481068368, Size_in_bytes:8
+* Generate_next_request(): Host: Request generated - Write, LBA:1210037936, Size_in_bytes:8
+* Generate_next_request(): Host: Request generated - Write, LBA:287401008, Size_in_bytes:8
+* Generate_next_request(): Host: Request generated - Read, LBA:1260514240, Size_in_bytes:8
+* Generate_next_request(): Host: Request generated - Write, LBA:209331776, Size_in_bytes:8
+* Generate_next_request(): Host: Request generated - Read, LBA:1300951328, Size_in_bytes:8
+* Generate_next_request(): Host: Request generated - Write, LBA:369616416, Size_in_bytes:8
+* Generate_next_request(): Host: Request generated - Read, LBA:1865987232, Size_in_bytes:8
+* Generate_next_request(): Host: Request generated - Read, LBA:1875719376, Size_in_bytes:8
+* Generate_next_request(): Host: Request generated - Write, LBA:218289088, Size_in_bytes:8
+* Generate_next_request(): Host: Request generated - Read, LBA:1367350384, Size_in_bytes:8
+RegisterEvent 17 0x7fb71618ab50
+RegisterEvent 17 0x7fb71618ab50
+RegisterEvent 25 0x7fb71618ab50
+RegisterEvent 25 0x7fb71618ab50
+RegisterEvent 33 0x7fb71618ab50
+RegisterEvent 33 0x7fb71618ab50
+RegisterEvent 41 0x7fb71618ab50
+RegisterEvent 41 0x7fb71618ab50
+RegisterEvent 49 0x7fb71618ab50
+RegisterEvent 49 0x7fb71618ab50
+RegisterEvent 57 0x7fb71618ab50
+RegisterEvent 57 0x7fb71618ab50
+RegisterEvent 65 0x7fb71618ab50
+RegisterEvent 65 0x7fb71618ab50
+RegisterEvent 73 0x7fb71618ab50
+RegisterEvent 73 0x7fb71618ab50
+RegisterEvent 81 0x7fb71618ab50
+RegisterEvent 81 0x7fb71618ab50
+RegisterEvent 89 0x7fb71618ab50
+RegisterEvent 89 0x7fb71618ab50
+RegisterEvent 97 0x7fb71618ab50
+RegisterEvent 97 0x7fb71618ab50
+RegisterEvent 105 0x7fb71618ab50
+RegisterEvent 105 0x7fb71618ab50
+RegisterEvent 113 0x7fb71618ab50
+RegisterEvent 113 0x7fb71618ab50
+RegisterEvent 121 0x7fb71618ab50
+RegisterEvent 121 0x7fb71618ab50
+RegisterEvent 129 0x7fb71618ab50
+RegisterEvent 129 0x7fb71618ab50
+RegisterEvent 137 0x7fb71618ab50
+RegisterEvent 154 0x7fb71618ab50
+Address mapping table query - Stream ID:0, LPA:62754145, MISS
+0: 154 Issueing Transaction - Type:Read, , PPA:186122585, LPA:18446744073709551615, Channel: 5, Chip: 2
+Chip 5, 2, 0: Sending read command to chip for LPA: 18446744073709551615
+RegisterEvent 444 0x7fb6ce014e50
+RegisterEvent 179 0x7fb71618ab50
+RegisterEvent 187 0x7fb71618ab50
+RegisterEvent 204 0x7fb71618ab50
+Address mapping table query - Stream ID:0, LPA:78357619, MISS
+1: 204 Issueing Transaction - Type:Read, , PPA:161481072, LPA:18446744073709551615, Channel: 4, Chip: 3
+Chip 4, 3, 1: Sending read command to chip for LPA: 18446744073709551615
+RegisterEvent 494 0x7fb6ce014e50
+RegisterEvent 229 0x7fb71618ab50
+RegisterEvent 237 0x7fb71618ab50
+RegisterEvent 254 0x7fb71618ab50
+RegisterEvent 262 0x7fb71618ab50
+RegisterEvent 279 0x7fb71618ab50
+RegisterEvent 287 0x7fb71618ab50
+RegisterEvent 304 0x7fb71618ab50
+RegisterEvent 312 0x7fb71618ab50
+RegisterEvent 329 0x7fb71618ab50
+RegisterEvent 337 0x7fb71618ab50
+RegisterEvent 354 0x7fb71618ab50
+Address mapping table query - Stream ID:0, LPA:78782140, MISS
+2: 354 Issueing Transaction - Type:Read, , PPA:124780912, LPA:18446744073709551615, Channel: 3, Chip: 2
+Chip 3, 2, 3: Sending read command to chip for LPA: 18446744073709551615
+RegisterEvent 644 0x7fb6ce014e50
+RegisterEvent 379 0x7fb71618ab50
+RegisterEvent 387 0x7fb71618ab50
+RegisterEvent 404 0x7fb71618ab50
+Address mapping table query - Stream ID:0, LPA:81309458, MISS
+3: 404 Issueing Transaction - Type:Read, , PPA:245891444, LPA:18446744073709551615, Channel: 7, Chip: 1
+Chip 7, 1, 1: Sending read command to chip for LPA: 18446744073709551615
+RegisterEvent 694 0x7fb6ce014e50
+RegisterEvent 429 0x7fb71618ab50
+RegisterEvent 437 0x7fb71618ab50
+RegisterEvent 454 0x7fb71618ab50
+RegisterEvent 75464 0x7fb6f6719770
+Command execution started on channel: 5 chip: 2
+Address mapping table query - Stream ID:0, LPA:116624202, MISS
+4: 454 Issueing Transaction - Type:Read, , PPA:230162854, LPA:18446744073709551615, Channel: 6, Chip: 3
+Chip 6, 3, 1: Sending read command to chip for LPA: 18446744073709551615
+RegisterEvent 744 0x7fb6ce014e50
+RegisterEvent 479 0x7fb71618ab50
+Address mapping table query - Stream ID:0, LPA:117232461, MISS
+RegisterEvent 504 0x7fb71618ab50
+RegisterEvent 75514 0x7fb71677bd90
+Command execution started on channel: 4 chip: 3
+RegisterEvent 512 0x7fb71618ab50
+RegisterEvent 529 0x7fb71618ab50
+Address mapping table query - Stream ID:0, LPA:85459399, MISS
+RegisterEvent 1777 0x7fb71618ab50
+RegisterEvent 75664 0x7fb72679d930
+Command execution started on channel: 3 chip: 2
+RegisterEvent 75714 0x7fb6ec0a9110
+Command execution started on channel: 7 chip: 1
+RegisterEvent 75764 0x7fb6d670dac0
+Command execution started on channel: 6 chip: 3
+RegisterEvent 22283 0x7fb71618a770
+Address mapping table query - Stream ID:0, LPA:102954323, MISS
+5: 1777 Issueing Transaction - Type:Read, , PPA:2621843, LPA:18446744073709551615, Channel: 0, Chip: 0
+Chip 0, 0, 1: Sending read command to chip for LPA: 18446744073709551615
+RegisterEvent 2067 0x7fb6ce014e50
+RegisterEvent 3025 0x7fb71618ab50
+RegisterEvent 77087 0x7fb747004d30
+Command execution started on channel: 0 chip: 0
+Address mapping table query - Stream ID:0, LPA:26733046, MISS
+RegisterEvent 4273 0x7fb71618ab50
+Address mapping table query - Stream ID:0, LPA:11992740, MISS
+6: 4273 Issueing Transaction - Type:Read, , PPA:54526225, LPA:18446744073709551615, Channel: 1, Chip: 2
+Chip 1, 2, 2: Sending read command to chip for LPA: 18446744073709551615
+RegisterEvent 4563 0x7fb6ce014e50
+RegisterEvent 5521 0x7fb71618ab50
+RegisterEvent 79583 0x7fb73674d710
+Command execution started on channel: 1 chip: 2
+Address mapping table query - Stream ID:0, LPA:92566773, MISS
+7: 5521 Issueing Transaction - Type:Read, , PPA:208142724, LPA:18446744073709551615, Channel: 6, Chip: 0
+Chip 6, 0, 3: Sending read command to chip for LPA: 18446744073709551615
+RegisterEvent 5811 0x7fb6ce014e50
+RegisterEvent 6769 0x7fb71618ab50
+RegisterEvent 80831 0x7fb6ec0111f0
+Command execution started on channel: 6 chip: 0
+Address mapping table query - Stream ID:0, LPA:75627371, MISS
+8: 6769 Issueing Transaction - Type:Read, , PPA:148898156, LPA:18446744073709551615, Channel: 4, Chip: 1
+Chip 4, 1, 3: Sending read command to chip for LPA: 18446744073709551615
+RegisterEvent 7059 0x7fb6ce014e50
+RegisterEvent 8017 0x7fb71618ab50
+RegisterEvent 82079 0x7fb716751f50
+Command execution started on channel: 4 chip: 1
+Address mapping table query - Stream ID:0, LPA:17962563, MISS
+9: 8017 Issueing Transaction - Type:Read, , PPA:242221337, LPA:18446744073709551615, Channel: 7, Chip: 0
+Chip 7, 0, 3: Sending read command to chip for LPA: 18446744073709551615
+RegisterEvent 8307 0x7fb6ce014e50
+RegisterEvent 9265 0x7fb71618ab50
+RegisterEvent 83327 0x7fb6ec0784b0
+Command execution started on channel: 7 chip: 0
+Address mapping table query - Stream ID:0, LPA:13083236, MISS
+10: 9265 Issueing Transaction - Type:Read, , PPA:24117522, LPA:18446744073709551615, Channel: 0, Chip: 2
+Chip 0, 2, 3: Sending read command to chip for LPA: 18446744073709551615
+RegisterEvent 9555 0x7fb6ce014e50
+RegisterEvent 10513 0x7fb71618ab50
+RegisterEvent 84575 0x7fb7472431a0
+Command execution started on channel: 0 chip: 2
+Address mapping table query - Stream ID:0, LPA:23101026, MISS
+11: 10513 Issueing Transaction - Type:Read, , PPA:125829409, LPA:18446744073709551615, Channel: 3, Chip: 3
+Chip 3, 3, 0: Sending read command to chip for LPA: 18446744073709551615
+RegisterEvent 10803 0x7fb6ce014e50
+RegisterEvent 11761 0x7fb71618ab50
+RegisterEvent 85823 0x7fb716744080
+Command execution started on channel: 3 chip: 3
+Address mapping table query - Stream ID:0, LPA:13643068, MISS
+12: 11761 Issueing Transaction - Type:Read, , PPA:76546323, LPA:18446744073709551615, Channel: 2, Chip: 1
+Chip 2, 1, 0: Sending read command to chip for LPA: 18446744073709551615
+RegisterEvent 12051 0x7fb6ce014e50
+RegisterEvent 87071 0x7fb7467e4ee0
+Command execution started on channel: 2 chip: 1
+** Host Interface: Request #1 from stream #0 is finished
+RegisterEvent 22294 0x7fb71618ab50
+RegisterEvent 42789 0x7fb71618a770
+[====================]  2229% progress in Host.IO_Flow.Synth.No_0
+
+RegisterEvent 22302 0x7fb71618ab50
+** Host Interface: Request #3 from stream #0 is finished
+RegisterEvent 42800 0x7fb71618ab50
+RegisterEvent 63295 0x7fb71618a770
+[====================]  4280% progress in Host.IO_Flow.Synth.No_0
+
+RegisterEvent 42808 0x7fb71618ab50
+** Host Interface: Request #4 from stream #0 is finished
+RegisterEvent 63306 0x7fb71618ab50
+RegisterEvent 83801 0x7fb71618a770
+[====================]  6330% progress in Host.IO_Flow.Synth.No_0
+
+RegisterEvent 63314 0x7fb71618ab50
+Channel 5 Chip 2- Finished executing read command
+Chip 5, 2: finished  read command
+RegisterEvent 77000 0x7fb6ce014e50
+Channel 4 Chip 3- Finished executing read command
+Chip 4, 3: finished  read command
+RegisterEvent 77050 0x7fb6ce014e50
+Channel 3 Chip 2- Finished executing read command
+Chip 3, 2: finished  read command
+RegisterEvent 77200 0x7fb6ce014e50
+Channel 7 Chip 1- Finished executing read command
+Chip 7, 1: finished  read command
+RegisterEvent 77250 0x7fb6ce014e50
+Channel 6 Chip 3- Finished executing read command
+Chip 6, 3: finished  read command
+RegisterEvent 77300 0x7fb6ce014e50
+Address mapping table insert entry - Stream ID:0, LPA:62754145, PPA:18446744073709551615
+Address mapping table update entry - Stream ID:0, LPA:62754145, PPA:40894464
+13: 77000 Issueing Transaction - Type:Read, , PPA:40894464, LPA:62754145, Channel: 1, Chip: 0
+Chip 1, 0, 3: Sending read command to chip for LPA: 62754145
+RegisterEvent 77290 0x7fb6ce014e50
+Address mapping table insert entry - Stream ID:0, LPA:78357619, PPA:18446744073709551615
+Address mapping table update entry - Stream ID:0, LPA:78357619, PPA:123731968
+14: 77050 Issueing Transaction - Type:Read, , PPA:166724007, LPA:18446744073709551615, Channel: 4, Chip: 3
+Chip 4, 3, 3: Sending read command to chip for LPA: 18446744073709551615
+RegisterEvent 77340 0x7fb6ce014e50
+Channel 0 Chip 0- Finished executing read command
+Chip 0, 0: finished  read command
+RegisterEvent 78623 0x7fb6ce014e50
+Address mapping table insert entry - Stream ID:0, LPA:78782140, PPA:18446744073709551615
+Address mapping table update entry - Stream ID:0, LPA:78782140, PPA:162004992
+15: 77200 Issueing Transaction - Type:Read, , PPA:123731968, LPA:78357619, Channel: 3, Chip: 2
+Chip 3, 2, 3: Sending read command to chip for LPA: 78357619
+RegisterEvent 77490 0x7fb6ce014e50
+Address mapping table insert entry - Stream ID:0, LPA:81309458, PPA:18446744073709551615
+Address mapping table update entry - Stream ID:0, LPA:81309458, PPA:84934656
+16: 77250 Issueing Transaction - Type:Read, , PPA:84934656, LPA:81309458, Channel: 2, Chip: 2
+Chip 2, 2, 0: Sending read command to chip for LPA: 81309458
+RegisterEvent 77540 0x7fb6ce014e50
+17: 77250 Issueing Transaction - Type:Read, , PPA:243794298, LPA:18446744073709551615, Channel: 7, Chip: 1
+Chip 7, 1, 0: Sending read command to chip for LPA: 18446744073709551615
+RegisterEvent 77540 0x7fb6ce014e50
+RegisterEvent 152310 0x7fb7473cbae0
+Command execution started on channel: 1 chip: 0
+Address mapping table insert entry - Stream ID:0, LPA:116624202, PPA:18446744073709551615
+Address mapping table update entry - Stream ID:0, LPA:116624202, PPA:80740352
+RegisterEvent 152360 0x7fb71677bd90
+Command execution started on channel: 4 chip: 3
+RegisterEvent 152510 0x7fb72679d930
+Command execution started on channel: 3 chip: 2
+RegisterEvent 152560 0x7fb7267366e0
+Command execution started on channel: 2 chip: 2
+RegisterEvent 152560 0x7fb6ec0a9110
+Command execution started on channel: 7 chip: 1
+Address mapping table insert entry - Stream ID:0, LPA:102954323, PPA:18446744073709551615
+Address mapping table update entry - Stream ID:0, LPA:102954323, PPA:122683392
+18: 78623 Issueing Transaction - Type:Read, , PPA:524582, LPA:18446744073709551615, Channel: 0, Chip: 0
+Chip 0, 0, 0: Sending read command to chip for LPA: 18446744073709551615
+RegisterEvent 78913 0x7fb6ce014e50
+RegisterEvent 153933 0x7fb747004d30
+Command execution started on channel: 0 chip: 0
+Channel 1 Chip 2- Finished executing read command
+Chip 1, 2: finished  read command
+RegisterEvent 81119 0x7fb6ce014e50
+Channel 6 Chip 0- Finished executing read command
+Chip 6, 0: finished  read command
+RegisterEvent 82367 0x7fb6ce014e50
+Address mapping table insert entry - Stream ID:0, LPA:11992740, PPA:18446744073709551615
+Address mapping table update entry - Stream ID:0, LPA:11992740, PPA:136839168
+19: 81119 Issueing Transaction - Type:Write, , PPA:136839168, LPA:11992740, Channel: 4, Chip: 0
+Chip 4, 0, 1: Sending program command to chip for LPA: 11992740
+RegisterEvent 93768 0x7fb6ce014e50
+Channel 4 Chip 1- Finished executing read command
+Chip 4, 1: finished  read command
+Address mapping table insert entry - Stream ID:0, LPA:92566773, PPA:18446744073709551615
+Address mapping table update entry - Stream ID:0, LPA:92566773, PPA:191365120
+20: 82367 Issueing Transaction - Type:Write, , PPA:191365120, LPA:92566773, Channel: 5, Chip: 2
+Chip 5, 2, 3: Sending program command to chip for LPA: 92566773
+RegisterEvent 95016 0x7fb6ce014e50
+Channel 7 Chip 0- Finished executing read command
+Chip 7, 0: finished  read command
+RegisterEvent 84863 0x7fb6ce014e50
+** Host Interface: Request #5 from stream #0 is finished
+RegisterEvent 83812 0x7fb71618ab50
+RegisterEvent 104307 0x7fb71618a770
+[====================]  8381% progress in Host.IO_Flow.Synth.No_0
+
+RegisterEvent 83820 0x7fb71618ab50
+Channel 0 Chip 2- Finished executing read command
+Chip 0, 2: finished  read command
+RegisterEvent 86111 0x7fb6ce014e50
+Address mapping table insert entry - Stream ID:0, LPA:17962563, PPA:18446744073709551615
+Address mapping table update entry - Stream ID:0, LPA:17962563, PPA:104857600
+21: 84863 Issueing Transaction - Type:Write, , PPA:104857600, LPA:17962563, Channel: 3, Chip: 0
+Chip 3, 0, 2: Sending program command to chip for LPA: 17962563
+RegisterEvent 97512 0x7fb6ce014e50
+Channel 3 Chip 3- Finished executing read command
+Chip 3, 3: finished  read command
+Address mapping table insert entry - Stream ID:0, LPA:13083236, PPA:18446744073709551615
+Address mapping table update entry - Stream ID:0, LPA:13083236, PPA:140509184
+Channel 2 Chip 1- Finished executing read command
+Chip 2, 1: finished  read command
+RegisterEvent 88607 0x7fb6ce014e50
+Address mapping table insert entry - Stream ID:0, LPA:13643068, PPA:18446744073709551615
+Address mapping table update entry - Stream ID:0, LPA:13643068, PPA:162529280
+22: 88607 Issueing Transaction - Type:Read, , PPA:80740352, LPA:116624202, Channel: 2, Chip: 1
+Chip 2, 1, 2: Sending read command to chip for LPA: 116624202
+RegisterEvent 88897 0x7fb6ce014e50
+RegisterEvent 163917 0x7fb7467e4ee0
+Command execution started on channel: 2 chip: 1
+RegisterEvent 843768 0x7fb70670db40
+Command execution started on channel: 4 chip: 0
+RegisterEvent 95304 0x7fb6ce014e50
+RegisterEvent 845016 0x7fb6f6719770
+Command execution started on channel: 5 chip: 2
+Address mapping table insert entry - Stream ID:0, LPA:75627371, PPA:18446744073709551615
+Address mapping table update entry - Stream ID:0, LPA:75627371, PPA:116391936
+RegisterEvent 847512 0x7fb72e12b610
+Command execution started on channel: 3 chip: 0
+RegisterEvent 99048 0x7fb6ce014e50
+Address mapping table insert entry - Stream ID:0, LPA:23101026, PPA:18446744073709551615
+Address mapping table update entry - Stream ID:0, LPA:23101026, PPA:73400320
+23: 99048 Issueing Transaction - Type:Write, , PPA:73400320, LPA:23101026, Channel: 2, Chip: 0
+Chip 2, 0, 3: Sending program command to chip for LPA: 23101026
+RegisterEvent 111697 0x7fb6ce014e50
+24: 99048 Issueing Transaction - Type:Write, , PPA:116391936, LPA:75627371, Channel: 3, Chip: 1
+Chip 3, 1, 3: Sending program command to chip for LPA: 75627371
+RegisterEvent 111697 0x7fb6ce014e50
+** Host Interface: Request #6 from stream #0 is finished
+RegisterEvent 104318 0x7fb71618ab50
+RegisterEvent 124813 0x7fb71618a770
+[====================]  10431% progress in Host.IO_Flow.Synth.No_0
+
+RegisterEvent 104326 0x7fb71618ab50
+RegisterEvent 861697 0x7fb7470bad70
+Command execution started on channel: 2 chip: 0
+RegisterEvent 861697 0x7fb726778b60
+Command execution started on channel: 3 chip: 1
+** Host Interface: Request #7 from stream #0 is finished
+RegisterEvent 124824 0x7fb71618ab50
+RegisterEvent 145319 0x7fb71618a770
+[====================]  12482% progress in Host.IO_Flow.Synth.No_0
+
+RegisterEvent 124832 0x7fb71618ab50
+** Host Interface: Request #9 from stream #0 is finished
+RegisterEvent 145330 0x7fb71618ab50
+RegisterEvent 165825 0x7fb71618a770
+[====================]  14533% progress in Host.IO_Flow.Synth.No_0
+
+RegisterEvent 145338 0x7fb71618ab50
+Channel 1 Chip 0- Finished executing read command
+Chip 1, 0: finished  read command
+RegisterEvent 164598 0x7fb6ce014e50
+Channel 4 Chip 3- Finished executing read command
+Chip 4, 3: finished  read command
+RegisterEvent 153896 0x7fb6ce014e50
+Channel 3 Chip 2- Finished executing read command
+Chip 3, 2: finished  read command
+RegisterEvent 164798 0x7fb6ce014e50
+Channel 2 Chip 2- Finished executing read command
+Chip 2, 2: finished  read command
+RegisterEvent 164848 0x7fb6ce014e50
+Channel 7 Chip 1- Finished executing read command
+Chip 7, 1: finished  read command
+RegisterEvent 154096 0x7fb6ce014e50
+Address mapping table insert entry - Stream ID:0, LPA:117232461, PPA:18446744073709551615
+Address mapping table update entry - Stream ID:0, LPA:117232461, PPA:181403648
+25: 153896 Issueing Transaction - Type:Read, , PPA:181403648, LPA:117232461, Channel: 5, Chip: 1
+Chip 5, 1, 2: Sending read command to chip for LPA: 117232461
+RegisterEvent 154186 0x7fb6ce014e50
+26: 153896 Issueing Transaction - Type:Read, , PPA:162004992, LPA:78782140, Channel: 4, Chip: 3
+Chip 4, 3, 1: Sending read command to chip for LPA: 78782140
+RegisterEvent 154186 0x7fb6ce014e50
+Channel 0 Chip 0- Finished executing read command
+Chip 0, 0: finished  read command
+RegisterEvent 155469 0x7fb6ce014e50
+Address mapping table insert entry - Stream ID:0, LPA:85459399, PPA:18446744073709551615
+Address mapping table update entry - Stream ID:0, LPA:85459399, PPA:240648192
+27: 154096 Issueing Transaction - Type:Read, , PPA:240648192, LPA:85459399, Channel: 7, Chip: 0
+Chip 7, 0, 2: Sending read command to chip for LPA: 85459399
+RegisterEvent 154386 0x7fb6ce014e50
+RegisterEvent 229206 0x7fb70c8694f0
+Command execution started on channel: 5 chip: 1
+RegisterEvent 229206 0x7fb71677bd90
+Command execution started on channel: 4 chip: 3
+RegisterEvent 229406 0x7fb6ec0784b0
+Command execution started on channel: 7 chip: 0
+Address mapping table insert entry - Stream ID:0, LPA:26733046, PPA:18446744073709551615
+Address mapping table update entry - Stream ID:0, LPA:26733046, PPA:225968128
+28: 155469 Issueing Transaction - Type:Write, , PPA:225968128, LPA:26733046, Channel: 6, Chip: 2
+Chip 6, 2, 3: Sending program command to chip for LPA: 26733046
+RegisterEvent 168118 0x7fb6ce014e50
+Channel 2 Chip 1- Finished executing read command
+Chip 2, 1: finished  read command
+** Host Interface: Request #0 from stream #0 is finished
+RegisterEvent 165846 0x7fb71618ab50
+** Host Interface: Request #2 from stream #0 is finished
+29: 164798 Issueing Transaction - Type:Write, , PPA:122683392, LPA:102954323, Channel: 3, Chip: 2
+Chip 3, 2, 2: Sending program command to chip for LPA: 102954323
+RegisterEvent 177447 0x7fb6ce014e50
+** Host Interface: Request #10 from stream #0 is finished
+RegisterEvent 177136 0x7fb6ce014e50
+** Host Interface: Request #11 from stream #0 is finished
+RegisterEvent 186331 0x7fb71618a770
+RegisterEvent 165857 0x7fb71618ab50
+[====================]  16585% progress in Host.IO_Flow.Synth.No_0
+
+RegisterEvent 165865 0x7fb71618ab50
+RegisterEvent 167105 0x7fb71618ab50
+RegisterEvent 167116 0x7fb71618ab50
+[====================]  16711% progress in Host.IO_Flow.Synth.No_0
+
+RegisterEvent 167124 0x7fb71618ab50
+RegisterEvent 168364 0x7fb71618ab50
+RegisterEvent 918118 0x7fb6e675e880
+Command execution started on channel: 6 chip: 2
+RegisterEvent 168375 0x7fb71618ab50
+[====================]  16837% progress in Host.IO_Flow.Synth.No_0
+
+RegisterEvent 168383 0x7fb71618ab50
+RegisterEvent 168386 0x7fb71618ab50
+[====================]  16838% progress in Host.IO_Flow.Synth.No_0
+
+RegisterEvent 168394 0x7fb71618ab50
+** Host Interface: Request #12 from stream #0 is finished
+RegisterEvent 178384 0x7fb71618ab50
+RegisterEvent 927447 0x7fb72679d930
+Command execution started on channel: 3 chip: 2
+RegisterEvent 178395 0x7fb71618ab50
+[====================]  17839% progress in Host.IO_Flow.Synth.No_0
+
+RegisterEvent 178403 0x7fb71618ab50
+** Host Interface: Request #14 from stream #0 is finished
+RegisterEvent 186342 0x7fb71618ab50
+[====================]  18634% progress in Host.IO_Flow.Synth.No_0
+
+RegisterEvent 186350 0x7fb71618ab50
+Channel 5 Chip 1- Finished executing read command
+Chip 5, 1: finished  read command
+RegisterEvent 241494 0x7fb6ce014e50
+Channel 4 Chip 3- Finished executing read command
+Chip 4, 3: finished  read command
+RegisterEvent 241494 0x7fb6ce014e50
+Channel 7 Chip 0- Finished executing read command
+Chip 7, 0: finished  read command
+RegisterEvent 241694 0x7fb6ce014e50
+** Host Interface: Request #13 from stream #0 is finished
+RegisterEvent 242742 0x7fb71618ab50
+** Host Interface: Request #8 from stream #0 is finished
+30: 241494 Issueing Transaction - Type:Write, , PPA:162529280, LPA:13643068, Channel: 4, Chip: 3
+Chip 4, 3, 1: Sending program command to chip for LPA: 13643068
+RegisterEvent 254143 0x7fb6ce014e50
+** Host Interface: Request #15 from stream #0 is finished
+RegisterEvent 242753 0x7fb71618ab50
+[====================]  24275% progress in Host.IO_Flow.Synth.No_0
+
+RegisterEvent 242761 0x7fb71618ab50
+RegisterEvent 244001 0x7fb71618ab50
+RegisterEvent 244012 0x7fb71618ab50
+[====================]  24401% progress in Host.IO_Flow.Synth.No_0
+
+RegisterEvent 244020 0x7fb71618ab50
+RegisterEvent 245260 0x7fb71618ab50
+RegisterEvent 245271 0x7fb71618ab50
+[====================]  24527% progress in Host.IO_Flow.Synth.No_0
+
+RegisterEvent 245279 0x7fb71618ab50
+RegisterEvent 1004143 0x7fb71677bd90
+Command execution started on channel: 4 chip: 3
+Channel 4 Chip 0- Finished executing program command
+Chip 4, 0: finished program command
+31: 843768 Issueing Transaction - Type:Write, , PPA:140509184, LPA:13083236, Channel: 4, Chip: 0
+Chip 4, 0, 3: Sending program command to chip for LPA: 13083236
+RegisterEvent 856417 0x7fb6ce014e50
+Channel 5 Chip 2- Finished executing program command
+Chip 5, 2: finished program command
+Channel 3 Chip 0- Finished executing program command
+Chip 3, 0: finished program command
+RegisterEvent 1606417 0x7fb70670db40
+Command execution started on channel: 4 chip: 0
+Channel 2 Chip 0- Finished executing program command
+Chip 2, 0: finished program command
+Channel 3 Chip 1- Finished executing program command
+Chip 3, 1: finished program command
+Channel 6 Chip 2- Finished executing program command
+Chip 6, 2: finished program command
+Channel 3 Chip 2- Finished executing program command
+Chip 3, 2: finished program command
+Channel 4 Chip 3- Finished executing program command
+Chip 4, 3: finished program command
+Channel 4 Chip 0- Finished executing program command
+Chip 4, 0: finished program command
+MQSim finished at Thu Jul 14 15:50:41 2022
+
+Total simulation time: 0:0:6
+
+Writing results to output file .......
+Flow Host.IO_Flow.Synth.No_0 - total requests generated: 16 total requests serviced:16
+                   - device response time: 147 (us) end-to-end request delay:147 (us)

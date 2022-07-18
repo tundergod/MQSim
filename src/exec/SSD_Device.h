@@ -37,6 +37,7 @@ public:
 	SSD_Components::Data_Cache_Manager_Base *Cache_manager;
 	SSD_Components::NVM_Firmware* Firmware;
 	SSD_Components::NVM_PHY_Base* PHY;
+	//SSD_Components::GC_and_WL_Unit_Base* GC_and_WL_unit;
 	std::vector<SSD_Components::NVM_Channel_Base*> Channels;
 	void Report_results_in_XML(std::string name_prefix, Utils::XmlWriter& xmlwriter);
 	unsigned int Get_no_of_LHAs_in_an_NVM_write_unit();

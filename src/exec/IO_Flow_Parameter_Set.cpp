@@ -212,7 +212,9 @@ void IO_Flow_Parameter_Set::XML_deserialize(rapidxml::xml_node<> *node)
 				std::string val = param->value();
 				Initial_Occupancy_Percentage = std::stoul(val);
 			}
+			DEBUG("WORKLOAD XML: " << param->name() << ": " << param->value());
 		}
+		DEBUG( std::endl << "******************************" << std::endl);
 	} catch (...) {
 		PRINT_ERROR("Error in IO_Flow_Parameter_Set!")
 	}

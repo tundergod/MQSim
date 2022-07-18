@@ -1,0 +1,489 @@
+HOST XML: PCIe_Lane_Bandwidth: 1.00000
+HOST XML: PCIe_Lane_Count: 4
+HOST XML: SATA_Processing_Delay: 400000
+HOST XML: Enable_ResponseTime_Logging: true
+HOST XML: ResponseTime_Logging_Period_Length: 1000000
+
+******************************
+
+DEVICE XML: Seed: 321
+DEVICE XML: Enabled_Preconditioning: false
+DEVICE XML: Memory_Type: FLASH
+DEVICE XML: HostInterface_Type: NVME
+DEVICE XML: IO_Queue_Depth: 65535
+DEVICE XML: Queue_Fetch_Size: 512
+DEVICE XML: Caching_Mechanism: ADVANCED
+DEVICE XML: Data_Cache_Sharing_Mode: SHARED
+DEVICE XML: Data_Cache_Capacity: 268435456
+DEVICE XML: Data_Cache_DRAM_Row_Size: 8192
+DEVICE XML: Data_Cache_DRAM_Data_Rate: 100
+DEVICE XML: Data_Cache_DRAM_Data_Busrt_Size: 1
+DEVICE XML: Data_Cache_DRAM_tRCD: 13
+DEVICE XML: Data_Cache_DRAM_tCL: 13
+DEVICE XML: Data_Cache_DRAM_tRP: 13
+DEVICE XML: Address_Mapping: PAGE_LEVEL
+DEVICE XML: Ideal_Mapping_Table: false
+DEVICE XML: CMT_Capacity: 2097152
+DEVICE XML: CMT_Sharing_Mode: SHARED
+DEVICE XML: Plane_Allocation_Scheme: CWDP
+DEVICE XML: Transaction_Scheduling_Policy: PRIORITY_OUT_OF_ORDER
+DEVICE XML: Overprovisioning_Ratio: 0.07
+DEVICE XML: GC_Exec_Threshold: 0.05000
+DEVICE XML: GC_Block_Selection_Policy: RGA
+DEVICE XML: Use_Copyback_for_GC: false
+DEVICE XML: Preemptible_GC_Enabled: false
+DEVICE XML: GC_Hard_Threshold: 0.005000
+DEVICE XML: Dynamic_Wearleveling_Enabled: true
+DEVICE XML: Static_Wearleveling_Enabled: true
+DEVICE XML: Static_Wearleveling_Threshold: 100
+DEVICE XML: Preferred_suspend_erase_time_for_read: 700000
+DEVICE XML: Preferred_suspend_erase_time_for_write: 700000
+DEVICE XML: Preferred_suspend_write_time_for_read: 100000
+DEVICE XML: Flash_Channel_Count: 8
+DEVICE XML: Flash_Channel_Width: 1
+DEVICE XML: Channel_Transfer_Rate: 333
+DEVICE XML: Chip_No_Per_Channel: 4
+DEVICE XML: Flash_Comm_Protocol: NVDDR2
+FLASH XML: Flash_Technology: MLC
+FLASH XML: CMD_Suspension_Support: ERASE
+FLASH XML: Page_Read_Latency_LSB: 75000
+FLASH XML: Page_Read_Latency_CSB: 75000
+FLASH XML: Page_Read_Latency_MSB: 75000
+FLASH XML: Page_Program_Latency_LSB: 750000
+FLASH XML: Page_Program_Latency_CSB: 750000
+FLASH XML: Page_Program_Latency_MSB: 750000
+FLASH XML: Block_Erase_Latency: 3800000
+FLASH XML: Block_PE_Cycles_Limit: 10000
+FLASH XML: Suspend_Erase_Time: 700000
+FLASH XML: Suspend_Program_Time: 100000
+FLASH XML: Die_No_Per_Chip: 4
+FLASH XML: Plane_No_Per_Die: 4
+FLASH XML: Block_No_Per_Plane: 2048
+FLASH XML: Page_No_Per_Block: 256
+FLASH XML: Page_Capacity: 8192
+FLASH XML: Page_Metadat_Capacity: 448
+
+******************************
+
+WORKLOAD XML: Priority_Class: HIGH
+WORKLOAD XML: Device_Level_Data_Caching_Mode: WRITE_CACHE
+WORKLOAD XML: Channel_IDs: 0,1,2,3,4,5,6,7
+WORKLOAD XML: Chip_IDs: 0,1,2,3
+WORKLOAD XML: Die_IDs: 0,1,2,3
+WORKLOAD XML: Plane_IDs: 0,1,2,3
+WORKLOAD XML: Initial_Occupancy_Percentage: 75
+WORKLOAD XML: Working_Set_Percentage: 100
+WORKLOAD XML: Synthetic_Generator_Type: QUEUE_DEPTH
+WORKLOAD XML: Read_Percentage: 50
+WORKLOAD XML: Address_Distribution: RANDOM_UNIFORM
+WORKLOAD XML: Percentage_of_Hot_Region: 0
+WORKLOAD XML: Generated_Aligned_Addresses: true
+WORKLOAD XML: Address_Alignment_Unit: 16
+WORKLOAD XML: Request_Size_Distribution: FIXED
+WORKLOAD XML: Average_Request_Size: 8
+WORKLOAD XML: Variance_Request_Size: 0
+WORKLOAD XML: Seed: 798
+WORKLOAD XML: Average_No_of_Reqs_in_Queue: 16
+WORKLOAD XML: Intensity: 32768
+WORKLOAD XML: Stop_Time: 10000
+WORKLOAD XML: Total_Requests_To_Generate: 0
+
+******************************
+
+MQSim started at Mon Jul 18 22:01:30 2022
+
+******************************
+Executing scenario 1 out of 1 .......
+Create SSD_Device
+Start Logical_Address_Partitioning_Unit::Allocate_logical_address_for_flows
+I/O flow 0: 8 channels, 4 chips, 4 dies, 4 planes
+I/O flow 0: 3994319360 LSA
+I/O flow 0 LSA from 0 to 3994319359
+Create Address_Mapping_Unit_Page_Level::Address_Mapping_Unit_Page_Level
+domain 0per_stream_cmt_capacity = 2097152 bytes in total / 9 bytes per entry = 233016 entries
+Create Domain - CMT capacity:233016, CMT entry size:9, Translation entries per page:1365, Total physical sectors:4294967053, Total logical sectors:3994319360, Sectors per page:16
+Create Host_System
+- flow_id: 0, start_lsa: 0, end_lsa: 3994319359, working_set_ratio: 1
+Create IO_Flow_Synthetic: Host.IO_Flow.Synth.No_0
+start simulation!
+Engine::Setup_triggers()
+GC_and_WL_Unit_Base::Setup_triggers()
+NVM_PHY_ONFI add function to function queue
+Host_Interface_Base add function to function queue
+Host_Interface_Base add function to function queue finish
+NVM_PHY_ONFI add function to function queue
+NVM_PHY_ONFI add function to function queue
+Data_Cache_Manager_Base::Setup_triggers()
+Host_Interface_Base add function to function queue
+Host_Interface_Base add function to function queue finish
+NVM_PHY_ONFI add function to function queue
+Engine::Validate_simulation_config()
+Engine::Start_simulation()
+PCIe_Link::Start_simulation()
+FTL::Start_simulation()
+Flash_Chip::Start_simulation()
+Flash_Chip::Start_simulation()
+Flash_Chip::Start_simulation()
+Flash_Chip::Start_simulation()
+Flash_Chip::Start_simulation()
+Flash_Chip::Start_simulation()
+Flash_Chip::Start_simulation()
+Flash_Chip::Start_simulation()
+Flash_Chip::Start_simulation()
+Flash_Chip::Start_simulation()
+NVM_PHY_ONFI_NVDDR2::Start_simulation()
+Flash_Chip::Start_simulation()
+Host_System::Start_simulation()
+Flash_Chip::Start_simulation()
+Host_Interface_NVMe::Start_simulation()
+Flash_Chip::Start_simulation()
+GC_and_WL_Unit_Base::Start_simulation()
+Flash_Chip::Start_simulation()
+TSU_Priority_OutOfOrder::Start_simulation()
+Flash_Chip::Start_simulation()
+Address_Mapping_Unit_Page_Level::Start_simulation()
+Flash_Chip::Start_simulation()
+Flash_Chip::Start_simulation()
+Flash_Chip::Start_simulation()
+Flash_Chip::Start_simulation()
+Flash_Chip::Start_simulation()
+Flash_Chip::Start_simulation()
+Flash_Chip::Start_simulation()
+Flash_Chip::Start_simulation()
+Flash_Chip::Start_simulation()
+Flash_Chip::Start_simulation()
+Flash_Chip::Start_simulation()
+Flash_Chip::Start_simulation()
+Flash_Chip::Start_simulation()
+Data_Cache_Manager_Base::Start_simulation()
+Flash_Chip::Start_simulation()
+Flash_Chip::Start_simulation()
+SSD_Device::Start_simulation()
+IO_Flow_Synthetic::Start_simulation()
+IO_Flow_Base::Start_simulation()
+RegisterEvent (IO_Flow_Synthetic::Start_simulation, Request_Generator_Type::QUEUE_DEPTH): 0
+Flash_Chip::Start_simulation()
+Flash_Chip::Start_simulation()
+* Generate_next_request(): Host: Request generated - Reset, LBA:0, Size_in_bytes:8
+IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:0
+RegisterEvent (PCIe_Link::Deliver, From HOST to DEVICE): 1 4112
+* Generate_next_request(): Host: Request generated - Reset, LBA:0, Size_in_bytes:8
+IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:0
+* Generate_next_request(): Host: Request generated - Reset, LBA:0, Size_in_bytes:8
+IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:0
+* Generate_next_request(): Host: Request generated - Reset, LBA:0, Size_in_bytes:8
+IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:0
+* Generate_next_request(): Host: Request generated - Reset, LBA:0, Size_in_bytes:8
+IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:0
+* Generate_next_request(): Host: Request generated - Reset, LBA:0, Size_in_bytes:8
+IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:0
+* Generate_next_request(): Host: Request generated - Reset, LBA:0, Size_in_bytes:8
+IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:0
+* Generate_next_request(): Host: Request generated - Reset, LBA:0, Size_in_bytes:8
+IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:0
+* Generate_next_request(): Host: Request generated - Reset, LBA:0, Size_in_bytes:8
+IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:0
+* Generate_next_request(): Host: Request generated - Reset, LBA:0, Size_in_bytes:8
+IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:0
+* Generate_next_request(): Host: Request generated - Reset, LBA:0, Size_in_bytes:8
+IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:0
+* Generate_next_request(): Host: Request generated - Reset, LBA:0, Size_in_bytes:8
+IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:0
+* Generate_next_request(): Host: Request generated - Reset, LBA:0, Size_in_bytes:8
+IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:0
+* Generate_next_request(): Host: Request generated - Reset, LBA:0, Size_in_bytes:8
+IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:0
+* Generate_next_request(): Host: Request generated - Reset, LBA:0, Size_in_bytes:8
+IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:0
+* Generate_next_request(): Host: Request generated - Reset, LBA:0, Size_in_bytes:8
+IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:0
+
+ --- Event time: 1
+
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST): 9 1099511627776
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 9 4112
+
+ --- Event time: 9
+
+
+ --- Event time: 17
+
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST): 17 1099511627848
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 17 4112
+
+ --- Event time: 17
+
+
+ --- Event time: 25
+
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST): 25 1099511627920
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 25 4112
+
+ --- Event time: 25
+
+
+ --- Event time: 33
+
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST): 33 1099511627992
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 33 4112
+
+ --- Event time: 33
+
+
+ --- Event time: 41
+
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST): 41 1099511628064
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 41 4112
+
+ --- Event time: 41
+
+
+ --- Event time: 49
+
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST): 49 1099511628136
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 49 4112
+
+ --- Event time: 49
+
+
+ --- Event time: 57
+
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST): 57 1099511628208
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 57 4112
+
+ --- Event time: 57
+
+
+ --- Event time: 65
+
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST): 65 1099511628280
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 65 4112
+
+ --- Event time: 65
+
+
+ --- Event time: 73
+
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST): 73 1099511628352
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 73 4112
+
+ --- Event time: 73
+
+
+ --- Event time: 81
+
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST): 81 1099511628424
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 81 4112
+
+ --- Event time: 81
+
+
+ --- Event time: 89
+
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST): 89 1099511628496
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 89 4112
+
+ --- Event time: 89
+
+
+ --- Event time: 97
+
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST): 97 1099511628568
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 97 4112
+
+ --- Event time: 97
+
+
+ --- Event time: 105
+
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST): 105 1099511628640
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 105 4112
+
+ --- Event time: 105
+
+
+ --- Event time: 113
+
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST): 113 1099511628712
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 113 4112
+
+ --- Event time: 113
+
+
+ --- Event time: 121
+
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST): 121 1099511628784
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 121 4112
+
+ --- Event time: 121
+
+
+ --- Event time: 129
+
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST): 129 1099511628856
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 129 4112
+
+ --- Event time: 129
+
+
+ --- Event time: 137
+
+Handle_new_arrived_request: RESET
+host interface broadcasting user request arrival signal
+GC_and_WL_Unit_Base::handle_user_request_arrived_signal()
+GC_and_WL_Unit_Page_Level handle and process (finish) RESET request!
+host interface broadcasting user request arrival signal
+Data_Cache_Manager_Base handle user request arrived signal
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 154 1099511627776
+
+ --- Event time: 154
+
+Handle_new_arrived_request: RESET
+host interface broadcasting user request arrival signal
+GC_and_WL_Unit_Base::handle_user_request_arrived_signal()
+GC_and_WL_Unit_Page_Level handle and process (finish) RESET request!
+host interface broadcasting user request arrival signal
+Data_Cache_Manager_Base handle user request arrived signal
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 179 1099511627848
+
+ --- Event time: 179
+
+Handle_new_arrived_request: RESET
+host interface broadcasting user request arrival signal
+GC_and_WL_Unit_Base::handle_user_request_arrived_signal()
+GC_and_WL_Unit_Page_Level handle and process (finish) RESET request!
+host interface broadcasting user request arrival signal
+Data_Cache_Manager_Base handle user request arrived signal
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 204 1099511627920
+
+ --- Event time: 204
+
+Handle_new_arrived_request: RESET
+host interface broadcasting user request arrival signal
+GC_and_WL_Unit_Base::handle_user_request_arrived_signal()
+GC_and_WL_Unit_Page_Level handle and process (finish) RESET request!
+host interface broadcasting user request arrival signal
+Data_Cache_Manager_Base handle user request arrived signal
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 229 1099511627992
+
+ --- Event time: 229
+
+Handle_new_arrived_request: RESET
+host interface broadcasting user request arrival signal
+GC_and_WL_Unit_Base::handle_user_request_arrived_signal()
+GC_and_WL_Unit_Page_Level handle and process (finish) RESET request!
+host interface broadcasting user request arrival signal
+Data_Cache_Manager_Base handle user request arrived signal
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 254 1099511628064
+
+ --- Event time: 254
+
+Handle_new_arrived_request: RESET
+host interface broadcasting user request arrival signal
+GC_and_WL_Unit_Base::handle_user_request_arrived_signal()
+GC_and_WL_Unit_Page_Level handle and process (finish) RESET request!
+host interface broadcasting user request arrival signal
+Data_Cache_Manager_Base handle user request arrived signal
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 279 1099511628136
+
+ --- Event time: 279
+
+Handle_new_arrived_request: RESET
+host interface broadcasting user request arrival signal
+GC_and_WL_Unit_Base::handle_user_request_arrived_signal()
+GC_and_WL_Unit_Page_Level handle and process (finish) RESET request!
+host interface broadcasting user request arrival signal
+Data_Cache_Manager_Base handle user request arrived signal
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 304 1099511628208
+
+ --- Event time: 304
+
+Handle_new_arrived_request: RESET
+host interface broadcasting user request arrival signal
+GC_and_WL_Unit_Base::handle_user_request_arrived_signal()
+GC_and_WL_Unit_Page_Level handle and process (finish) RESET request!
+host interface broadcasting user request arrival signal
+Data_Cache_Manager_Base handle user request arrived signal
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 329 1099511628280
+
+ --- Event time: 329
+
+Handle_new_arrived_request: RESET
+host interface broadcasting user request arrival signal
+GC_and_WL_Unit_Base::handle_user_request_arrived_signal()
+GC_and_WL_Unit_Page_Level handle and process (finish) RESET request!
+host interface broadcasting user request arrival signal
+Data_Cache_Manager_Base handle user request arrived signal
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 354 1099511628352
+
+ --- Event time: 354
+
+Handle_new_arrived_request: RESET
+host interface broadcasting user request arrival signal
+GC_and_WL_Unit_Base::handle_user_request_arrived_signal()
+GC_and_WL_Unit_Page_Level handle and process (finish) RESET request!
+host interface broadcasting user request arrival signal
+Data_Cache_Manager_Base handle user request arrived signal
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 379 1099511628424
+
+ --- Event time: 379
+
+Handle_new_arrived_request: RESET
+host interface broadcasting user request arrival signal
+GC_and_WL_Unit_Base::handle_user_request_arrived_signal()
+GC_and_WL_Unit_Page_Level handle and process (finish) RESET request!
+host interface broadcasting user request arrival signal
+Data_Cache_Manager_Base handle user request arrived signal
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 404 1099511628496
+
+ --- Event time: 404
+
+Handle_new_arrived_request: RESET
+host interface broadcasting user request arrival signal
+GC_and_WL_Unit_Base::handle_user_request_arrived_signal()
+GC_and_WL_Unit_Page_Level handle and process (finish) RESET request!
+host interface broadcasting user request arrival signal
+Data_Cache_Manager_Base handle user request arrived signal
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 429 1099511628568
+
+ --- Event time: 429
+
+Handle_new_arrived_request: RESET
+host interface broadcasting user request arrival signal
+GC_and_WL_Unit_Base::handle_user_request_arrived_signal()
+GC_and_WL_Unit_Page_Level handle and process (finish) RESET request!
+host interface broadcasting user request arrival signal
+Data_Cache_Manager_Base handle user request arrived signal
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 454 1099511628640
+
+ --- Event time: 454
+
+Handle_new_arrived_request: RESET
+host interface broadcasting user request arrival signal
+GC_and_WL_Unit_Base::handle_user_request_arrived_signal()
+GC_and_WL_Unit_Page_Level handle and process (finish) RESET request!
+host interface broadcasting user request arrival signal
+Data_Cache_Manager_Base handle user request arrived signal
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 479 1099511628712
+
+ --- Event time: 479
+
+Handle_new_arrived_request: RESET
+host interface broadcasting user request arrival signal
+GC_and_WL_Unit_Base::handle_user_request_arrived_signal()
+GC_and_WL_Unit_Page_Level handle and process (finish) RESET request!
+host interface broadcasting user request arrival signal
+Data_Cache_Manager_Base handle user request arrived signal
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 504 1099511628784
+
+ --- Event time: 504
+
+Handle_new_arrived_request: RESET
+host interface broadcasting user request arrival signal
+GC_and_WL_Unit_Base::handle_user_request_arrived_signal()
+GC_and_WL_Unit_Page_Level handle and process (finish) RESET request!
+host interface broadcasting user request arrival signal
+Data_Cache_Manager_Base handle user request arrived signal
+
+ --- Event time: 529
+

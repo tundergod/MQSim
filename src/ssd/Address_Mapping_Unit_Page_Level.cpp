@@ -173,6 +173,8 @@ namespace SSD_Components
 		CMT_entry_size(cmt_entry_size), Translation_entries_per_page(no_of_translation_entries_per_page), No_of_inserted_entries_in_preconditioning(0),
 		PlaneAllocationScheme(PlaneAllocationScheme), Channel_no(channel_no), Chip_no(chip_no), Die_no(die_no), Plane_no(plane_no)
 	{
+
+		DEBUG("Create Domain - CMT capacity:" << cmt_capacity << ", CMT entry size:" << cmt_entry_size << ", Translation entries per page:" << no_of_translation_entries_per_page << ", Total physical sectors:" << total_physical_sectors_no << ", Total logical sectors:" << total_logical_sectors_no << ", Sectors per page:" << sectors_no_per_page)
 		Total_physical_pages_no = total_physical_sectors_no / sectors_no_per_page;
 		max_logical_sector_address = total_logical_sectors_no;
 		Total_logical_pages_no = (max_logical_sector_address / sectors_no_per_page) + (max_logical_sector_address % sectors_no_per_page == 0? 0 : 1);
@@ -301,6 +303,8 @@ namespace SSD_Components
 			concurrent_stream_no, channel_count, chip_no_per_channel, die_no_per_chip, plane_no_per_die,
 			Block_no_per_plane, Page_no_per_block, SectorsPerPage, PageSizeInByte, Overprovisioning_ratio, sharing_mode, fold_large_addresses)
 	{
+
+		DEBUG("Create Address_Mapping_Unit_Page_Level::Address_Mapping_Unit_Page_Level")
 		_my_instance = this;
 		domains = new AddressMappingDomain*[no_of_input_streams];
 
@@ -332,6 +336,7 @@ namespace SSD_Components
 			Cached_Mapping_Table* sharedCMT = NULL;
 			unsigned int per_stream_cmt_capacity = 0;
 			cmt_capacity = cmt_capacity_in_byte / CMT_entry_size;
+
 			switch (sharing_mode) {
 				case CMT_Sharing_Mode::SHARED:
 					per_stream_cmt_capacity = cmt_capacity;
@@ -342,6 +347,7 @@ namespace SSD_Components
 					break;
 			}
 
+			DEBUG("domain " << domainID << "per_stream_cmt_capacity = " << cmt_capacity_in_byte << " bytes in total / " << CMT_entry_size << " bytes per entry = " << per_stream_cmt_capacity << " entries");
 
 			channel_ids = new flash_channel_ID_type[stream_channel_ids[domainID].size()];
 			for (unsigned int i = 0; i < stream_channel_ids[domainID].size(); i++) {
@@ -409,6 +415,7 @@ namespace SSD_Components
 
 	void Address_Mapping_Unit_Page_Level::Start_simulation()
 	{
+		DEBUG("Address_Mapping_Unit_Page_Level::Start_simulation()");
 		Store_mapping_table_on_flash_at_start();
 	}
 

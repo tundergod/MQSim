@@ -50,12 +50,14 @@ namespace Utils
 		std::vector<std::vector<flash_die_ID_type>> stream_die_ids, std::vector<std::vector<flash_plane_ID_type>> stream_plane_ids,
 		unsigned int block_no_per_plane, unsigned int page_no_per_block, unsigned int sector_no_per_page, double overprovisioning_ratio) 
 	{
+
+		DEBUG("Start Logical_Address_Partitioning_Unit::Allocate_logical_address_for_flows");
+
 		if (initialized) {
 			return;
 		}
 		
 		Logical_Address_Partitioning_Unit::hostinterface_type = hostinterface_type;
-
 		Logical_Address_Partitioning_Unit::channel_count = channel_count;;
 		Logical_Address_Partitioning_Unit::chip_no_per_channel = chip_no_per_channel;
 		Logical_Address_Partitioning_Unit::die_no_per_chip = die_no_per_chip;
@@ -76,6 +78,7 @@ namespace Utils
 			}
 		}
 
+		// update the available reosurces for each io flow
 		for (unsigned int stream_id = 0; stream_id < concurrent_stream_no; stream_id++)
 		{
 			for (flash_channel_ID_type channel_id = 0; channel_id < stream_channel_ids[stream_id].size(); channel_id++) {
@@ -104,6 +107,7 @@ namespace Utils
 			}
 		}
 
+		// update to Logical_Address_Partitioning_Unit::XXX (for simulation)
 		for (unsigned int stream_id = 0; stream_id < concurrent_stream_no; stream_id++)
 		{
 			std::vector<flash_channel_ID_type> channel_ids;
@@ -129,6 +133,8 @@ namespace Utils
 			for (flash_plane_ID_type plane_id = 0; plane_id < stream_plane_ids[stream_id].size(); plane_id++) {
 				Logical_Address_Partitioning_Unit::stream_plane_ids[stream_id].push_back(stream_plane_ids[stream_id][plane_id]);
 			}
+
+			DEBUG("I/O flow " << stream_id << ": " << Logical_Address_Partitioning_Unit::stream_channel_ids[stream_id].size() << " channels, " << Logical_Address_Partitioning_Unit::stream_chip_ids[stream_id].size() << " chips, " << Logical_Address_Partitioning_Unit::stream_die_ids[stream_id].size() << " dies, " << Logical_Address_Partitioning_Unit::stream_plane_ids[stream_id].size() << " planes");
 		}
 
 		std::vector<LHA_type> lsa_count_per_stream;
@@ -147,6 +153,8 @@ namespace Utils
 			pdas_per_flow.push_back(LHA_type(double(lsa_count) / (1.0 - overprovisioning_ratio)));
 			total_pda_no += pdas_per_flow[stream_id];
 			lsa_count_per_stream.push_back(lsa_count);
+
+			DEBUG("I/O flow " << stream_id << ": " << lsa_count << " LSA");
 		}
 
 		total_lha_no = 0;
@@ -154,6 +162,8 @@ namespace Utils
 			start_lhas_per_flow.push_back(total_lha_no);
 			end_lhas_per_flow.push_back(total_lha_no + lsa_count_per_stream[stream_id] - 1);
 			total_lha_no += lsa_count_per_stream[stream_id];
+
+			DEBUG("I/O flow " << stream_id << " LSA from " << start_lhas_per_flow[stream_id] << " to " << end_lhas_per_flow[stream_id]);
 		}
 
 		initialized = true;
