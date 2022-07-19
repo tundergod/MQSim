@@ -58,7 +58,7 @@ namespace SSD_Components {
 
 	void NVM_PHY_ONFI_NVDDR2::Start_simulation()
 	{
-		DEBUG("NVM_PHY_ONFI_NVDDR2::Start_simulation()");
+		DEBUG("Start_simulation(): " << ID());
 	}
 
 	inline BusChannelStatus NVM_PHY_ONFI_NVDDR2::Get_channel_status(flash_channel_ID_type channelID)

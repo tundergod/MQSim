@@ -29,15 +29,15 @@ namespace SSD_Components
 		LPA_type key = LPN_TO_UNIQUE_KEY(streamID, lpa);
 		auto it = addressMap.find(key);
 		if (it == addressMap.end()) {
-			DEBUG("Address mapping table query - Stream ID:" << streamID << ", LPA:" << lpa << ", MISS")
+			DEBUG("Cached_Mapping_Table::Exists, Stream ID:" << streamID << ", LPA:" << lpa << ", MISS")
 				return false;
 		}
 		if (it->second->Status != CMTEntryStatus::VALID) {
-			DEBUG("Address mapping table query - Stream ID:" << streamID << ", LPA:" << lpa << ", MISS")
+			DEBUG("Cached_Mapping_Table::Exists, Stream ID:" << streamID << ", LPA:" << lpa << ", MISS")
 			return false;
 		}
 
-		DEBUG("Address mapping table query - Stream ID:" << streamID << ", LPA:" << lpa << ", HIT")
+		DEBUG("Cached_Mapping_Table::Exists, Stream ID:" << streamID << ", LPA:" << lpa << ", HIT")
 		return true;
 	}
 
@@ -415,7 +415,7 @@ namespace SSD_Components
 
 	void Address_Mapping_Unit_Page_Level::Start_simulation()
 	{
-		DEBUG("Address_Mapping_Unit_Page_Level::Start_simulation()");
+		DEBUG("Start_simulation(): " << ID());
 		Store_mapping_table_on_flash_at_start();
 	}
 
@@ -486,8 +486,8 @@ namespace SSD_Components
 
 	void Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(const std::list<NVM_Transaction*>& transactionList)
 	{
-		for (std::list<NVM_Transaction*>::const_iterator it = transactionList.begin();
-			it != transactionList.end(); ) {
+		DEBUG("Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = " << transactionList.size());
+		for (std::list<NVM_Transaction*>::const_iterator it = transactionList.begin(); it != transactionList.end(); ) {
 			if (is_lpa_locked_for_gc((*it)->Stream_id, ((NVM_Transaction_Flash*)(*it))->LPA)) {
 				//iterator should be post-incremented since the iterator may be deleted from list
 				manage_user_transaction_facing_barrier((NVM_Transaction_Flash*)*(it++));
@@ -495,16 +495,24 @@ namespace SSD_Components
 				query_cmt((NVM_Transaction_Flash*)(*it++));
 			}
 		}
-
+		
 		if (transactionList.size() > 0) {
 			ftl->TSU->Prepare_for_transaction_submit();
-			for (std::list<NVM_Transaction*>::const_iterator it = transactionList.begin();
-				it != transactionList.end(); it++) {
+			for (std::list<NVM_Transaction*>::const_iterator it = transactionList.begin(); it != transactionList.end(); it++) {
 				if (((NVM_Transaction_Flash*)(*it))->Physical_address_determined) {
 					ftl->TSU->Submit_transaction(static_cast<NVM_Transaction_Flash*>(*it));
+					
+					DEBUG(" + Submit determinedADDR req ID " << ((NVM_Transaction_Flash*)(*it))->UserIORequest->ID << " to TSU: LPA " << ((NVM_Transaction_Flash*)(*it))->LPA << ", PPA " << ((NVM_Transaction_Flash*)(*it))->PPA
+					<< ", Address " <<  ((NVM_Transaction_Flash*)(*it))->Address.ChannelID << " " << ((NVM_Transaction_Flash*)(*it))->Address.ChipID << " " << ((NVM_Transaction_Flash*)(*it))->Address.DieID 
+					<< " " << ((NVM_Transaction_Flash*)(*it))->Address.PlaneID << " " << ((NVM_Transaction_Flash*)(*it))->Address.BlockID << " " << ((NVM_Transaction_Flash*)(*it))->Address.PageID);
+
 					if (((NVM_Transaction_Flash*)(*it))->Type == Transaction_Type::WRITE) {
 						if (((NVM_Transaction_Flash_WR*)(*it))->RelatedRead != NULL) {
 							ftl->TSU->Submit_transaction(((NVM_Transaction_Flash_WR*)(*it))->RelatedRead);
+
+							DEBUG(" + Submit relatedRead req ID " << ((NVM_Transaction_Flash*)(*it))->UserIORequest->ID << " to TSU: LPA " << ((NVM_Transaction_Flash*)(*it))->LPA << ", PPA " << ((NVM_Transaction_Flash*)(*it))->PPA
+							<< ", Address " <<  ((NVM_Transaction_Flash*)(*it))->Address.ChannelID << " " << ((NVM_Transaction_Flash*)(*it))->Address.ChipID << " " << ((NVM_Transaction_Flash*)(*it))->Address.DieID 
+							<< " " << ((NVM_Transaction_Flash*)(*it))->Address.PlaneID << " " << ((NVM_Transaction_Flash*)(*it))->Address.BlockID << " " << ((NVM_Transaction_Flash*)(*it))->Address.PageID);
 						}
 					}
 				}
@@ -591,9 +599,11 @@ namespace SSD_Components
 	bool Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(stream_id_type streamID, NVM_Transaction_Flash* transaction)
 	{
 		PPA_type ppa = domains[streamID]->Get_ppa(ideal_mapping_table, streamID, transaction->LPA);
+		DEBUG("Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: " << ppa);
 
 		if (transaction->Type == Transaction_Type::READ) {
 			if (ppa == NO_PPA) {
+				DEBUG("Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()");
 				ppa = online_create_entry_for_reads(transaction->LPA, streamID, transaction->Address, ((NVM_Transaction_Flash_RD*)transaction)->read_sectors_bitmap);
 			}
 			transaction->PPA = ppa;
@@ -613,6 +623,8 @@ namespace SSD_Components
 			
 			return true;
 		}
+		DEBUG("Address_Mapping_Unit_Page_Level::Convert_ppa_to_address: ppn " <<  transaction->PPA << "address = " << transaction->Address.ChannelID 
+			<< " " << transaction->Address.ChipID << " " << transaction->Address.DieID << " " << transaction->Address.PlaneID << " " << transaction->Address.BlockID << " " << transaction->Address.PageID);
 	}
 	
 	void Address_Mapping_Unit_Page_Level::Allocate_address_for_preconditioning(const stream_id_type stream_id, std::map<LPA_type, page_status_type>& lpa_list, std::vector<double>& steady_state_distribution)
@@ -1451,7 +1463,6 @@ namespace SSD_Components
 		address.PlaneID = (flash_plane_ID_type)((((ppn % page_no_per_channel) % page_no_per_chip) % page_no_per_die) / page_no_per_plane);
 		address.BlockID = (flash_block_ID_type)(((((ppn % page_no_per_channel) % page_no_per_chip) % page_no_per_die) % page_no_per_plane) / pages_no_per_block);
 		address.PageID = (flash_page_ID_type)((((((ppn % page_no_per_channel) % page_no_per_chip) % page_no_per_die) % page_no_per_plane) % pages_no_per_block) % pages_no_per_block);
-
 	}
 
 	inline PPA_type Address_Mapping_Unit_Page_Level::Convert_address_to_ppa(const NVM::FlashMemory::Physical_Page_Address& pageAddress)

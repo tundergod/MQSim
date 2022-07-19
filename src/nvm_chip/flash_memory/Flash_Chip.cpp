@@ -55,7 +55,7 @@ namespace NVM
 		
 		void Flash_Chip::Start_simulation()
 		{
-			DEBUG("Flash_Chip::Start_simulation()");
+			DEBUG("Start_simulation(): " << ID());
 		}
 
 		void Flash_Chip::Validate_simulation_config()

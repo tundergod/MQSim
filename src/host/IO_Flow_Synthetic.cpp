@@ -88,8 +88,8 @@ IO_Flow_Synthetic::IO_Flow_Synthetic(const sim_object_id_type &name, uint16_t fl
 
 
 
-		//if (written_zone_no > zone_reset_threshold)
-		if (1)
+		if (written_zone_no > zone_reset_threshold)
+		//if (1)
 		{
 			request->Type = Host_IO_Request_Type::RESET;
 			STAT_generated_reset_request_count++;
@@ -239,7 +239,7 @@ IO_Flow_Synthetic::IO_Flow_Synthetic(const sim_object_id_type &name, uint16_t fl
 
 	void IO_Flow_Synthetic::Start_simulation() 
 	{
-		DEBUG("IO_Flow_Synthetic::Start_simulation()");
+		DEBUG("Start_simulation(): " << ID());
 		IO_Flow_Base::Start_simulation();
 
 		if (address_distribution == Utils::Address_Distribution_Type::STREAMING) {

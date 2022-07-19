@@ -237,7 +237,7 @@ namespace SSD_Components
 				}
 			}
 		}
-		else//This is a write request
+		else if (user_request->Type == UserRequestType::WRITE)
 		{
 			switch (caching_mode_per_input_stream[user_request->Stream_id])
 			{

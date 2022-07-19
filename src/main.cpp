@@ -303,6 +303,7 @@ int main(int argc, char* argv[])
 
 		DEBUG("start simulation!")
 		Simulator->Start_simulation();
+		DEBUG(std::endl << "******************************" << std::endl)
 
 		time_t end_time = time(0);
 		dt = ctime(&end_time);

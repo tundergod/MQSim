@@ -66,7 +66,7 @@ FLASH XML: Page_Metadat_Capacity: 448
 ******************************
 
 WORKLOAD XML: Priority_Class: HIGH
-WORKLOAD XML: Device_Level_Data_Caching_Mode: WRITE_CACHE
+WORKLOAD XML: Device_Level_Data_Caching_Mode: TURNED_OFF
 WORKLOAD XML: Channel_IDs: 0,1,2,3,4,5,6,7
 WORKLOAD XML: Chip_IDs: 0,1,2,3
 WORKLOAD XML: Die_IDs: 0,1,2,3
@@ -80,21 +80,28 @@ WORKLOAD XML: Percentage_of_Hot_Region: 0
 WORKLOAD XML: Generated_Aligned_Addresses: true
 WORKLOAD XML: Address_Alignment_Unit: 16
 WORKLOAD XML: Request_Size_Distribution: FIXED
-WORKLOAD XML: Average_Request_Size: 8
+WORKLOAD XML: Average_Request_Size: 32
 WORKLOAD XML: Variance_Request_Size: 0
 WORKLOAD XML: Seed: 798
 WORKLOAD XML: Average_No_of_Reqs_in_Queue: 16
-WORKLOAD XML: Intensity: 32768
-WORKLOAD XML: Stop_Time: 10000
+WORKLOAD XML: Intensity: 3276
+WORKLOAD XML: Stop_Time: 1000000
 WORKLOAD XML: Total_Requests_To_Generate: 0
 
 ******************************
 
-MQSim started at Mon Jul 18 22:01:30 2022
+MQSim started at Tue Jul 19 15:45:55 2022
 
 ******************************
 Executing scenario 1 out of 1 .......
-Create SSD_Device
+Create SSD_Device:
+- Step 1: create memory chips (flash chips in our case)
+- Step 2: create memory channels to connect chips to the controller
+- Step 3: create channel controller and connect channels to it
+- Steps 4: create FTL components and connect them together
+- Step 5: create FTL's TSU
+- Step 6: create FTL's Flash_Block_Manager
+- Step 7: create FTL's Address_Mapping_Unit
 Start Logical_Address_Partitioning_Unit::Allocate_logical_address_for_flows
 I/O flow 0: 8 channels, 4 chips, 4 dies, 4 planes
 I/O flow 0: 3994319360 LSA
@@ -102,388 +109,2924 @@ I/O flow 0 LSA from 0 to 3994319359
 Create Address_Mapping_Unit_Page_Level::Address_Mapping_Unit_Page_Level
 domain 0per_stream_cmt_capacity = 2097152 bytes in total / 9 bytes per entry = 233016 entries
 Create Domain - CMT capacity:233016, CMT entry size:9, Translation entries per page:1365, Total physical sectors:4294967053, Total logical sectors:3994319360, Sectors per page:16
+- Step 8: create FTL's GC_and_WL_unit
+- Step 9: create Data_Cache_Manager
+- Step 10: create Host_Interface
 Create Host_System
 - flow_id: 0, start_lsa: 0, end_lsa: 3994319359, working_set_ratio: 1
 Create IO_Flow_Synthetic: Host.IO_Flow.Synth.No_0
 start simulation!
+
 Engine::Setup_triggers()
 GC_and_WL_Unit_Base::Setup_triggers()
 NVM_PHY_ONFI add function to function queue
 Host_Interface_Base add function to function queue
-Host_Interface_Base add function to function queue finish
 NVM_PHY_ONFI add function to function queue
 NVM_PHY_ONFI add function to function queue
 Data_Cache_Manager_Base::Setup_triggers()
 Host_Interface_Base add function to function queue
-Host_Interface_Base add function to function queue finish
 NVM_PHY_ONFI add function to function queue
+
 Engine::Validate_simulation_config()
+
 Engine::Start_simulation()
-PCIe_Link::Start_simulation()
-FTL::Start_simulation()
-Flash_Chip::Start_simulation()
-Flash_Chip::Start_simulation()
-Flash_Chip::Start_simulation()
-Flash_Chip::Start_simulation()
-Flash_Chip::Start_simulation()
-Flash_Chip::Start_simulation()
-Flash_Chip::Start_simulation()
-Flash_Chip::Start_simulation()
-Flash_Chip::Start_simulation()
-Flash_Chip::Start_simulation()
-NVM_PHY_ONFI_NVDDR2::Start_simulation()
-Flash_Chip::Start_simulation()
-Host_System::Start_simulation()
-Flash_Chip::Start_simulation()
-Host_Interface_NVMe::Start_simulation()
-Flash_Chip::Start_simulation()
-GC_and_WL_Unit_Base::Start_simulation()
-Flash_Chip::Start_simulation()
-TSU_Priority_OutOfOrder::Start_simulation()
-Flash_Chip::Start_simulation()
-Address_Mapping_Unit_Page_Level::Start_simulation()
-Flash_Chip::Start_simulation()
-Flash_Chip::Start_simulation()
-Flash_Chip::Start_simulation()
-Flash_Chip::Start_simulation()
-Flash_Chip::Start_simulation()
-Flash_Chip::Start_simulation()
-Flash_Chip::Start_simulation()
-Flash_Chip::Start_simulation()
-Flash_Chip::Start_simulation()
-Flash_Chip::Start_simulation()
-Flash_Chip::Start_simulation()
-Flash_Chip::Start_simulation()
-Flash_Chip::Start_simulation()
-Data_Cache_Manager_Base::Start_simulation()
-Flash_Chip::Start_simulation()
-Flash_Chip::Start_simulation()
-SSD_Device::Start_simulation()
-IO_Flow_Synthetic::Start_simulation()
-IO_Flow_Base::Start_simulation()
+Start_simulation(): Host.PCIeLink
+Start_simulation(): SSDDevice.FTL
+Start_simulation(): SSDDevice.Channel.7.Chip.3
+Start_simulation(): SSDDevice.Channel.6.Chip.2
+Start_simulation(): SSDDevice.Channel.6.Chip.0
+Start_simulation(): SSDDevice.Channel.5.Chip.3
+Start_simulation(): SSDDevice.Channel.5.Chip.2
+Start_simulation(): SSDDevice.Channel.2.Chip.2
+Start_simulation(): SSDDevice.Channel.3.Chip.0
+Start_simulation(): SSDDevice.Channel.4.Chip.2
+Start_simulation(): SSDDevice.Channel.1.Chip.0
+Start_simulation(): SSDDevice.Channel.4.Chip.3
+Start_simulation(): SSDDevice.PHY
+Start_simulation(): SSDDevice.Channel.4.Chip.0
+Start_simulation(): Host
+Start_simulation(): SSDDevice.Channel.5.Chip.0
+Start_simulation(): SSDDevice.HostInterface
+Start_simulation(): SSDDevice.Channel.3.Chip.3
+Start_simulation(): SSDDevice.FTL.GCandWLUnit
+Start_simulation(): SSDDevice.Channel.3.Chip.2
+Start_simulation(): SSDDevice.FTL.TSU
+Start_simulation(): SSDDevice.Channel.3.Chip.1
+Start_simulation(): SSDDevice.FTL.AddressMappingUnit
+Start_simulation(): SSDDevice.Channel.6.Chip.1
+Start_simulation(): SSDDevice.Channel.2.Chip.3
+Start_simulation(): SSDDevice.Channel.7.Chip.1
+Start_simulation(): SSDDevice.Channel.1.Chip.2
+Start_simulation(): SSDDevice.Channel.1.Chip.3
+Start_simulation(): SSDDevice.Channel.6.Chip.3
+Start_simulation(): SSDDevice.Channel.2.Chip.1
+Start_simulation(): SSDDevice.Channel.7.Chip.0
+Start_simulation(): SSDDevice.Channel.5.Chip.1
+Start_simulation(): SSDDevice.Channel.4.Chip.1
+Start_simulation(): SSDDevice.Channel.1.Chip.1
+Start_simulation(): SSDDevice.Channel.0.Chip.0
+Start_simulation(): SSDDevice.Channel.0.Chip.3
+Start_simulation(): SSDDevice.DataCache
+Start_simulation(): SSDDevice.Channel.2.Chip.0
+Start_simulation(): SSDDevice.Channel.0.Chip.2
+Start_simulation(): SSDDevice
+Start_simulation(): Host.IO_Flow.Synth.No_0
+Start_simulation(): Host.IO_Flow.Synth.No_0
 RegisterEvent (IO_Flow_Synthetic::Start_simulation, Request_Generator_Type::QUEUE_DEPTH): 0
-Flash_Chip::Start_simulation()
-Flash_Chip::Start_simulation()
-* Generate_next_request(): Host: Request generated - Reset, LBA:0, Size_in_bytes:8
-IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:0
-RegisterEvent (PCIe_Link::Deliver, From HOST to DEVICE): 1 4112
-* Generate_next_request(): Host: Request generated - Reset, LBA:0, Size_in_bytes:8
-IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:0
-* Generate_next_request(): Host: Request generated - Reset, LBA:0, Size_in_bytes:8
-IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:0
-* Generate_next_request(): Host: Request generated - Reset, LBA:0, Size_in_bytes:8
-IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:0
-* Generate_next_request(): Host: Request generated - Reset, LBA:0, Size_in_bytes:8
-IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:0
-* Generate_next_request(): Host: Request generated - Reset, LBA:0, Size_in_bytes:8
-IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:0
-* Generate_next_request(): Host: Request generated - Reset, LBA:0, Size_in_bytes:8
-IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:0
-* Generate_next_request(): Host: Request generated - Reset, LBA:0, Size_in_bytes:8
-IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:0
-* Generate_next_request(): Host: Request generated - Reset, LBA:0, Size_in_bytes:8
-IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:0
-* Generate_next_request(): Host: Request generated - Reset, LBA:0, Size_in_bytes:8
-IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:0
-* Generate_next_request(): Host: Request generated - Reset, LBA:0, Size_in_bytes:8
-IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:0
-* Generate_next_request(): Host: Request generated - Reset, LBA:0, Size_in_bytes:8
-IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:0
-* Generate_next_request(): Host: Request generated - Reset, LBA:0, Size_in_bytes:8
-IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:0
-* Generate_next_request(): Host: Request generated - Reset, LBA:0, Size_in_bytes:8
-IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:0
-* Generate_next_request(): Host: Request generated - Reset, LBA:0, Size_in_bytes:8
-IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:0
-* Generate_next_request(): Host: Request generated - Reset, LBA:0, Size_in_bytes:8
-IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:0
+Start_simulation(): SSDDevice.Channel.7.Chip.2
+Start_simulation(): SSDDevice.Channel.0.Chip.1
+* Generate_next_request(): Host: Request generated - Read, LBA:2008132656, Size_in_bytes:32
+IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:2008132656
+RegisterEvent (PCIe_Link::Deliver, From HOST to DEVICE with SQ): 1 4112
+* Generate_next_request(): Host: Request generated - Write, LBA:3294538352, Size_in_bytes:32
+IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:3294538352
+* Generate_next_request(): Host: Request generated - Read, LBA:2507443824, Size_in_bytes:32
+IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:2507443824
+* Generate_next_request(): Host: Request generated - Write, LBA:855457488, Size_in_bytes:32
+IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:855457488
+* Generate_next_request(): Host: Request generated - Write, LBA:383767680, Size_in_bytes:32
+IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:383767680
+* Generate_next_request(): Host: Request generated - Write, LBA:2962136752, Size_in_bytes:32
+IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:2962136752
+* Generate_next_request(): Host: Request generated - Write, LBA:2420075872, Size_in_bytes:32
+IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:2420075872
+* Generate_next_request(): Host: Request generated - Write, LBA:574802016, Size_in_bytes:32
+IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:574802016
+* Generate_next_request(): Host: Request generated - Read, LBA:2521028480, Size_in_bytes:32
+IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:2521028480
+* Generate_next_request(): Host: Request generated - Write, LBA:418663568, Size_in_bytes:32
+IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:418663568
+* Generate_next_request(): Host: Request generated - Read, LBA:2601902656, Size_in_bytes:32
+IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:2601902656
+* Generate_next_request(): Host: Request generated - Write, LBA:739232848, Size_in_bytes:32
+IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:739232848
+* Generate_next_request(): Host: Request generated - Read, LBA:3731974464, Size_in_bytes:32
+IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:3731974464
+* Generate_next_request(): Host: Request generated - Read, LBA:3751438768, Size_in_bytes:32
+IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:3751438768
+* Generate_next_request(): Host: Request generated - Write, LBA:436578176, Size_in_bytes:32
+IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:436578176
+* Generate_next_request(): Host: Request generated - Read, LBA:2734700784, Size_in_bytes:32
+IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:2734700784
 
  --- Event time: 1
 
-RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST): 9 1099511627776
-RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 9 4112
+PCIe_Link::Execute_simulator_event(), to DEVICE
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 9 4112
 
  --- Event time: 9
 
+PCIe_Link::Execute_simulator_event(), to HOST
 
  --- Event time: 17
 
-RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST): 17 1099511627848
-RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 17 4112
+PCIe_Link::Execute_simulator_event(), to DEVICE
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 17 4112
 
  --- Event time: 17
 
+PCIe_Link::Execute_simulator_event(), to HOST
 
  --- Event time: 25
 
-RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST): 25 1099511627920
-RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 25 4112
+PCIe_Link::Execute_simulator_event(), to DEVICE
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 25 4112
 
  --- Event time: 25
 
+PCIe_Link::Execute_simulator_event(), to HOST
 
  --- Event time: 33
 
-RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST): 33 1099511627992
-RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 33 4112
+PCIe_Link::Execute_simulator_event(), to DEVICE
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 33 4112
 
  --- Event time: 33
 
+PCIe_Link::Execute_simulator_event(), to HOST
 
  --- Event time: 41
 
-RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST): 41 1099511628064
-RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 41 4112
+PCIe_Link::Execute_simulator_event(), to DEVICE
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 41 4112
 
  --- Event time: 41
 
+PCIe_Link::Execute_simulator_event(), to HOST
 
  --- Event time: 49
 
-RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST): 49 1099511628136
-RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 49 4112
+PCIe_Link::Execute_simulator_event(), to DEVICE
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 49 4112
 
  --- Event time: 49
 
+PCIe_Link::Execute_simulator_event(), to HOST
 
  --- Event time: 57
 
-RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST): 57 1099511628208
-RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 57 4112
+PCIe_Link::Execute_simulator_event(), to DEVICE
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 57 4112
 
  --- Event time: 57
 
+PCIe_Link::Execute_simulator_event(), to HOST
 
  --- Event time: 65
 
-RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST): 65 1099511628280
-RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 65 4112
+PCIe_Link::Execute_simulator_event(), to DEVICE
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 65 4112
 
  --- Event time: 65
 
+PCIe_Link::Execute_simulator_event(), to HOST
 
  --- Event time: 73
 
-RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST): 73 1099511628352
-RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 73 4112
+PCIe_Link::Execute_simulator_event(), to DEVICE
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 73 4112
 
  --- Event time: 73
 
+PCIe_Link::Execute_simulator_event(), to HOST
 
  --- Event time: 81
 
-RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST): 81 1099511628424
-RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 81 4112
+PCIe_Link::Execute_simulator_event(), to DEVICE
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 81 4112
 
  --- Event time: 81
 
+PCIe_Link::Execute_simulator_event(), to HOST
 
  --- Event time: 89
 
-RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST): 89 1099511628496
-RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 89 4112
+PCIe_Link::Execute_simulator_event(), to DEVICE
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 89 4112
 
  --- Event time: 89
 
+PCIe_Link::Execute_simulator_event(), to HOST
 
  --- Event time: 97
 
-RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST): 97 1099511628568
-RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 97 4112
+PCIe_Link::Execute_simulator_event(), to DEVICE
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 97 4112
 
  --- Event time: 97
 
+PCIe_Link::Execute_simulator_event(), to HOST
 
  --- Event time: 105
 
-RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST): 105 1099511628640
-RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 105 4112
+PCIe_Link::Execute_simulator_event(), to DEVICE
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 105 4112
 
  --- Event time: 105
 
+PCIe_Link::Execute_simulator_event(), to HOST
 
  --- Event time: 113
 
-RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST): 113 1099511628712
-RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 113 4112
+PCIe_Link::Execute_simulator_event(), to DEVICE
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 113 4112
 
  --- Event time: 113
 
+PCIe_Link::Execute_simulator_event(), to HOST
 
  --- Event time: 121
 
-RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST): 121 1099511628784
-RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 121 4112
+PCIe_Link::Execute_simulator_event(), to DEVICE
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 121 4112
 
  --- Event time: 121
 
+PCIe_Link::Execute_simulator_event(), to HOST
 
  --- Event time: 129
 
-RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST): 129 1099511628856
-RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 129 4112
+PCIe_Link::Execute_simulator_event(), to DEVICE
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 129 4112
 
  --- Event time: 129
 
+PCIe_Link::Execute_simulator_event(), to HOST
 
  --- Event time: 137
 
-Handle_new_arrived_request: RESET
+PCIe_Link::Execute_simulator_event(), to DEVICE
+Handle_new_arrived_request: READ, ID: 0, Stream_id: 0, LBA: 2008132656, size: 16 KB
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 2008132656 - 2008132672, lpa: 125508291
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 2008132672 - 2008132688, lpa: 125508292
 host interface broadcasting user request arrival signal
-GC_and_WL_Unit_Base::handle_user_request_arrived_signal()
-GC_and_WL_Unit_Page_Level handle and process (finish) RESET request!
+GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 0
 host interface broadcasting user request arrival signal
-Data_Cache_Manager_Base handle user request arrived signal
-RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 154 1099511627776
+Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:0
+Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:125508291, MISS
+  -> 0: 154 Issueing Transaction - Type:Read, , PPA:112198067, LPA:18446744073709551615, Channel: 3, Chip: 1
+Chip 3, 1, 1: Sending read command to chip for LPA: 18446744073709551615
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 154
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:125508292, MISS
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 154 1099511627776
 
  --- Event time: 154
 
-Handle_new_arrived_request: RESET
-host interface broadcasting user request arrival signal
-GC_and_WL_Unit_Base::handle_user_request_arrived_signal()
-GC_and_WL_Unit_Page_Level handle and process (finish) RESET request!
-host interface broadcasting user request arrival signal
-Data_Cache_Manager_Base handle user request arrived signal
-RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 179 1099511627848
+PCIe_Link::Execute_simulator_event(), to DEVICE
+Handle_new_arrived_request: WRITE, ID: 1, Stream_id: 0, LBA: 3294538352, size: 16 KB
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 179 1099511627848
 
  --- Event time: 179
 
-Handle_new_arrived_request: RESET
+PCIe_Link::Execute_simulator_event(), to HOST
+
+ --- Event time: 187
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+Handle_new_arrived_request: READ, ID: 2, Stream_id: 0, LBA: 2507443824, size: 16 KB
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 2507443824 - 2507443840, lpa: 156715239
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 2507443840 - 2507443856, lpa: 156715240
 host interface broadcasting user request arrival signal
-GC_and_WL_Unit_Base::handle_user_request_arrived_signal()
-GC_and_WL_Unit_Page_Level handle and process (finish) RESET request!
+GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 2
 host interface broadcasting user request arrival signal
-Data_Cache_Manager_Base handle user request arrived signal
-RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 204 1099511627920
+Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:2
+Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:156715239, MISS
+  -> 1: 204 Issueing Transaction - Type:Read, , PPA:65012192, LPA:18446744073709551615, Channel: 1, Chip: 3
+Chip 1, 3, 3: Sending read command to chip for LPA: 18446744073709551615
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 204
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:156715240, MISS
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 204 1099511627920
 
  --- Event time: 204
 
-Handle_new_arrived_request: RESET
-host interface broadcasting user request arrival signal
-GC_and_WL_Unit_Base::handle_user_request_arrived_signal()
-GC_and_WL_Unit_Page_Level handle and process (finish) RESET request!
-host interface broadcasting user request arrival signal
-Data_Cache_Manager_Base handle user request arrived signal
-RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 229 1099511627992
+PCIe_Link::Execute_simulator_event(), to DEVICE
+Handle_new_arrived_request: WRITE, ID: 3, Stream_id: 0, LBA: 855457488, size: 16 KB
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 229 1099511627992
 
  --- Event time: 229
 
-Handle_new_arrived_request: RESET
-host interface broadcasting user request arrival signal
-GC_and_WL_Unit_Base::handle_user_request_arrived_signal()
-GC_and_WL_Unit_Page_Level handle and process (finish) RESET request!
-host interface broadcasting user request arrival signal
-Data_Cache_Manager_Base handle user request arrived signal
-RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 254 1099511628064
+PCIe_Link::Execute_simulator_event(), to HOST
+
+ --- Event time: 237
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+Handle_new_arrived_request: WRITE, ID: 4, Stream_id: 0, LBA: 383767680, size: 16 KB
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 254 1099511628064
 
  --- Event time: 254
 
-Handle_new_arrived_request: RESET
-host interface broadcasting user request arrival signal
-GC_and_WL_Unit_Base::handle_user_request_arrived_signal()
-GC_and_WL_Unit_Page_Level handle and process (finish) RESET request!
-host interface broadcasting user request arrival signal
-Data_Cache_Manager_Base handle user request arrived signal
-RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 279 1099511628136
+PCIe_Link::Execute_simulator_event(), to HOST
+
+ --- Event time: 262
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+Handle_new_arrived_request: WRITE, ID: 5, Stream_id: 0, LBA: 2962136752, size: 16 KB
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 279 1099511628136
 
  --- Event time: 279
 
-Handle_new_arrived_request: RESET
-host interface broadcasting user request arrival signal
-GC_and_WL_Unit_Base::handle_user_request_arrived_signal()
-GC_and_WL_Unit_Page_Level handle and process (finish) RESET request!
-host interface broadcasting user request arrival signal
-Data_Cache_Manager_Base handle user request arrived signal
-RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 304 1099511628208
+PCIe_Link::Execute_simulator_event(), to HOST
+
+ --- Event time: 287
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+Handle_new_arrived_request: WRITE, ID: 6, Stream_id: 0, LBA: 2420075872, size: 16 KB
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 304 1099511628208
 
  --- Event time: 304
 
-Handle_new_arrived_request: RESET
-host interface broadcasting user request arrival signal
-GC_and_WL_Unit_Base::handle_user_request_arrived_signal()
-GC_and_WL_Unit_Page_Level handle and process (finish) RESET request!
-host interface broadcasting user request arrival signal
-Data_Cache_Manager_Base handle user request arrived signal
-RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 329 1099511628280
+PCIe_Link::Execute_simulator_event(), to HOST
+
+ --- Event time: 312
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+Handle_new_arrived_request: WRITE, ID: 7, Stream_id: 0, LBA: 574802016, size: 16 KB
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 329 1099511628280
 
  --- Event time: 329
 
-Handle_new_arrived_request: RESET
+PCIe_Link::Execute_simulator_event(), to HOST
+
+ --- Event time: 337
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+Handle_new_arrived_request: READ, ID: 8, Stream_id: 0, LBA: 2521028480, size: 16 KB
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 2521028480 - 2521028496, lpa: 157564280
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 2521028496 - 2521028512, lpa: 157564281
 host interface broadcasting user request arrival signal
-GC_and_WL_Unit_Base::handle_user_request_arrived_signal()
-GC_and_WL_Unit_Page_Level handle and process (finish) RESET request!
+GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 8
 host interface broadcasting user request arrival signal
-Data_Cache_Manager_Base handle user request arrived signal
-RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 354 1099511628352
+Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:8
+Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:157564280, MISS
+  -> 2: 354 Issueing Transaction - Type:Read, , PPA:241697249, LPA:18446744073709551615, Channel: 7, Chip: 0
+Chip 7, 0, 3: Sending read command to chip for LPA: 18446744073709551615
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 354
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:157564281, MISS
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 354 1099511628352
 
  --- Event time: 354
 
-Handle_new_arrived_request: RESET
-host interface broadcasting user request arrival signal
-GC_and_WL_Unit_Base::handle_user_request_arrived_signal()
-GC_and_WL_Unit_Page_Level handle and process (finish) RESET request!
-host interface broadcasting user request arrival signal
-Data_Cache_Manager_Base handle user request arrived signal
-RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 379 1099511628424
+PCIe_Link::Execute_simulator_event(), to DEVICE
+Handle_new_arrived_request: WRITE, ID: 9, Stream_id: 0, LBA: 418663568, size: 16 KB
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 379 1099511628424
 
  --- Event time: 379
 
-Handle_new_arrived_request: RESET
+PCIe_Link::Execute_simulator_event(), to HOST
+
+ --- Event time: 387
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+Handle_new_arrived_request: READ, ID: 10, Stream_id: 0, LBA: 2601902656, size: 16 KB
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 2601902656 - 2601902672, lpa: 162618916
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 2601902672 - 2601902688, lpa: 162618917
 host interface broadcasting user request arrival signal
-GC_and_WL_Unit_Base::handle_user_request_arrived_signal()
-GC_and_WL_Unit_Page_Level handle and process (finish) RESET request!
+GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 10
 host interface broadcasting user request arrival signal
-Data_Cache_Manager_Base handle user request arrived signal
-RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 404 1099511628496
+Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:10
+Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:162618916, MISS
+  -> 3: 404 Issueing Transaction - Type:Read, , PPA:231735784, LPA:18446744073709551615, Channel: 6, Chip: 3
+Chip 6, 3, 2: Sending read command to chip for LPA: 18446744073709551615
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 404
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:162618917, MISS
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 404 1099511628496
 
  --- Event time: 404
 
-Handle_new_arrived_request: RESET
-host interface broadcasting user request arrival signal
-GC_and_WL_Unit_Base::handle_user_request_arrived_signal()
-GC_and_WL_Unit_Page_Level handle and process (finish) RESET request!
-host interface broadcasting user request arrival signal
-Data_Cache_Manager_Base handle user request arrived signal
-RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 429 1099511628568
+PCIe_Link::Execute_simulator_event(), to DEVICE
+Handle_new_arrived_request: WRITE, ID: 11, Stream_id: 0, LBA: 739232848, size: 16 KB
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 429 1099511628568
 
  --- Event time: 429
 
-Handle_new_arrived_request: RESET
+PCIe_Link::Execute_simulator_event(), to HOST
+
+ --- Event time: 437
+
+RegisterEvent (Flash_Chip::start_command_execution): 444
+Command execution started on channel: 3 chip: 1
+
+ --- Event time: 444
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+Handle_new_arrived_request: READ, ID: 12, Stream_id: 0, LBA: 3731974464, size: 16 KB
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 3731974464 - 3731974480, lpa: 233248404
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 3731974480 - 3731974496, lpa: 233248405
 host interface broadcasting user request arrival signal
-GC_and_WL_Unit_Base::handle_user_request_arrived_signal()
-GC_and_WL_Unit_Page_Level handle and process (finish) RESET request!
+GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 12
 host interface broadcasting user request arrival signal
-Data_Cache_Manager_Base handle user request arrived signal
-RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 454 1099511628640
+Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:12
+Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:233248404, MISS
+  -> 4: 454 Issueing Transaction - Type:Read, , PPA:200278861, LPA:18446744073709551615, Channel: 5, Chip: 3
+Chip 5, 3, 3: Sending read command to chip for LPA: 18446744073709551615
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 454
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:233248405, MISS
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 454 1099511628640
 
  --- Event time: 454
 
-Handle_new_arrived_request: RESET
+PCIe_Link::Execute_simulator_event(), to DEVICE
+Handle_new_arrived_request: READ, ID: 13, Stream_id: 0, LBA: 3751438768, size: 16 KB
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 3751438768 - 3751438784, lpa: 234464923
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 3751438784 - 3751438800, lpa: 234464924
 host interface broadcasting user request arrival signal
-GC_and_WL_Unit_Base::handle_user_request_arrived_signal()
-GC_and_WL_Unit_Page_Level handle and process (finish) RESET request!
+GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 13
 host interface broadcasting user request arrival signal
-Data_Cache_Manager_Base handle user request arrived signal
-RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 479 1099511628712
+Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:13
+Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:234464923, MISS
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:234464924, MISS
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 479 1099511628712
 
  --- Event time: 479
 
-Handle_new_arrived_request: RESET
-host interface broadcasting user request arrival signal
-GC_and_WL_Unit_Base::handle_user_request_arrived_signal()
-GC_and_WL_Unit_Page_Level handle and process (finish) RESET request!
-host interface broadcasting user request arrival signal
-Data_Cache_Manager_Base handle user request arrived signal
-RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): 504 1099511628784
+RegisterEvent (Flash_Chip::start_command_execution): 494
+Command execution started on channel: 1 chip: 3
+
+ --- Event time: 494
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+Handle_new_arrived_request: WRITE, ID: 14, Stream_id: 0, LBA: 436578176, size: 16 KB
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 504 1099511628784
 
  --- Event time: 504
 
-Handle_new_arrived_request: RESET
+PCIe_Link::Execute_simulator_event(), to HOST
+
+ --- Event time: 512
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+Handle_new_arrived_request: READ, ID: 15, Stream_id: 0, LBA: 2734700784, size: 16 KB
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 2734700784 - 2734700800, lpa: 170918799
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 2734700800 - 2734700816, lpa: 170918800
 host interface broadcasting user request arrival signal
-GC_and_WL_Unit_Base::handle_user_request_arrived_signal()
-GC_and_WL_Unit_Page_Level handle and process (finish) RESET request!
+GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 15
 host interface broadcasting user request arrival signal
-Data_Cache_Manager_Base handle user request arrived signal
+Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:15
+Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:170918799, MISS
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:170918800, MISS
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 529 1099511628856
 
  --- Event time: 529
+
+RegisterEvent (Flash_Chip::start_command_execution): 644
+Command execution started on channel: 7 chip: 0
+  -> 5: 644 Issueing Transaction - Type:Read, , PPA:261095924, LPA:18446744073709551615, Channel: 7, Chip: 3
+Chip 7, 3, 0: Sending read command to chip for LPA: 18446744073709551615
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 644
+
+ --- Event time: 644
+
+RegisterEvent (Flash_Chip::start_command_execution): 694
+Command execution started on channel: 6 chip: 3
+
+ --- Event time: 694
+
+RegisterEvent (Flash_Chip::start_command_execution): 744
+Command execution started on channel: 5 chip: 3
+
+ --- Event time: 744
+
+RegisterEvent (Flash_Chip::start_command_execution): 934
+Command execution started on channel: 7 chip: 3
+
+ --- Event time: 934
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 3294538352 - 3294538368, lpa: 205908647
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 3294538368 - 3294538384, lpa: 205908648
+host interface broadcasting user request arrival signal
+GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 1
+host interface broadcasting user request arrival signal
+Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:1
+Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:205908647, MISS
+  -> 6: 5521 Issueing Transaction - Type:Read, , PPA:5243686, LPA:18446744073709551615, Channel: 0, Chip: 0
+Chip 0, 0, 2: Sending read command to chip for LPA: 18446744073709551615
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 5521
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:205908648, MISS
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 5521 280375465082880
+
+ --- Event time: 5521
+
+RegisterEvent (Flash_Chip::start_command_execution): 5811
+Command execution started on channel: 0 chip: 0
+
+ --- Event time: 5811
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 855457488 - 855457504, lpa: 53466093
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 855457504 - 855457520, lpa: 53466094
+host interface broadcasting user request arrival signal
+GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 3
+host interface broadcasting user request arrival signal
+Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:3
+Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:53466093, MISS
+  -> 7: 10513 Issueing Transaction - Type:Read, , PPA:34603340, LPA:18446744073709551615, Channel: 1, Chip: 0
+Chip 1, 0, 0: Sending read command to chip for LPA: 18446744073709551615
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 10513
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:53466094, MISS
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 10513 280375465082880
+
+ --- Event time: 10513
+
+RegisterEvent (Flash_Chip::start_command_execution): 10803
+Command execution started on channel: 1 chip: 0
+
+ --- Event time: 10803
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 383767680 - 383767696, lpa: 23985480
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 383767696 - 383767712, lpa: 23985481
+host interface broadcasting user request arrival signal
+GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 4
+host interface broadcasting user request arrival signal
+Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:4
+Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:23985480, MISS
+  -> 8: 15505 Issueing Transaction - Type:Read, , PPA:103285026, LPA:18446744073709551615, Channel: 3, Chip: 0
+Chip 3, 0, 1: Sending read command to chip for LPA: 18446744073709551615
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 15505
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:23985481, MISS
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 15505 280375465082880
+
+ --- Event time: 15505
+
+RegisterEvent (Flash_Chip::start_command_execution): 15795
+Command execution started on channel: 3 chip: 0
+
+ --- Event time: 15795
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 2962136752 - 2962136768, lpa: 185133547
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 2962136768 - 2962136784, lpa: 185133548
+host interface broadcasting user request arrival signal
+GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 5
+host interface broadcasting user request arrival signal
+Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:5
+Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:185133547, MISS
+  -> 9: 20497 Issueing Transaction - Type:Read, , PPA:148374280, LPA:18446744073709551615, Channel: 4, Chip: 1
+Chip 4, 1, 2: Sending read command to chip for LPA: 18446744073709551615
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 20497
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:185133548, MISS
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 20497 280375465082880
+
+ --- Event time: 20497
+
+RegisterEvent (Flash_Chip::start_command_execution): 20787
+Command execution started on channel: 4 chip: 1
+
+ --- Event time: 20787
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 2420075872 - 2420075888, lpa: 151254742
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 2420075888 - 2420075904, lpa: 151254743
+host interface broadcasting user request arrival signal
+GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 6
+host interface broadcasting user request arrival signal
+Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:6
+Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:151254742, MISS
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:151254743, MISS
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 25489 280375465082880
+
+ --- Event time: 25489
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 574802016 - 574802032, lpa: 35925126
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 574802032 - 574802048, lpa: 35925127
+host interface broadcasting user request arrival signal
+GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 7
+host interface broadcasting user request arrival signal
+Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:7
+Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:35925126, MISS
+  -> 10: 30481 Issueing Transaction - Type:Read, , PPA:214434099, LPA:18446744073709551615, Channel: 6, Chip: 1
+Chip 6, 1, 2: Sending read command to chip for LPA: 18446744073709551615
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 30481
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:35925127, MISS
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 30481 280375465082880
+
+ --- Event time: 30481
+
+RegisterEvent (Flash_Chip::start_command_execution): 30771
+Command execution started on channel: 6 chip: 1
+
+ --- Event time: 30771
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 418663568 - 418663584, lpa: 26166473
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 418663584 - 418663600, lpa: 26166474
+host interface broadcasting user request arrival signal
+GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 9
+host interface broadcasting user request arrival signal
+Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:9
+Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:26166473, MISS
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:26166474, MISS
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 35473 280375465082880
+
+ --- Event time: 35473
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 739232848 - 739232864, lpa: 46202053
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 739232864 - 739232880, lpa: 46202054
+host interface broadcasting user request arrival signal
+GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 11
+host interface broadcasting user request arrival signal
+Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:11
+Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:46202053, MISS
+  -> 11: 40465 Issueing Transaction - Type:Read, , PPA:253755714, LPA:18446744073709551615, Channel: 7, Chip: 2
+Chip 7, 2, 1: Sending read command to chip for LPA: 18446744073709551615
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 40465
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:46202054, MISS
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 40465 280375465082880
+
+ --- Event time: 40465
+
+RegisterEvent (Flash_Chip::start_command_execution): 40755
+Command execution started on channel: 7 chip: 2
+
+ --- Event time: 40755
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 436578176 - 436578192, lpa: 27286136
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 436578192 - 436578208, lpa: 27286137
+host interface broadcasting user request arrival signal
+GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 14
+host interface broadcasting user request arrival signal
+Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:14
+Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:27286136, MISS
+  -> 12: 45457 Issueing Transaction - Type:Read, , PPA:184549671, LPA:18446744073709551615, Channel: 5, Chip: 2
+Chip 5, 2, 0: Sending read command to chip for LPA: 18446744073709551615
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 45457
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:27286137, MISS
+
+ --- Event time: 45457
+
+RegisterEvent (Flash_Chip::start_command_execution): 45747
+Command execution started on channel: 5 chip: 2
+
+ --- Event time: 45747
+
+Channel 3 Chip 1- Finished executing read command
+Chip 3, 1: finished  read command
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 75464
+
+ --- Event time: 75464
+
+Channel 1 Chip 3- Finished executing read command
+Chip 1, 3: finished  read command
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 75514
+
+ --- Event time: 75514
+
+Channel 7 Chip 0- Finished executing read command
+Chip 7, 0: finished  read command
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 75664
+
+ --- Event time: 75664
+
+Channel 6 Chip 3- Finished executing read command
+Chip 6, 3: finished  read command
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 75714
+
+ --- Event time: 75714
+
+Channel 5 Chip 3- Finished executing read command
+Chip 5, 3: finished  read command
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 75764
+
+ --- Event time: 75764
+
+Channel 7 Chip 3- Finished executing read command
+Chip 7, 3: finished  read command
+
+ --- Event time: 75954
+
+Address mapping table insert entry - Stream ID:0, LPA:125508291, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address mapping table update entry - Stream ID:0, LPA:125508291, PPA:105381888
+Address mapping table insert entry - Stream ID:0, LPA:125508292, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address mapping table update entry - Stream ID:0, LPA:125508292, PPA:138936320
+  -> 13: 77000 Issueing Transaction - Type:Read, , PPA:138936320, LPA:125508292, Channel: 4, Chip: 0
+Chip 4, 0, 2: Sending read command to chip for LPA: 125508292
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 77000
+
+ --- Event time: 77000
+
+Address mapping table insert entry - Stream ID:0, LPA:156715239, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address mapping table update entry - Stream ID:0, LPA:156715239, PPA:241696768
+Address mapping table insert entry - Stream ID:0, LPA:156715240, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address mapping table update entry - Stream ID:0, LPA:156715240, PPA:15204352
+  -> 14: 77050 Issueing Transaction - Type:Read, , PPA:15204352, LPA:156715240, Channel: 0, Chip: 1
+Chip 0, 1, 3: Sending read command to chip for LPA: 156715240
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 77050
+  -> 15: 77050 Issueing Transaction - Type:Read, , PPA:65536847, LPA:18446744073709551615, Channel: 1, Chip: 3
+Chip 1, 3, 3: Sending read command to chip for LPA: 18446744073709551615
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 77050
+
+ --- Event time: 77050
+
+Address mapping table insert entry - Stream ID:0, LPA:157564280, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address mapping table update entry - Stream ID:0, LPA:157564280, PPA:32505856
+Address mapping table insert entry - Stream ID:0, LPA:157564281, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address mapping table update entry - Stream ID:0, LPA:157564281, PPA:66060288
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 77200
+
+ --- Event time: 77200
+
+Address mapping table insert entry - Stream ID:0, LPA:162618916, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address mapping table update entry - Stream ID:0, LPA:162618916, PPA:136314880
+Address mapping table insert entry - Stream ID:0, LPA:162618917, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address mapping table update entry - Stream ID:0, LPA:162618917, PPA:169869312
+
+ --- Event time: 77250
+
+RegisterEvent (Flash_Chip::start_command_execution): 77290
+Command execution started on channel: 4 chip: 0
+
+ --- Event time: 77290
+
+Address mapping table insert entry - Stream ID:0, LPA:233248404, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address mapping table update entry - Stream ID:0, LPA:233248404, PPA:151519232
+Address mapping table insert entry - Stream ID:0, LPA:233248405, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address mapping table update entry - Stream ID:0, LPA:233248405, PPA:185073664
+  -> 16: 77300 Issueing Transaction - Type:Read, , PPA:151519232, LPA:233248404, Channel: 4, Chip: 2
+Chip 4, 2, 0: Sending read command to chip for LPA: 233248404
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 77300
+  -> 17: 77300 Issueing Transaction - Type:Read, , PPA:169869312, LPA:162618917, Channel: 5, Chip: 0
+Chip 5, 0, 1: Sending read command to chip for LPA: 162618917
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 77300
+
+ --- Event time: 77300
+
+RegisterEvent (Flash_Chip::start_command_execution): 77340
+Command execution started on channel: 0 chip: 1
+  -> 18: 77340 Issueing Transaction - Type:Read, , PPA:32505856, LPA:157564280, Channel: 0, Chip: 3
+Chip 0, 3, 3: Sending read command to chip for LPA: 157564280
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 77340
+
+ --- Event time: 77340
+
+RegisterEvent (Flash_Chip::start_command_execution): 77340
+Command execution started on channel: 1 chip: 3
+
+ --- Event time: 77340
+
+RegisterEvent (Flash_Chip::start_command_execution): 77590
+Command execution started on channel: 4 chip: 2
+
+ --- Event time: 77590
+
+RegisterEvent (Flash_Chip::start_command_execution): 77590
+Command execution started on channel: 5 chip: 0
+
+ --- Event time: 77590
+
+RegisterEvent (Flash_Chip::start_command_execution): 77630
+Command execution started on channel: 0 chip: 3
+
+ --- Event time: 77630
+
+Address mapping table insert entry - Stream ID:0, LPA:170918799, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address mapping table update entry - Stream ID:0, LPA:170918799, PPA:244842496
+Address mapping table insert entry - Stream ID:0, LPA:170918800, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address mapping table update entry - Stream ID:0, LPA:170918800, PPA:18350080
+  -> 19: 78736 Issueing Transaction - Type:Read, , PPA:18350080, LPA:170918800, Channel: 0, Chip: 2
+Chip 0, 2, 0: Sending read command to chip for LPA: 170918800
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 78736
+  -> 20: 78736 Issueing Transaction - Type:Read, , PPA:241696768, LPA:156715239, Channel: 7, Chip: 0
+Chip 7, 0, 3: Sending read command to chip for LPA: 156715239
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 78736
+
+ --- Event time: 78736
+
+RegisterEvent (Flash_Chip::start_command_execution): 79026
+Command execution started on channel: 0 chip: 2
+
+ --- Event time: 79026
+
+RegisterEvent (Flash_Chip::start_command_execution): 79026
+Command execution started on channel: 7 chip: 0
+  -> 21: 79026 Issueing Transaction - Type:Read, , PPA:244842496, LPA:170918799, Channel: 7, Chip: 1
+Chip 7, 1, 0: Sending read command to chip for LPA: 170918799
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 79026
+
+ --- Event time: 79026
+
+RegisterEvent (Flash_Chip::start_command_execution): 79316
+Command execution started on channel: 7 chip: 1
+
+ --- Event time: 79316
+
+Channel 0 Chip 0- Finished executing read command
+Chip 0, 0: finished  read command
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 80831
+
+ --- Event time: 80831
+
+Address mapping table insert entry - Stream ID:0, LPA:205908647, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address mapping table update entry - Stream ID:0, LPA:205908647, PPA:237502464
+Address mapping table insert entry - Stream ID:0, LPA:205908648, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address mapping table update entry - Stream ID:0, LPA:205908648, PPA:11010048
+
+ --- Event time: 82367
+
+Channel 1 Chip 0- Finished executing read command
+Chip 1, 0: finished  read command
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 85823
+
+ --- Event time: 85823
+
+Address mapping table insert entry - Stream ID:0, LPA:53466093, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address mapping table update entry - Stream ID:0, LPA:53466093, PPA:184025088
+Address mapping table insert entry - Stream ID:0, LPA:53466094, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address mapping table update entry - Stream ID:0, LPA:53466094, PPA:217579520
+  -> 22: 87359 Issueing Transaction - Type:Write, , PPA:184025088, LPA:53466093, Channel: 5, Chip: 1
+Chip 5, 1, 3: Sending program command to chip for LPA: 53466093
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, PROGRAM_CMD_ADDR_DATA_TRANSFERRED): 87359
+  -> 23: 87359 Issueing Transaction - Type:Read, , PPA:40370469, LPA:18446744073709551615, Channel: 1, Chip: 0
+Chip 1, 0, 3: Sending read command to chip for LPA: 18446744073709551615
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 87359
+
+ --- Event time: 87359
+
+RegisterEvent (Flash_Chip::start_command_execution): 87649
+Command execution started on channel: 1 chip: 0
+
+ --- Event time: 87649
+
+Channel 3 Chip 0- Finished executing read command
+Chip 3, 0: finished  read command
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 90815
+
+ --- Event time: 90815
+
+Address mapping table insert entry - Stream ID:0, LPA:23985480, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address mapping table update entry - Stream ID:0, LPA:23985480, PPA:13631488
+Address mapping table insert entry - Stream ID:0, LPA:23985481, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address mapping table update entry - Stream ID:0, LPA:23985481, PPA:47185920
+  -> 24: 92351 Issueing Transaction - Type:Write, , PPA:47185920, LPA:23985481, Channel: 1, Chip: 1
+Chip 1, 1, 2: Sending program command to chip for LPA: 23985481
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, PROGRAM_CMD_ADDR_DATA_TRANSFERRED): 92351
+  -> 25: 92351 Issueing Transaction - Type:Read, , PPA:105381888, LPA:125508291, Channel: 3, Chip: 0
+Chip 3, 0, 2: Sending read command to chip for LPA: 125508291
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 92351
+
+ --- Event time: 92351
+
+RegisterEvent (Flash_Chip::start_command_execution): 92641
+Command execution started on channel: 3 chip: 0
+
+ --- Event time: 92641
+
+Channel 4 Chip 1- Finished executing read command
+Chip 4, 1: finished  read command
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 95807
+
+ --- Event time: 95807
+
+Address mapping table insert entry - Stream ID:0, LPA:185133547, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address mapping table update entry - Stream ID:0, LPA:185133547, PPA:116916224
+Address mapping table insert entry - Stream ID:0, LPA:185133548, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address mapping table update entry - Stream ID:0, LPA:185133548, PPA:150470656
+  -> 26: 97343 Issueing Transaction - Type:Write, , PPA:116916224, LPA:185133547, Channel: 3, Chip: 1
+Chip 3, 1, 3: Sending program command to chip for LPA: 185133547
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, PROGRAM_CMD_ADDR_DATA_TRANSFERRED): 97343
+  -> 27: 97343 Issueing Transaction - Type:Write, , PPA:150470656, LPA:185133548, Channel: 4, Chip: 1
+Chip 4, 1, 3: Sending program command to chip for LPA: 185133548
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, PROGRAM_CMD_ADDR_DATA_TRANSFERRED): 97343
+
+ --- Event time: 97343
+
+Channel 6 Chip 1- Finished executing read command
+Chip 6, 1: finished  read command
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 105791
+
+ --- Event time: 105791
+
+Address mapping table insert entry - Stream ID:0, LPA:35925126, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address mapping table update entry - Stream ID:0, LPA:35925126, PPA:201850880
+Address mapping table insert entry - Stream ID:0, LPA:35925127, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address mapping table update entry - Stream ID:0, LPA:35925127, PPA:235405312
+  -> 28: 107327 Issueing Transaction - Type:Write, , PPA:201850880, LPA:35925126, Channel: 6, Chip: 0
+Chip 6, 0, 0: Sending program command to chip for LPA: 35925126
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, PROGRAM_CMD_ADDR_DATA_TRANSFERRED): 107327
+
+ --- Event time: 107327
+
+RegisterEvent (Flash_Chip::start_command_execution): 112296
+Command execution started on channel: 5 chip: 1
+
+ --- Event time: 112296
+
+Channel 7 Chip 2- Finished executing read command
+Chip 7, 2: finished  read command
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 115775
+
+ --- Event time: 115775
+
+RegisterEvent (Flash_Chip::start_command_execution): 117288
+Command execution started on channel: 1 chip: 1
+
+ --- Event time: 117288
+
+Address mapping table insert entry - Stream ID:0, LPA:46202053, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address mapping table update entry - Stream ID:0, LPA:46202053, PPA:172490752
+Address mapping table insert entry - Stream ID:0, LPA:46202054, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address mapping table update entry - Stream ID:0, LPA:46202054, PPA:206045184
+
+ --- Event time: 117311
+
+Channel 5 Chip 2- Finished executing read command
+Chip 5, 2: finished  read command
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 120767
+
+ --- Event time: 120767
+
+RegisterEvent (Flash_Chip::start_command_execution): 122280
+Command execution started on channel: 3 chip: 1
+
+ --- Event time: 122280
+
+RegisterEvent (Flash_Chip::start_command_execution): 122280
+Command execution started on channel: 4 chip: 1
+
+ --- Event time: 122280
+
+Address mapping table insert entry - Stream ID:0, LPA:27286136, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address mapping table update entry - Stream ID:0, LPA:27286136, PPA:31457280
+Address mapping table insert entry - Stream ID:0, LPA:27286137, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address mapping table update entry - Stream ID:0, LPA:27286137, PPA:65011712
+  -> 29: 122303 Issueing Transaction - Type:Read, , PPA:185073664, LPA:233248405, Channel: 5, Chip: 2
+Chip 5, 2, 0: Sending read command to chip for LPA: 233248405
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 122303
+
+ --- Event time: 122303
+
+RegisterEvent (Flash_Chip::start_command_execution): 122593
+Command execution started on channel: 5 chip: 2
+
+ --- Event time: 122593
+
+RegisterEvent (Flash_Chip::start_command_execution): 132264
+Command execution started on channel: 6 chip: 0
+  -> 30: 132264 Issueing Transaction - Type:Write, , PPA:217579520, LPA:53466094, Channel: 6, Chip: 1
+Chip 6, 1, 3: Sending program command to chip for LPA: 53466094
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, PROGRAM_CMD_ADDR_DATA_TRANSFERRED): 132264
+
+ --- Event time: 132264
+
+Channel 4 Chip 0- Finished executing read command
+Chip 4, 0: finished  read command
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 152310
+
+ --- Event time: 152310
+
+Channel 0 Chip 1- Finished executing read command
+Chip 0, 1: finished  read command
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 152360
+
+ --- Event time: 152360
+
+Channel 1 Chip 3- Finished executing read command
+Chip 1, 3: finished  read command
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 152360
+
+ --- Event time: 152360
+
+Channel 4 Chip 2- Finished executing read command
+Chip 4, 2: finished  read command
+
+ --- Event time: 152610
+
+Channel 5 Chip 0- Finished executing read command
+Chip 5, 0: finished  read command
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 152610
+
+ --- Event time: 152610
+
+Channel 0 Chip 3- Finished executing read command
+Chip 0, 3: finished  read command
+
+ --- Event time: 152650
+
+Address mapping table insert entry - Stream ID:0, LPA:234464923, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address mapping table update entry - Stream ID:0, LPA:234464923, PPA:126353408
+Address mapping table insert entry - Stream ID:0, LPA:234464924, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address mapping table update entry - Stream ID:0, LPA:234464924, PPA:159907840
+  -> 31: 153896 Issueing Transaction - Type:Read, , PPA:126353408, LPA:234464923, Channel: 3, Chip: 3
+Chip 3, 3, 0: Sending read command to chip for LPA: 234464923
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 153896
+  -> 32: 153896 Issueing Transaction - Type:Read, , PPA:63439320, LPA:18446744073709551615, Channel: 1, Chip: 3
+Chip 1, 3, 2: Sending read command to chip for LPA: 18446744073709551615
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 153896
+
+ --- Event time: 153896
+
+Channel 0 Chip 2- Finished executing read command
+Chip 0, 2: finished  read command
+
+ --- Event time: 154046
+
+Channel 7 Chip 0- Finished executing read command
+Chip 7, 0: finished  read command
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 154046
+
+ --- Event time: 154046
+
+RegisterEvent (Flash_Chip::start_command_execution): 154186
+Command execution started on channel: 3 chip: 3
+
+ --- Event time: 154186
+
+RegisterEvent (Flash_Chip::start_command_execution): 154186
+Command execution started on channel: 1 chip: 3
+
+ --- Event time: 154186
+
+Channel 7 Chip 1- Finished executing read command
+Chip 7, 1: finished  read command
+
+ --- Event time: 154336
+
+RegisterEvent (Flash_Chip::start_command_execution): 157201
+Command execution started on channel: 6 chip: 1
+
+ --- Event time: 157201
+
+Channel 1 Chip 0- Finished executing read command
+Chip 1, 0: finished  read command
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 162669
+
+ --- Event time: 162669
+
+Address mapping table insert entry - Stream ID:0, LPA:26166473, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address mapping table update entry - Stream ID:0, LPA:26166473, PPA:46661632
+Address mapping table insert entry - Stream ID:0, LPA:26166474, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address mapping table update entry - Stream ID:0, LPA:26166474, PPA:80216064
+  -> 33: 164205 Issueing Transaction - Type:Write, , PPA:80216064, LPA:26166474, Channel: 2, Chip: 1
+Chip 2, 1, 2: Sending program command to chip for LPA: 26166474
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, PROGRAM_CMD_ADDR_DATA_TRANSFERRED): 164205
+
+ --- Event time: 164205
+
+Channel 3 Chip 0- Finished executing read command
+Chip 3, 0: finished  read command
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 167661
+
+ --- Event time: 167661
+
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 176886
+
+ --- Event time: 176886
+
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 176936
+
+ --- Event time: 176936
+
+  -> 34: 177186 Issueing Transaction - Type:Write, , PPA:172490752, LPA:46202053, Channel: 5, Chip: 0
+Chip 5, 0, 2: Sending program command to chip for LPA: 46202053
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, PROGRAM_CMD_ADDR_DATA_TRANSFERRED): 177186
+
+ --- Event time: 177186
+
+** Host Interface: Request #2 from stream #0 is finished
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 178622
+
+ --- Event time: 178622
+
+PCIe_Link::Execute_simulator_event(), to HOST
+RegisterEvent (PCIe_Link::Execute_simulator_event, From HOST to DEVICE, IF have message in queue): 183614 280375465082880
+
+ --- Event time: 183614
+
+PCIe_Link::Execute_simulator_event(), to HOST
+[====                ]  18% progress in Host.IO_Flow.Synth.No_0
+
+RegisterEvent (PCIe_Link::Deliver, From HOST to DEVICE with SQ): 183625 4115
+* Generate_next_request(): Host: Request generated - Read, LBA:3697867664, Size_in_bytes:32
+IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:3697867664
+
+ --- Event time: 183625
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 183633 4115
+
+ --- Event time: 183633
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+
+ --- Event time: 183641
+
+PCIe_Link::Execute_simulator_event(), to HOST
+RegisterEvent (PCIe_Link::Deliver, From HOST to DEVICE with SQ): 183649 1099511628928
+
+ --- Event time: 183649
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+Handle_new_arrived_request: READ, ID: 16, Stream_id: 0, LBA: 3697867664, size: 16 KB
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 3697867664 - 3697867680, lpa: 231116729
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 3697867680 - 3697867696, lpa: 231116730
+host interface broadcasting user request arrival signal
+GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 16
+host interface broadcasting user request arrival signal
+Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:16
+Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:231116729, MISS
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:231116730, MISS
+
+ --- Event time: 183674
+
+RegisterEvent (Flash_Chip::start_command_execution): 189142
+Command execution started on channel: 2 chip: 1
+
+ --- Event time: 189142
+
+** Host Interface: Request #0 from stream #0 is finished
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+
+ --- Event time: 192237
+
+PCIe_Link::Execute_simulator_event(), to HOST
+RegisterEvent (PCIe_Link::Execute_simulator_event, From HOST to DEVICE, IF have message in queue): 197229 280375465082880
+
+ --- Event time: 197229
+
+PCIe_Link::Execute_simulator_event(), to HOST
+[====                ]  19% progress in Host.IO_Flow.Synth.No_0
+
+RegisterEvent (PCIe_Link::Deliver, From HOST to DEVICE with SQ): 197240 4115
+* Generate_next_request(): Host: Request generated - Read, LBA:2060361280, Size_in_bytes:32
+IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:2060361280
+
+ --- Event time: 197240
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 197248 4115
+
+ --- Event time: 197248
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+
+ --- Event time: 197256
+
+PCIe_Link::Execute_simulator_event(), to HOST
+RegisterEvent (PCIe_Link::Deliver, From HOST to DEVICE with SQ): 197264 1099511629000
+
+ --- Event time: 197264
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+Handle_new_arrived_request: READ, ID: 17, Stream_id: 0, LBA: 2060361280, size: 16 KB
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 2060361280 - 2060361296, lpa: 128772580
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 2060361296 - 2060361312, lpa: 128772581
+host interface broadcasting user request arrival signal
+GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 17
+host interface broadcasting user request arrival signal
+Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:17
+Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:128772580, MISS
+  -> 35: 197289 Issueing Transaction - Type:Read, , PPA:67633592, LPA:18446744073709551615, Channel: 2, Chip: 0
+Chip 2, 0, 0: Sending read command to chip for LPA: 18446744073709551615
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 197289
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:128772581, MISS
+
+ --- Event time: 197289
+
+RegisterEvent (Flash_Chip::start_command_execution): 197579
+Command execution started on channel: 2 chip: 0
+
+ --- Event time: 197579
+
+Channel 5 Chip 2- Finished executing read command
+Chip 5, 2: finished  read command
+
+ --- Event time: 197613
+
+  -> 36: 201462 Issueing Transaction - Type:Read, , PPA:159907840, LPA:234464924, Channel: 4, Chip: 3
+Chip 4, 3, 0: Sending read command to chip for LPA: 234464924
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 201462
+
+ --- Event time: 201462
+
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 201512
+
+ --- Event time: 201512
+
+RegisterEvent (Flash_Chip::start_command_execution): 201752
+Command execution started on channel: 4 chip: 3
+  -> 37: 201752 Issueing Transaction - Type:Read, , PPA:141558602, LPA:18446744073709551615, Channel: 4, Chip: 0
+Chip 4, 0, 3: Sending read command to chip for LPA: 18446744073709551615
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 201752
+
+ --- Event time: 201752
+
+RegisterEvent (Flash_Chip::start_command_execution): 202042
+Command execution started on channel: 4 chip: 0
+
+ --- Event time: 202042
+
+RegisterEvent (Flash_Chip::start_command_execution): 202123
+Command execution started on channel: 5 chip: 0
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 202123
+
+ --- Event time: 202123
+
+  -> 38: 203198 Issueing Transaction - Type:Write, , PPA:237502464, LPA:205908647, Channel: 7, Chip: 0
+Chip 7, 0, 1: Sending program command to chip for LPA: 205908647
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, PROGRAM_CMD_ADDR_DATA_TRANSFERRED): 203198
+
+ --- Event time: 203198
+
+** Host Interface: Request #15 from stream #0 is finished
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+  -> 39: 226088 Issueing Transaction - Type:Write, , PPA:31457280, LPA:27286136, Channel: 0, Chip: 3
+Chip 0, 3, 3: Sending program command to chip for LPA: 27286136
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, PROGRAM_CMD_ADDR_DATA_TRANSFERRED): 226088
+
+ --- Event time: 226088
+
+** Host Interface: Request #12 from stream #0 is finished
+
+ --- Event time: 226699
+
+RegisterEvent (Flash_Chip::start_command_execution): 228135
+Command execution started on channel: 7 chip: 0
+
+ --- Event time: 228135
+
+Channel 3 Chip 3- Finished executing read command
+Chip 3, 3: finished  read command
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 229206
+
+ --- Event time: 229206
+
+Channel 1 Chip 3- Finished executing read command
+Chip 1, 3: finished  read command
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 229206
+
+ --- Event time: 229206
+
+Address mapping table insert entry - Stream ID:0, LPA:151254742, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address mapping table update entry - Stream ID:0, LPA:151254742, PPA:222822400
+Address mapping table insert entry - Stream ID:0, LPA:151254743, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address mapping table update entry - Stream ID:0, LPA:151254743, PPA:256376832
+  -> 40: 230742 Issueing Transaction - Type:Write, , PPA:222822400, LPA:151254742, Channel: 6, Chip: 2
+Chip 6, 2, 2: Sending program command to chip for LPA: 151254742
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, PROGRAM_CMD_ADDR_DATA_TRANSFERRED): 230742
+  -> 41: 230742 Issueing Transaction - Type:Write, , PPA:256376832, LPA:151254743, Channel: 7, Chip: 2
+Chip 7, 2, 2: Sending program command to chip for LPA: 151254743
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, PROGRAM_CMD_ADDR_DATA_TRANSFERRED): 230742
+  -> 42: 230742 Issueing Transaction - Type:Read, , PPA:66060288, LPA:157564281, Channel: 1, Chip: 3
+Chip 1, 3, 3: Sending read command to chip for LPA: 157564281
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 230742
+
+ --- Event time: 230742
+
+RegisterEvent (Flash_Chip::start_command_execution): 231032
+Command execution started on channel: 1 chip: 3
+
+ --- Event time: 231032
+
+PCIe_Link::Execute_simulator_event(), to HOST
+RegisterEvent (PCIe_Link::Execute_simulator_event, From HOST to DEVICE, IF have message in queue): 231080 280375465082880
+
+ --- Event time: 231080
+
+PCIe_Link::Execute_simulator_event(), to HOST
+[=====               ]  23% progress in Host.IO_Flow.Synth.No_0
+
+RegisterEvent (PCIe_Link::Deliver, From HOST to DEVICE with SQ): 231091 4115
+* Generate_next_request(): Host: Request generated - Read, LBA:2547264896, Size_in_bytes:32
+IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:2547264896
+RegisterEvent (PCIe_Link::Execute_simulator_event, From HOST to DEVICE, IF have message in queue): 231091 2130303778848
+
+ --- Event time: 231091
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 231099 4115
+
+ --- Event time: 231099
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+
+ --- Event time: 231107
+
+PCIe_Link::Execute_simulator_event(), to HOST
+RegisterEvent (PCIe_Link::Execute_simulator_event, From HOST to DEVICE, IF have message in queue): 236083 280375465082880
+
+ --- Event time: 236083
+
+PCIe_Link::Execute_simulator_event(), to HOST
+[=====               ]  23% progress in Host.IO_Flow.Synth.No_0
+
+RegisterEvent (PCIe_Link::Deliver, From HOST to DEVICE with SQ): 236094 4115
+* Generate_next_request(): Host: Request generated - Write, LBA:2750264336, Size_in_bytes:32
+IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:2750264336
+RegisterEvent (PCIe_Link::Execute_simulator_event, From HOST to DEVICE, IF have message in queue): 236094 2130303778864
+
+ --- Event time: 236094
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 236102 4115
+
+ --- Event time: 236102
+
+PCIe_Link::Execute_simulator_event(), to HOST
+
+ --- Event time: 236102
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 236110 4112
+
+ --- Event time: 236110
+
+PCIe_Link::Execute_simulator_event(), to HOST
+
+ --- Event time: 236118
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+Handle_new_arrived_request: READ, ID: 18, Stream_id: 0, LBA: 2547264896, size: 16 KB
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 2547264896 - 2547264912, lpa: 159204056
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 2547264912 - 2547264928, lpa: 159204057
+host interface broadcasting user request arrival signal
+GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 18
+host interface broadcasting user request arrival signal
+Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:18
+Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:159204056, MISS
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:159204057, MISS
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 236135 1099511629072
+
+ --- Event time: 236135
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+Handle_new_arrived_request: WRITE, ID: 19, Stream_id: 0, LBA: 2750264336, size: 16 KB
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+
+ --- Event time: 236160
+
+PCIe_Link::Execute_simulator_event(), to HOST
+RegisterEvent (PCIe_Link::Deliver, From HOST to DEVICE with SQ): 236168 280375465082880
+
+ --- Event time: 236168
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 2750264336 - 2750264352, lpa: 171891521
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 2750264352 - 2750264368, lpa: 171891522
+host interface broadcasting user request arrival signal
+GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 19
+host interface broadcasting user request arrival signal
+Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:19
+Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:171891521, MISS
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:171891522, MISS
+
+ --- Event time: 241160
+
+RegisterEvent (Flash_Chip::start_command_execution): 251025
+Command execution started on channel: 0 chip: 3
+  -> 43: 251025 Issueing Transaction - Type:Write, , PPA:11010048, LPA:205908648, Channel: 0, Chip: 1
+Chip 0, 1, 1: Sending program command to chip for LPA: 205908648
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, PROGRAM_CMD_ADDR_DATA_TRANSFERRED): 251025
+
+ --- Event time: 251025
+
+
+ --- Event time: 253782
+
+RegisterEvent (Flash_Chip::start_command_execution): 255679
+Command execution started on channel: 6 chip: 2
+
+ --- Event time: 255679
+
+RegisterEvent (Flash_Chip::start_command_execution): 255679
+Command execution started on channel: 7 chip: 2
+
+ --- Event time: 255679
+
+Channel 2 Chip 0- Finished executing read command
+Chip 2, 0: finished  read command
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 272599
+
+ --- Event time: 272599
+
+Address mapping table insert entry - Stream ID:0, LPA:128772580, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address mapping table update entry - Stream ID:0, LPA:128772580, PPA:142082048
+Address mapping table insert entry - Stream ID:0, LPA:128772581, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address mapping table update entry - Stream ID:0, LPA:128772581, PPA:175636480
+
+ --- Event time: 274135
+
+RegisterEvent (Flash_Chip::start_command_execution): 275962
+Command execution started on channel: 0 chip: 1
+
+ --- Event time: 275962
+
+Channel 4 Chip 3- Finished executing read command
+Chip 4, 3: finished  read command
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 276772
+
+ --- Event time: 276772
+
+Channel 4 Chip 0- Finished executing read command
+Chip 4, 0: finished  read command
+
+ --- Event time: 277062
+
+** Host Interface: Request #13 from stream #0 is finished
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 301348
+
+ --- Event time: 301348
+
+Address mapping table insert entry - Stream ID:0, LPA:231116729, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address mapping table update entry - Stream ID:0, LPA:231116729, PPA:62390272
+Address mapping table insert entry - Stream ID:0, LPA:231116730, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address mapping table update entry - Stream ID:0, LPA:231116730, PPA:95944704
+  -> 44: 302884 Issueing Transaction - Type:Read, , PPA:95944704, LPA:231116730, Channel: 2, Chip: 3
+Chip 2, 3, 1: Sending read command to chip for LPA: 231116730
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 302884
+  -> 45: 302884 Issueing Transaction - Type:Read, , PPA:136314880, LPA:162618916, Channel: 4, Chip: 0
+Chip 4, 0, 1: Sending read command to chip for LPA: 162618916
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 302884
+
+ --- Event time: 302884
+
+RegisterEvent (Flash_Chip::start_command_execution): 303174
+Command execution started on channel: 2 chip: 3
+
+ --- Event time: 303174
+
+RegisterEvent (Flash_Chip::start_command_execution): 303174
+Command execution started on channel: 4 chip: 0
+
+ --- Event time: 303174
+
+Channel 1 Chip 3- Finished executing read command
+Chip 1, 3: finished  read command
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 306052
+
+ --- Event time: 306052
+
+PCIe_Link::Execute_simulator_event(), to HOST
+RegisterEvent (PCIe_Link::Execute_simulator_event, From HOST to DEVICE, IF have message in queue): 306340 280375465082880
+
+ --- Event time: 306340
+
+PCIe_Link::Execute_simulator_event(), to HOST
+[======>             ]  30% progress in Host.IO_Flow.Synth.No_0
+
+RegisterEvent (PCIe_Link::Deliver, From HOST to DEVICE with SQ): 306351 4115
+* Generate_next_request(): Host: Request generated - Write, LBA:3391784448, Size_in_bytes:32
+IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:3391784448
+
+ --- Event time: 306351
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 306359 4115
+
+ --- Event time: 306359
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+
+ --- Event time: 306367
+
+PCIe_Link::Execute_simulator_event(), to HOST
+RegisterEvent (PCIe_Link::Deliver, From HOST to DEVICE with SQ): 306375 1099511629216
+
+ --- Event time: 306375
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+Handle_new_arrived_request: WRITE, ID: 20, Stream_id: 0, LBA: 3391784448, size: 16 KB
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+
+ --- Event time: 306400
+
+PCIe_Link::Execute_simulator_event(), to HOST
+RegisterEvent (PCIe_Link::Deliver, From HOST to DEVICE with SQ): 306408 280375465082880
+
+ --- Event time: 306408
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 3391784448 - 3391784464, lpa: 211986528
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 3391784464 - 3391784480, lpa: 211986529
+host interface broadcasting user request arrival signal
+GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 20
+host interface broadcasting user request arrival signal
+Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:20
+Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:211986528, MISS
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:211986529, MISS
+
+ --- Event time: 311400
+
+** Host Interface: Request #8 from stream #0 is finished
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+  -> 46: 330628 Issueing Transaction - Type:Read, , PPA:60293603, LPA:18446744073709551615, Channel: 1, Chip: 3
+Chip 1, 3, 0: Sending read command to chip for LPA: 18446744073709551615
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 330628
+
+ --- Event time: 330628
+
+RegisterEvent (Flash_Chip::start_command_execution): 330918
+Command execution started on channel: 1 chip: 3
+
+ --- Event time: 330918
+
+PCIe_Link::Execute_simulator_event(), to HOST
+RegisterEvent (PCIe_Link::Execute_simulator_event, From HOST to DEVICE, IF have message in queue): 335620 280375465082880
+
+ --- Event time: 335620
+
+PCIe_Link::Execute_simulator_event(), to HOST
+[=======             ]  33% progress in Host.IO_Flow.Synth.No_0
+
+RegisterEvent (PCIe_Link::Deliver, From HOST to DEVICE with SQ): 335631 4115
+* Generate_next_request(): Host: Request generated - Read, LBA:1090903360, Size_in_bytes:32
+IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:1090903360
+
+ --- Event time: 335631
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 335639 4115
+
+ --- Event time: 335639
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+
+ --- Event time: 335647
+
+PCIe_Link::Execute_simulator_event(), to HOST
+RegisterEvent (PCIe_Link::Deliver, From HOST to DEVICE with SQ): 335655 1099511629288
+
+ --- Event time: 335655
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+Handle_new_arrived_request: READ, ID: 21, Stream_id: 0, LBA: 1090903360, size: 16 KB
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 1090903360 - 1090903376, lpa: 68181460
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 1090903376 - 1090903392, lpa: 68181461
+host interface broadcasting user request arrival signal
+GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 21
+host interface broadcasting user request arrival signal
+Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:21
+Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:68181460, MISS
+  -> 47: 335680 Issueing Transaction - Type:Read, , PPA:193986913, LPA:18446744073709551615, Channel: 5, Chip: 3
+Chip 5, 3, 0: Sending read command to chip for LPA: 18446744073709551615
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 335680
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:68181461, MISS
+
+ --- Event time: 335680
+
+RegisterEvent (Flash_Chip::start_command_execution): 335970
+Command execution started on channel: 5 chip: 3
+
+ --- Event time: 335970
+
+Channel 2 Chip 3- Finished executing read command
+Chip 2, 3: finished  read command
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 378194
+
+ --- Event time: 378194
+
+Channel 4 Chip 0- Finished executing read command
+Chip 4, 0: finished  read command
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 378194
+
+ --- Event time: 378194
+
+
+ --- Event time: 402770
+
+** Host Interface: Request #10 from stream #0 is finished
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+  -> 48: 402770 Issueing Transaction - Type:Read, , PPA:142082048, LPA:128772580, Channel: 4, Chip: 0
+Chip 4, 0, 3: Sending read command to chip for LPA: 128772580
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 402770
+
+ --- Event time: 402770
+
+RegisterEvent (Flash_Chip::start_command_execution): 403060
+Command execution started on channel: 4 chip: 0
+
+ --- Event time: 403060
+
+Channel 1 Chip 3- Finished executing read command
+Chip 1, 3: finished  read command
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 405938
+
+ --- Event time: 405938
+
+Address mapping table insert entry - Stream ID:0, LPA:159204056, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address mapping table update entry - Stream ID:0, LPA:159204056, PPA:29884416
+Address mapping table insert entry - Stream ID:0, LPA:159204057, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address mapping table update entry - Stream ID:0, LPA:159204057, PPA:63438848
+  -> 49: 407474 Issueing Transaction - Type:Read, , PPA:62390272, LPA:231116729, Channel: 1, Chip: 3
+Chip 1, 3, 1: Sending read command to chip for LPA: 231116729
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 407474
+
+ --- Event time: 407474
+
+PCIe_Link::Execute_simulator_event(), to HOST
+RegisterEvent (PCIe_Link::Execute_simulator_event, From HOST to DEVICE, IF have message in queue): 407762 280375465082880
+
+ --- Event time: 407762
+
+RegisterEvent (Flash_Chip::start_command_execution): 407764
+Command execution started on channel: 1 chip: 3
+
+ --- Event time: 407764
+
+PCIe_Link::Execute_simulator_event(), to HOST
+[========>           ]  40% progress in Host.IO_Flow.Synth.No_0
+
+RegisterEvent (PCIe_Link::Deliver, From HOST to DEVICE with SQ): 407773 4115
+* Generate_next_request(): Host: Request generated - Read, LBA:474250192, Size_in_bytes:32
+IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:474250192
+
+ --- Event time: 407773
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 407781 4115
+
+ --- Event time: 407781
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+
+ --- Event time: 407789
+
+PCIe_Link::Execute_simulator_event(), to HOST
+RegisterEvent (PCIe_Link::Deliver, From HOST to DEVICE with SQ): 407797 1099511629360
+
+ --- Event time: 407797
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+Handle_new_arrived_request: READ, ID: 22, Stream_id: 0, LBA: 474250192, size: 16 KB
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 474250192 - 474250208, lpa: 29640637
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 474250208 - 474250224, lpa: 29640638
+host interface broadcasting user request arrival signal
+GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 22
+host interface broadcasting user request arrival signal
+Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:22
+Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:29640637, MISS
+  -> 50: 407822 Issueing Transaction - Type:Read, , PPA:88604970, LPA:18446744073709551615, Channel: 2, Chip: 2
+Chip 2, 2, 2: Sending read command to chip for LPA: 18446744073709551615
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 407822
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:29640638, MISS
+
+ --- Event time: 407822
+
+RegisterEvent (Flash_Chip::start_command_execution): 408112
+Command execution started on channel: 2 chip: 2
+
+ --- Event time: 408112
+
+Channel 5 Chip 3- Finished executing read command
+Chip 5, 3: finished  read command
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 410990
+
+ --- Event time: 410990
+
+Address mapping table insert entry - Stream ID:0, LPA:68181460, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address mapping table update entry - Stream ID:0, LPA:68181460, PPA:156762112
+Address mapping table insert entry - Stream ID:0, LPA:68181461, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address mapping table update entry - Stream ID:0, LPA:68181461, PPA:190316544
+  -> 51: 412526 Issueing Transaction - Type:Read, , PPA:156762112, LPA:68181460, Channel: 4, Chip: 2
+Chip 4, 2, 2: Sending read command to chip for LPA: 68181460
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 412526
+  -> 52: 412526 Issueing Transaction - Type:Read, , PPA:190316544, LPA:68181461, Channel: 5, Chip: 2
+Chip 5, 2, 2: Sending read command to chip for LPA: 68181461
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 412526
+
+ --- Event time: 412526
+
+RegisterEvent (Flash_Chip::start_command_execution): 412816
+Command execution started on channel: 4 chip: 2
+
+ --- Event time: 412816
+
+RegisterEvent (Flash_Chip::start_command_execution): 412816
+Command execution started on channel: 5 chip: 2
+
+ --- Event time: 412816
+
+Channel 4 Chip 0- Finished executing read command
+Chip 4, 0: finished  read command
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 478080
+
+ --- Event time: 478080
+
+Channel 1 Chip 3- Finished executing read command
+Chip 1, 3: finished  read command
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 482784
+
+ --- Event time: 482784
+
+Channel 2 Chip 2- Finished executing read command
+Chip 2, 2: finished  read command
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 483132
+
+ --- Event time: 483132
+
+Address mapping table insert entry - Stream ID:0, LPA:29640637, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address mapping table update entry - Stream ID:0, LPA:29640637, PPA:196608000
+Address mapping table insert entry - Stream ID:0, LPA:29640638, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address mapping table update entry - Stream ID:0, LPA:29640638, PPA:230162432
+  -> 53: 484668 Issueing Transaction - Type:Read, , PPA:196608000, LPA:29640637, Channel: 5, Chip: 3
+Chip 5, 3, 1: Sending read command to chip for LPA: 29640637
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 484668
+  -> 54: 484668 Issueing Transaction - Type:Read, , PPA:230162432, LPA:29640638, Channel: 6, Chip: 3
+Chip 6, 3, 1: Sending read command to chip for LPA: 29640638
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 484668
+
+ --- Event time: 484668
+
+RegisterEvent (Flash_Chip::start_command_execution): 484958
+Command execution started on channel: 5 chip: 3
+
+ --- Event time: 484958
+
+RegisterEvent (Flash_Chip::start_command_execution): 484958
+Command execution started on channel: 6 chip: 3
+
+ --- Event time: 484958
+
+Channel 4 Chip 2- Finished executing read command
+Chip 4, 2: finished  read command
+
+ --- Event time: 487836
+
+Channel 5 Chip 2- Finished executing read command
+Chip 5, 2: finished  read command
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 487836
+
+ --- Event time: 487836
+
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 502656
+
+ --- Event time: 502656
+
+** Host Interface: Request #16 from stream #0 is finished
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+  -> 55: 507360 Issueing Transaction - Type:Read, , PPA:63438848, LPA:159204057, Channel: 1, Chip: 3
+Chip 1, 3, 2: Sending read command to chip for LPA: 159204057
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 507360
+
+ --- Event time: 507360
+
+RegisterEvent (Flash_Chip::start_command_execution): 507650
+Command execution started on channel: 1 chip: 3
+
+ --- Event time: 507650
+
+PCIe_Link::Execute_simulator_event(), to HOST
+RegisterEvent (PCIe_Link::Execute_simulator_event, From HOST to DEVICE, IF have message in queue): 512352 280375465082880
+
+ --- Event time: 512352
+
+PCIe_Link::Execute_simulator_event(), to HOST
+[===========         ]  51% progress in Host.IO_Flow.Synth.No_0
+
+RegisterEvent (PCIe_Link::Deliver, From HOST to DEVICE with SQ): 512363 4115
+* Generate_next_request(): Host: Request generated - Read, LBA:1127481744, Size_in_bytes:32
+IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:1127481744
+
+ --- Event time: 512363
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 512371 4115
+
+ --- Event time: 512371
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+
+ --- Event time: 512379
+
+PCIe_Link::Execute_simulator_event(), to HOST
+RegisterEvent (PCIe_Link::Deliver, From HOST to DEVICE with SQ): 512387 1099511629432
+
+ --- Event time: 512387
+
+
+ --- Event time: 512412
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+Handle_new_arrived_request: READ, ID: 23, Stream_id: 0, LBA: 1127481744, size: 16 KB
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 1127481744 - 1127481760, lpa: 70467609
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 1127481760 - 1127481776, lpa: 70467610
+host interface broadcasting user request arrival signal
+GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 23
+host interface broadcasting user request arrival signal
+Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:23
+Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:70467609, MISS
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:70467610, MISS
+
+ --- Event time: 512412
+
+** Host Interface: Request #21 from stream #0 is finished
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+
+ --- Event time: 527232
+
+PCIe_Link::Execute_simulator_event(), to HOST
+RegisterEvent (PCIe_Link::Execute_simulator_event, From HOST to DEVICE, IF have message in queue): 532224 280375465082880
+
+ --- Event time: 532224
+
+PCIe_Link::Execute_simulator_event(), to HOST
+[===========         ]  53% progress in Host.IO_Flow.Synth.No_0
+
+RegisterEvent (PCIe_Link::Deliver, From HOST to DEVICE with SQ): 532235 4115
+* Generate_next_request(): Host: Request generated - Read, LBA:3281400128, Size_in_bytes:32
+IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:3281400128
+
+ --- Event time: 532235
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 532243 4115
+
+ --- Event time: 532243
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+
+ --- Event time: 532251
+
+PCIe_Link::Execute_simulator_event(), to HOST
+RegisterEvent (PCIe_Link::Deliver, From HOST to DEVICE with SQ): 532259 1099511629504
+
+ --- Event time: 532259
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+Handle_new_arrived_request: READ, ID: 24, Stream_id: 0, LBA: 3281400128, size: 16 KB
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 3281400128 - 3281400144, lpa: 205087508
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 3281400144 - 3281400160, lpa: 205087509
+host interface broadcasting user request arrival signal
+GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 24
+host interface broadcasting user request arrival signal
+Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:24
+Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:205087508, MISS
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:205087509, MISS
+
+ --- Event time: 532284
+
+Channel 5 Chip 3- Finished executing read command
+Chip 5, 3: finished  read command
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 559978
+
+ --- Event time: 559978
+
+Channel 6 Chip 3- Finished executing read command
+Chip 6, 3: finished  read command
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 559978
+
+ --- Event time: 559978
+
+Channel 1 Chip 3- Finished executing read command
+Chip 1, 3: finished  read command
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 582670
+
+ --- Event time: 582670
+
+
+ --- Event time: 584554
+
+** Host Interface: Request #22 from stream #0 is finished
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+
+ --- Event time: 584554
+
+PCIe_Link::Execute_simulator_event(), to HOST
+RegisterEvent (PCIe_Link::Execute_simulator_event, From HOST to DEVICE, IF have message in queue): 589546 280375465082880
+
+ --- Event time: 589546
+
+PCIe_Link::Execute_simulator_event(), to HOST
+[============        ]  58% progress in Host.IO_Flow.Synth.No_0
+
+RegisterEvent (PCIe_Link::Deliver, From HOST to DEVICE with SQ): 589557 4115
+* Generate_next_request(): Host: Request generated - Read, LBA:626040048, Size_in_bytes:32
+IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:626040048
+
+ --- Event time: 589557
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 589565 4115
+
+ --- Event time: 589565
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+
+ --- Event time: 589573
+
+PCIe_Link::Execute_simulator_event(), to HOST
+RegisterEvent (PCIe_Link::Deliver, From HOST to DEVICE with SQ): 589581 1099511629576
+
+ --- Event time: 589581
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+Handle_new_arrived_request: READ, ID: 25, Stream_id: 0, LBA: 626040048, size: 16 KB
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 626040048 - 626040064, lpa: 39127503
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 626040064 - 626040080, lpa: 39127504
+host interface broadcasting user request arrival signal
+GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 25
+host interface broadcasting user request arrival signal
+Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:25
+Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:39127503, MISS
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:39127504, MISS
+
+ --- Event time: 589606
+
+  -> 56: 607246 Issueing Transaction - Type:Write, , PPA:65011712, LPA:27286137, Channel: 1, Chip: 3
+Chip 1, 3, 3: Sending program command to chip for LPA: 27286137
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, PROGRAM_CMD_ADDR_DATA_TRANSFERRED): 607246
+
+ --- Event time: 607246
+
+RegisterEvent (Flash_Chip::start_command_execution): 632183
+Command execution started on channel: 1 chip: 3
+
+ --- Event time: 632183
+
+Channel 5 Chip 1- Finished executing program command
+Chip 5, 1: finished program command
+
+ --- Event time: 862296
+
+Channel 1 Chip 1- Finished executing program command
+Chip 1, 1: finished program command
+  -> 57: 867288 Issueing Transaction - Type:Write, , PPA:46661632, LPA:26166473, Channel: 1, Chip: 1
+Chip 1, 1, 2: Sending program command to chip for LPA: 26166473
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, PROGRAM_CMD_ADDR_DATA_TRANSFERRED): 867288
+
+ --- Event time: 867288
+
+Channel 3 Chip 1- Finished executing program command
+Chip 3, 1: finished program command
+
+ --- Event time: 872280
+
+Channel 4 Chip 1- Finished executing program command
+Chip 4, 1: finished program command
+** Host Interface: Request #5 from stream #0 is finished
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+
+ --- Event time: 872280
+
+PCIe_Link::Execute_simulator_event(), to HOST
+[==================  ]  87% progress in Host.IO_Flow.Synth.No_0
+
+RegisterEvent (PCIe_Link::Deliver, From HOST to DEVICE with SQ): 872291 4115
+* Generate_next_request(): Host: Request generated - Read, LBA:2414926576, Size_in_bytes:32
+IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:2414926576
+
+ --- Event time: 872291
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 872299 4115
+
+ --- Event time: 872299
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+
+ --- Event time: 872307
+
+PCIe_Link::Execute_simulator_event(), to HOST
+RegisterEvent (PCIe_Link::Deliver, From HOST to DEVICE with SQ): 872315 1099511629648
+
+ --- Event time: 872315
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+Handle_new_arrived_request: READ, ID: 26, Stream_id: 0, LBA: 2414926576, size: 16 KB
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 2414926576 - 2414926592, lpa: 150932911
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 2414926592 - 2414926608, lpa: 150932912
+host interface broadcasting user request arrival signal
+GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 26
+host interface broadcasting user request arrival signal
+Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:26
+Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:150932911, MISS
+  -> 58: 872340 Issueing Transaction - Type:Read, , PPA:184025559, LPA:18446744073709551615, Channel: 5, Chip: 1
+Chip 5, 1, 3: Sending read command to chip for LPA: 18446744073709551615
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 872340
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:150932912, MISS
+
+ --- Event time: 872340
+
+RegisterEvent (Flash_Chip::start_command_execution): 872630
+Command execution started on channel: 5 chip: 1
+
+ --- Event time: 872630
+
+Channel 6 Chip 0- Finished executing program command
+Chip 6, 0: finished program command
+  -> 59: 882264 Issueing Transaction - Type:Write, , PPA:206045184, LPA:46202054, Channel: 6, Chip: 0
+Chip 6, 0, 2: Sending program command to chip for LPA: 46202054
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, PROGRAM_CMD_ADDR_DATA_TRANSFERRED): 882264
+
+ --- Event time: 882264
+
+RegisterEvent (Flash_Chip::start_command_execution): 892225
+Command execution started on channel: 1 chip: 1
+
+ --- Event time: 892225
+
+Channel 6 Chip 1- Finished executing program command
+Chip 6, 1: finished program command
+** Host Interface: Request #3 from stream #0 is finished
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+
+ --- Event time: 907201
+
+RegisterEvent (Flash_Chip::start_command_execution): 907201
+Command execution started on channel: 6 chip: 0
+
+ --- Event time: 907201
+
+PCIe_Link::Execute_simulator_event(), to HOST
+[==================> ]  90% progress in Host.IO_Flow.Synth.No_0
+
+RegisterEvent (PCIe_Link::Deliver, From HOST to DEVICE with SQ): 907212 4115
+* Generate_next_request(): Host: Request generated - Write, LBA:2233502032, Size_in_bytes:32
+IO_Flow_Base::Submit_io_request to pcie_root_complex, LBA:2233502032
+
+ --- Event time: 907212
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 907220 4115
+
+ --- Event time: 907220
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+
+ --- Event time: 907228
+
+PCIe_Link::Execute_simulator_event(), to HOST
+RegisterEvent (PCIe_Link::Deliver, From HOST to DEVICE with SQ): 907236 1099511629720
+
+ --- Event time: 907236
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+Handle_new_arrived_request: WRITE, ID: 27, Stream_id: 0, LBA: 2233502032, size: 16 KB
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+
+ --- Event time: 907261
+
+PCIe_Link::Execute_simulator_event(), to HOST
+RegisterEvent (PCIe_Link::Deliver, From HOST to DEVICE with SQ): 907269 280375465082880
+
+ --- Event time: 907269
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 2233502032 - 2233502048, lpa: 139593877
+Input_Stream_Manager_NVMe::segment_user_request(), lsa: 2233502048 - 2233502064, lpa: 139593878
+host interface broadcasting user request arrival signal
+GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 27
+host interface broadcasting user request arrival signal
+Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:27
+Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:139593877, MISS
+  -> 60: 912261 Issueing Transaction - Type:Read, , PPA:99615175, LPA:18446744073709551615, Channel: 2, Chip: 3
+Chip 2, 3, 3: Sending read command to chip for LPA: 18446744073709551615
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 912261
+Cached_Mapping_Table::Exists, Stream ID:0, LPA:139593878, MISS
+
+ --- Event time: 912261
+
+RegisterEvent (Flash_Chip::start_command_execution): 912551
+Command execution started on channel: 2 chip: 3
+
+ --- Event time: 912551
+
+Channel 2 Chip 1- Finished executing program command
+Chip 2, 1: finished program command
+
+ --- Event time: 939142
+
+Channel 5 Chip 1- Finished executing read command
+Chip 5, 1: finished  read command
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 947650
+
+ --- Event time: 947650
+
+Address mapping table insert entry - Stream ID:0, LPA:150932911, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address mapping table update entry - Stream ID:0, LPA:150932911, PPA:246939648
+Address mapping table insert entry - Stream ID:0, LPA:150932912, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address mapping table update entry - Stream ID:0, LPA:150932912, PPA:20447232
+  -> 61: 949186 Issueing Transaction - Type:Read, , PPA:20447232, LPA:150932912, Channel: 0, Chip: 2
+Chip 0, 2, 1: Sending read command to chip for LPA: 150932912
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 949186
+  -> 62: 949186 Issueing Transaction - Type:Read, , PPA:246939648, LPA:150932911, Channel: 7, Chip: 1
+Chip 7, 1, 1: Sending read command to chip for LPA: 150932911
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 949186
+
+ --- Event time: 949186
+
+RegisterEvent (Flash_Chip::start_command_execution): 949476
+Command execution started on channel: 0 chip: 2
+
+ --- Event time: 949476
+
+RegisterEvent (Flash_Chip::start_command_execution): 949476
+Command execution started on channel: 7 chip: 1
+
+ --- Event time: 949476
+
+Channel 5 Chip 0- Finished executing program command
+Chip 5, 0: finished program command
+  -> 63: 952123 Issueing Transaction - Type:Read, , PPA:170394415, LPA:18446744073709551615, Channel: 5, Chip: 0
+Chip 5, 0, 1: Sending read command to chip for LPA: 18446744073709551615
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 952123
+
+ --- Event time: 952123
+
+RegisterEvent (Flash_Chip::start_command_execution): 952413
+Command execution started on channel: 5 chip: 0
+
+ --- Event time: 952413
+
+Channel 7 Chip 0- Finished executing program command
+Chip 7, 0: finished program command
+  -> 64: 978135 Issueing Transaction - Type:Read, , PPA:242745845, LPA:18446744073709551615, Channel: 7, Chip: 0
+Chip 7, 0, 3: Sending read command to chip for LPA: 18446744073709551615
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 978135
+
+ --- Event time: 978135
+
+RegisterEvent (Flash_Chip::start_command_execution): 978425
+Command execution started on channel: 7 chip: 0
+
+ --- Event time: 978425
+
+Channel 2 Chip 3- Finished executing read command
+Chip 2, 3: finished  read command
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 987571
+
+ --- Event time: 987571
+
+Address mapping table insert entry - Stream ID:0, LPA:139593877, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address mapping table update entry - Stream ID:0, LPA:139593877, PPA:185073665
+Address mapping table insert entry - Stream ID:0, LPA:139593878, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address mapping table update entry - Stream ID:0, LPA:139593878, PPA:218628096
+  -> 65: 989107 Issueing Transaction - Type:Write, , PPA:185073665, LPA:139593877, Channel: 5, Chip: 2
+Chip 5, 2, 0: Sending program command to chip for LPA: 139593877
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, PROGRAM_CMD_ADDR_DATA_TRANSFERRED): 989107
+
+ --- Event time: 989107
+
+Channel 0 Chip 3- Finished executing program command
+Chip 0, 3: finished program command
+  -> 66: 1001025 Issueing Transaction - Type:Read, , PPA:33030455, LPA:18446744073709551615, Channel: 0, Chip: 3
+Chip 0, 3, 3: Sending read command to chip for LPA: 18446744073709551615
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 1001025
+
+ --- Event time: 1001025
+
+RegisterEvent (Flash_Chip::start_command_execution): 1001315
+Command execution started on channel: 0 chip: 3
+
+ --- Event time: 1001315
+
+Channel 6 Chip 2- Finished executing program command
+Chip 6, 2: finished program command
+  -> 67: 1005679 Issueing Transaction - Type:Write, , PPA:218628096, LPA:139593878, Channel: 6, Chip: 2
+Chip 6, 2, 0: Sending program command to chip for LPA: 139593878
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, PROGRAM_CMD_ADDR_DATA_TRANSFERRED): 1005679
+
+ --- Event time: 1005679
+
+Channel 7 Chip 2- Finished executing program command
+Chip 7, 2: finished program command
+** Host Interface: Request #6 from stream #0 is finished
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+
+ --- Event time: 1005679
+
+PCIe_Link::Execute_simulator_event(), to HOST
+[====================]  100% progress in Host.IO_Flow.Synth.No_0
+
+RegisterEvent (PCIe_Link::Deliver, From HOST to DEVICE with SQ): 1005690 4115
+
+ --- Event time: 1005690
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+
+ --- Event time: 1005698
+
+RegisterEvent (Flash_Chip::start_command_execution): 1014044
+Command execution started on channel: 5 chip: 2
+
+ --- Event time: 1014044
+
+Channel 0 Chip 2- Finished executing read command
+Chip 0, 2: finished  read command
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 1024496
+
+ --- Event time: 1024496
+
+Channel 7 Chip 1- Finished executing read command
+Chip 7, 1: finished  read command
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 1024496
+
+ --- Event time: 1024496
+
+Channel 0 Chip 1- Finished executing program command
+Chip 0, 1: finished program command
+** Host Interface: Request #1 from stream #0 is finished
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+
+ --- Event time: 1025962
+
+PCIe_Link::Execute_simulator_event(), to HOST
+[====================]  102% progress in Host.IO_Flow.Synth.No_0
+
+RegisterEvent (PCIe_Link::Deliver, From HOST to DEVICE with SQ): 1025973 4115
+
+ --- Event time: 1025973
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+
+ --- Event time: 1025981
+
+Channel 5 Chip 0- Finished executing read command
+Chip 5, 0: finished  read command
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 1027433
+
+ --- Event time: 1027433
+
+Address mapping table insert entry - Stream ID:0, LPA:211986528, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address mapping table update entry - Stream ID:0, LPA:211986528, PPA:6291456
+Address mapping table insert entry - Stream ID:0, LPA:211986529, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address mapping table update entry - Stream ID:0, LPA:211986529, PPA:39845888
+  -> 68: 1028969 Issueing Transaction - Type:Write, , PPA:39845888, LPA:211986529, Channel: 1, Chip: 0
+Chip 1, 0, 3: Sending program command to chip for LPA: 211986529
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, PROGRAM_CMD_ADDR_DATA_TRANSFERRED): 1028969
+  -> 69: 1028969 Issueing Transaction - Type:Read, , PPA:175636480, LPA:128772581, Channel: 5, Chip: 0
+Chip 5, 0, 3: Sending read command to chip for LPA: 128772581
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 1028969
+
+ --- Event time: 1028969
+
+RegisterEvent (Flash_Chip::start_command_execution): 1029259
+Command execution started on channel: 5 chip: 0
+
+ --- Event time: 1029259
+
+RegisterEvent (Flash_Chip::start_command_execution): 1030616
+Command execution started on channel: 6 chip: 2
+
+ --- Event time: 1030616
+
+  -> 70: 1049072 Issueing Transaction - Type:Write, , PPA:6291456, LPA:211986528, Channel: 0, Chip: 0
+Chip 0, 0, 3: Sending program command to chip for LPA: 211986528
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, PROGRAM_CMD_ADDR_DATA_TRANSFERRED): 1049072
+
+ --- Event time: 1049072
+
+** Host Interface: Request #26 from stream #0 is finished
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+
+ --- Event time: 1049072
+
+Channel 7 Chip 0- Finished executing read command
+Chip 7, 0: finished  read command
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 1053445
+
+ --- Event time: 1053445
+
+RegisterEvent (Flash_Chip::start_command_execution): 1053906
+Command execution started on channel: 1 chip: 0
+
+ --- Event time: 1053906
+
+PCIe_Link::Execute_simulator_event(), to HOST
+RegisterEvent (PCIe_Link::Execute_simulator_event, From HOST to DEVICE, IF have message in queue): 1054064 280375465082880
+
+ --- Event time: 1054064
+
+PCIe_Link::Execute_simulator_event(), to HOST
+[====================]  105% progress in Host.IO_Flow.Synth.No_0
+
+RegisterEvent (PCIe_Link::Deliver, From HOST to DEVICE with SQ): 1054075 4115
+
+ --- Event time: 1054075
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+
+ --- Event time: 1054083
+
+Address mapping table insert entry - Stream ID:0, LPA:171891521, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address mapping table update entry - Stream ID:0, LPA:171891521, PPA:38797312
+Address mapping table insert entry - Stream ID:0, LPA:171891522, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address mapping table update entry - Stream ID:0, LPA:171891522, PPA:72351744
+  -> 71: 1054981 Issueing Transaction - Type:Write, , PPA:72351744, LPA:171891522, Channel: 2, Chip: 0
+Chip 2, 0, 2: Sending program command to chip for LPA: 171891522
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, PROGRAM_CMD_ADDR_DATA_TRANSFERRED): 1054981
+  -> 72: 1054981 Issueing Transaction - Type:Read, , PPA:241697573, LPA:18446744073709551615, Channel: 7, Chip: 0
+Chip 7, 0, 3: Sending read command to chip for LPA: 18446744073709551615
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 1054981
+
+ --- Event time: 1054981
+
+RegisterEvent (Flash_Chip::start_command_execution): 1055271
+Command execution started on channel: 7 chip: 0
+
+ --- Event time: 1055271
+
+RegisterEvent (Flash_Chip::start_command_execution): 1074009
+Command execution started on channel: 0 chip: 0
+  -> 73: 1074009 Issueing Transaction - Type:Read, , PPA:12058980, LPA:18446744073709551615, Channel: 0, Chip: 1
+Chip 0, 1, 1: Sending read command to chip for LPA: 18446744073709551615
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 1074009
+
+ --- Event time: 1074009
+
+RegisterEvent (Flash_Chip::start_command_execution): 1074299
+Command execution started on channel: 0 chip: 1
+
+ --- Event time: 1074299
+
+Channel 0 Chip 3- Finished executing read command
+Chip 0, 3: finished  read command
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 1076335
+
+ --- Event time: 1076335
+
+Address mapping table insert entry - Stream ID:0, LPA:39127503, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address mapping table update entry - Stream ID:0, LPA:39127503, PPA:249036800
+Address mapping table insert entry - Stream ID:0, LPA:39127504, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address mapping table update entry - Stream ID:0, LPA:39127504, PPA:22544384
+  -> 74: 1077871 Issueing Transaction - Type:Read, , PPA:249036800, LPA:39127503, Channel: 7, Chip: 1
+Chip 7, 1, 2: Sending read command to chip for LPA: 39127503
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 1077871
+  -> 75: 1077871 Issueing Transaction - Type:Read, , PPA:22544384, LPA:39127504, Channel: 0, Chip: 2
+Chip 0, 2, 2: Sending read command to chip for LPA: 39127504
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 1077871
+
+ --- Event time: 1077871
+
+RegisterEvent (Flash_Chip::start_command_execution): 1078161
+Command execution started on channel: 7 chip: 1
+
+ --- Event time: 1078161
+
+RegisterEvent (Flash_Chip::start_command_execution): 1078161
+Command execution started on channel: 0 chip: 2
+  -> 76: 1078161 Issueing Transaction - Type:Read, , PPA:29884416, LPA:159204056, Channel: 0, Chip: 3
+Chip 0, 3, 2: Sending read command to chip for LPA: 159204056
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 1078161
+
+ --- Event time: 1078161
+
+RegisterEvent (Flash_Chip::start_command_execution): 1078451
+Command execution started on channel: 0 chip: 3
+
+ --- Event time: 1078451
+
+RegisterEvent (Flash_Chip::start_command_execution): 1079918
+Command execution started on channel: 2 chip: 0
+
+ --- Event time: 1079918
+
+Channel 5 Chip 0- Finished executing read command
+Chip 5, 0: finished  read command
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 1104279
+
+ --- Event time: 1104279
+
+** Host Interface: Request #17 from stream #0 is finished
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+
+ --- Event time: 1128855
+
+Channel 7 Chip 0- Finished executing read command
+Chip 7, 0: finished  read command
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 1130291
+
+ --- Event time: 1130291
+
+Address mapping table insert entry - Stream ID:0, LPA:205087508, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address mapping table update entry - Stream ID:0, LPA:205087508, PPA:152043520
+Address mapping table insert entry - Stream ID:0, LPA:205087509, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address mapping table update entry - Stream ID:0, LPA:205087509, PPA:185597952
+  -> 77: 1131827 Issueing Transaction - Type:Read, , PPA:152043520, LPA:205087508, Channel: 4, Chip: 2
+Chip 4, 2, 0: Sending read command to chip for LPA: 205087508
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 1131827
+  -> 78: 1131827 Issueing Transaction - Type:Write, , PPA:235405312, LPA:35925127, Channel: 7, Chip: 0
+Chip 7, 0, 0: Sending program command to chip for LPA: 35925127
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, PROGRAM_CMD_ADDR_DATA_TRANSFERRED): 1131827
+
+ --- Event time: 1131827
+
+RegisterEvent (Flash_Chip::start_command_execution): 1132117
+Command execution started on channel: 4 chip: 2
+
+ --- Event time: 1132117
+
+PCIe_Link::Execute_simulator_event(), to HOST
+RegisterEvent (PCIe_Link::Execute_simulator_event, From HOST to DEVICE, IF have message in queue): 1133847 280375465082880
+
+ --- Event time: 1133847
+
+PCIe_Link::Execute_simulator_event(), to HOST
+[====================]  113% progress in Host.IO_Flow.Synth.No_0
+
+RegisterEvent (PCIe_Link::Deliver, From HOST to DEVICE with SQ): 1133858 4115
+
+ --- Event time: 1133858
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+
+ --- Event time: 1133866
+
+Channel 0 Chip 1- Finished executing read command
+Chip 0, 1: finished  read command
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 1149319
+
+ --- Event time: 1149319
+
+Address mapping table insert entry - Stream ID:0, LPA:70467609, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address mapping table update entry - Stream ID:0, LPA:70467609, PPA:58720256
+Address mapping table insert entry - Stream ID:0, LPA:70467610, PPA:18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address mapping table update entry - Stream ID:0, LPA:70467610, PPA:92274688
+  -> 79: 1150855 Issueing Transaction - Type:Read, , PPA:92274688, LPA:70467610, Channel: 2, Chip: 3
+Chip 2, 3, 0: Sending read command to chip for LPA: 70467610
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 1150855
+  -> 80: 1150855 Issueing Transaction - Type:Write, , PPA:13631488, LPA:23985480, Channel: 0, Chip: 1
+Chip 0, 1, 2: Sending program command to chip for LPA: 23985480
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, PROGRAM_CMD_ADDR_DATA_TRANSFERRED): 1150855
+
+ --- Event time: 1150855
+
+RegisterEvent (Flash_Chip::start_command_execution): 1151145
+Command execution started on channel: 2 chip: 3
+
+ --- Event time: 1151145
+
+Channel 7 Chip 1- Finished executing read command
+Chip 7, 1: finished  read command
+
+ --- Event time: 1153181
+
+Channel 0 Chip 2- Finished executing read command
+Chip 0, 2: finished  read command
+
+ --- Event time: 1153181
+
+Channel 0 Chip 3- Finished executing read command
+Chip 0, 3: finished  read command
+
+ --- Event time: 1153471
+
+RegisterEvent (Flash_Chip::start_command_execution): 1156764
+Command execution started on channel: 7 chip: 0
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 1156764
+
+ --- Event time: 1156764
+
+RegisterEvent (Flash_Chip::start_command_execution): 1175792
+Command execution started on channel: 0 chip: 1
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 1175792
+
+ --- Event time: 1175792
+
+
+ --- Event time: 1181340
+
+** Host Interface: Request #25 from stream #0 is finished
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 1200368
+
+ --- Event time: 1200368
+
+PCIe_Link::Execute_simulator_event(), to HOST
+RegisterEvent (PCIe_Link::Execute_simulator_event, From HOST to DEVICE, IF have message in queue): 1205360 280375465082880
+
+ --- Event time: 1205360
+
+PCIe_Link::Execute_simulator_event(), to HOST
+[====================]  120% progress in Host.IO_Flow.Synth.No_0
+
+RegisterEvent (PCIe_Link::Deliver, From HOST to DEVICE with SQ): 1205371 4115
+
+ --- Event time: 1205371
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+
+ --- Event time: 1205379
+
+Channel 4 Chip 2- Finished executing read command
+Chip 4, 2: finished  read command
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 1207137
+
+ --- Event time: 1207137
+
+** Host Interface: Request #18 from stream #0 is finished
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+
+ --- Event time: 1224944
+
+Channel 2 Chip 3- Finished executing read command
+Chip 2, 3: finished  read command
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 1226165
+
+ --- Event time: 1226165
+
+PCIe_Link::Execute_simulator_event(), to HOST
+RegisterEvent (PCIe_Link::Execute_simulator_event, From HOST to DEVICE, IF have message in queue): 1229936 280375465082880
+
+ --- Event time: 1229936
+
+PCIe_Link::Execute_simulator_event(), to HOST
+[====================]  122% progress in Host.IO_Flow.Synth.No_0
+
+RegisterEvent (PCIe_Link::Deliver, From HOST to DEVICE with SQ): 1229947 4115
+
+ --- Event time: 1229947
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+
+ --- Event time: 1229955
+
+
+ --- Event time: 1231713
+
+
+ --- Event time: 1250741
+
+Channel 1 Chip 3- Finished executing program command
+Chip 1, 3: finished program command
+** Host Interface: Request #14 from stream #0 is finished
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+  -> 81: 1382183 Issueing Transaction - Type:Read, , PPA:58720256, LPA:70467609, Channel: 1, Chip: 3
+Chip 1, 3, 0: Sending read command to chip for LPA: 70467609
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 1382183
+
+ --- Event time: 1382183
+
+PCIe_Link::Execute_simulator_event(), to HOST
+[====================]  138% progress in Host.IO_Flow.Synth.No_0
+
+RegisterEvent (PCIe_Link::Deliver, From HOST to DEVICE with SQ): 1382194 4115
+
+ --- Event time: 1382194
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+
+ --- Event time: 1382202
+
+RegisterEvent (Flash_Chip::start_command_execution): 1382473
+Command execution started on channel: 1 chip: 3
+
+ --- Event time: 1382473
+
+Channel 1 Chip 3- Finished executing read command
+Chip 1, 3: finished  read command
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 1457493
+
+ --- Event time: 1457493
+
+** Host Interface: Request #23 from stream #0 is finished
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+
+ --- Event time: 1482069
+
+PCIe_Link::Execute_simulator_event(), to HOST
+RegisterEvent (PCIe_Link::Execute_simulator_event, From HOST to DEVICE, IF have message in queue): 1487061 280375465082880
+
+ --- Event time: 1487061
+
+PCIe_Link::Execute_simulator_event(), to HOST
+[====================]  148% progress in Host.IO_Flow.Synth.No_0
+
+RegisterEvent (PCIe_Link::Deliver, From HOST to DEVICE with SQ): 1487072 4115
+
+ --- Event time: 1487072
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+
+ --- Event time: 1487080
+
+Channel 1 Chip 1- Finished executing program command
+Chip 1, 1: finished program command
+** Host Interface: Request #9 from stream #0 is finished
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+
+ --- Event time: 1642225
+
+PCIe_Link::Execute_simulator_event(), to HOST
+[====================]  164% progress in Host.IO_Flow.Synth.No_0
+
+RegisterEvent (PCIe_Link::Deliver, From HOST to DEVICE with SQ): 1642236 4115
+
+ --- Event time: 1642236
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+
+ --- Event time: 1642244
+
+Channel 6 Chip 0- Finished executing program command
+Chip 6, 0: finished program command
+** Host Interface: Request #11 from stream #0 is finished
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+
+ --- Event time: 1657201
+
+PCIe_Link::Execute_simulator_event(), to HOST
+[====================]  165% progress in Host.IO_Flow.Synth.No_0
+
+RegisterEvent (PCIe_Link::Deliver, From HOST to DEVICE with SQ): 1657212 4115
+
+ --- Event time: 1657212
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+
+ --- Event time: 1657220
+
+Channel 5 Chip 2- Finished executing program command
+Chip 5, 2: finished program command
+  -> 82: 1764044 Issueing Transaction - Type:Read, , PPA:185597952, LPA:205087509, Channel: 5, Chip: 2
+Chip 5, 2, 0: Sending read command to chip for LPA: 205087509
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 1764044
+
+ --- Event time: 1764044
+
+RegisterEvent (Flash_Chip::start_command_execution): 1764334
+Command execution started on channel: 5 chip: 2
+
+ --- Event time: 1764334
+
+Channel 6 Chip 2- Finished executing program command
+Chip 6, 2: finished program command
+** Host Interface: Request #27 from stream #0 is finished
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+
+ --- Event time: 1780616
+
+PCIe_Link::Execute_simulator_event(), to HOST
+[====================]  178% progress in Host.IO_Flow.Synth.No_0
+
+RegisterEvent (PCIe_Link::Deliver, From HOST to DEVICE with SQ): 1780627 4115
+
+ --- Event time: 1780627
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+
+ --- Event time: 1780635
+
+Channel 1 Chip 0- Finished executing program command
+Chip 1, 0: finished program command
+  -> 83: 1803906 Issueing Transaction - Type:Write, , PPA:38797312, LPA:171891521, Channel: 1, Chip: 0
+Chip 1, 0, 2: Sending program command to chip for LPA: 171891521
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, PROGRAM_CMD_ADDR_DATA_TRANSFERRED): 1803906
+
+ --- Event time: 1803906
+
+Channel 0 Chip 0- Finished executing program command
+Chip 0, 0: finished program command
+** Host Interface: Request #20 from stream #0 is finished
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+
+ --- Event time: 1824009
+
+PCIe_Link::Execute_simulator_event(), to HOST
+[====================]  182% progress in Host.IO_Flow.Synth.No_0
+
+RegisterEvent (PCIe_Link::Deliver, From HOST to DEVICE with SQ): 1824020 4115
+
+ --- Event time: 1824020
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+
+ --- Event time: 1824028
+
+RegisterEvent (Flash_Chip::start_command_execution): 1828843
+Command execution started on channel: 1 chip: 0
+
+ --- Event time: 1828843
+
+Channel 2 Chip 0- Finished executing program command
+Chip 2, 0: finished program command
+
+ --- Event time: 1829918
+
+Channel 5 Chip 2- Finished executing read command
+Chip 5, 2: finished  read command
+RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 1839354
+
+ --- Event time: 1839354
+
+** Host Interface: Request #24 from stream #0 is finished
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+
+ --- Event time: 1863930
+
+PCIe_Link::Execute_simulator_event(), to HOST
+RegisterEvent (PCIe_Link::Execute_simulator_event, From HOST to DEVICE, IF have message in queue): 1868922 280375465082880
+
+ --- Event time: 1868922
+
+PCIe_Link::Execute_simulator_event(), to HOST
+[====================]  186% progress in Host.IO_Flow.Synth.No_0
+
+RegisterEvent (PCIe_Link::Deliver, From HOST to DEVICE with SQ): 1868933 4115
+
+ --- Event time: 1868933
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+
+ --- Event time: 1868941
+
+Channel 7 Chip 0- Finished executing program command
+Chip 7, 0: finished program command
+** Host Interface: Request #7 from stream #0 is finished
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+
+ --- Event time: 1906764
+
+PCIe_Link::Execute_simulator_event(), to HOST
+[====================]  190% progress in Host.IO_Flow.Synth.No_0
+
+RegisterEvent (PCIe_Link::Deliver, From HOST to DEVICE with SQ): 1906775 4115
+
+ --- Event time: 1906775
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+
+ --- Event time: 1906783
+
+Channel 0 Chip 1- Finished executing program command
+Chip 0, 1: finished program command
+** Host Interface: Request #4 from stream #0 is finished
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+
+ --- Event time: 1925792
+
+PCIe_Link::Execute_simulator_event(), to HOST
+[====================]  192% progress in Host.IO_Flow.Synth.No_0
+
+RegisterEvent (PCIe_Link::Deliver, From HOST to DEVICE with SQ): 1925803 4115
+
+ --- Event time: 1925803
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+
+ --- Event time: 1925811
+
+Channel 1 Chip 0- Finished executing program command
+Chip 1, 0: finished program command
+** Host Interface: Request #19 from stream #0 is finished
+RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)
+
+ --- Event time: 2578843
+
+PCIe_Link::Execute_simulator_event(), to HOST
+[====================]  257% progress in Host.IO_Flow.Synth.No_0
+
+RegisterEvent (PCIe_Link::Deliver, From HOST to DEVICE with SQ): 2578854 4115
+
+ --- Event time: 2578854
+
+PCIe_Link::Execute_simulator_event(), to DEVICE
+
+ --- Event time: 2578862
 

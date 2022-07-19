@@ -65,7 +65,7 @@ TSU_OutOfOrder::~TSU_OutOfOrder()
 
 void TSU_OutOfOrder::Start_simulation()
 {
-	DEBUG("TSU_OutOfOrder::Start_simulation()");
+	DEBUG("Start_simulation(): " << ID());
 }
 
 void TSU_OutOfOrder::Validate_simulation_config()

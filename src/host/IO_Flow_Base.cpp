@@ -138,7 +138,7 @@ IO_Flow_Base::IO_Flow_Base(const sim_object_id_type &name, uint16_t flow_id, LHA
 
 	void IO_Flow_Base::Start_simulation()
 	{
-		DEBUG("IO_Flow_Base::Start_simulation()");
+		DEBUG("Start_simulation(): " << ID());
 		next_logging_milestone = logging_period;
 		if (enabled_logging) {
 			log_file.open(logging_file_path, std::ofstream::out);

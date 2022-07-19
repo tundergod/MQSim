@@ -890,7 +890,7 @@ namespace SSD_Components
 
 	void FTL::Start_simulation()
 	{
-		DEBUG("FTL::Start_simulation()");
+		DEBUG("Start_simulation(): " << ID());
 	}
 
 	void FTL::Execute_simulator_event(MQSimEngine::Sim_Event*)

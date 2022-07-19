@@ -118,7 +118,6 @@ namespace SSD_Components
 		{
 			DEBUG("Host_Interface_Base add function to function queue");
 			connected_user_request_arrived_signal_handlers.push_back(function);
-			DEBUG("Host_Interface_Base add function to function queue finish");
 		}
 
 		void Consume_pcie_message(Host_Components::PCIe_Message* message)
@@ -153,7 +152,7 @@ namespace SSD_Components
 		{
 			for (std::vector<UserRequestArrivedSignalHandlerType>::iterator it = connected_user_request_arrived_signal_handlers.begin();
 				it != connected_user_request_arrived_signal_handlers.end(); it++) {
-				DEBUG("host interface broadcasting user request arrival signal");
+				DEBUG("Host_Interface_Base::broadcast_user_request_arrival_signal()");
 				(*it)(user_request);
 			}
 		}

@@ -31,7 +31,7 @@ namespace SSD_Components
 	}
 
 	void Data_Cache_Manager_Base::Start_simulation() {
-		DEBUG("Data_Cache_Manager_Base::Start_simulation()");
+		DEBUG("Start_simulation(): " << ID());
 	}
 	
 	void Data_Cache_Manager_Base::Validate_simulation_config() {}
@@ -64,7 +64,7 @@ namespace SSD_Components
 
 	void Data_Cache_Manager_Base::handle_user_request_arrived_signal(User_Request* user_request)
 	{
-		DEBUG("Data_Cache_Manager_Base handle user request arrived signal");
+		DEBUG("Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:" << user_request->ID);
 		_my_instance->process_new_user_request(user_request);
 	}
 

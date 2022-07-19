@@ -28,7 +28,7 @@ SSD_Device::SSD_Device(Device_Parameter_Set *parameters, std::vector<IO_Flow_Par
 	device->Preconditioning_required = parameters->Enabled_Preconditioning;
 	device->Memory_Type = parameters->Memory_Type;
 
-	DEBUG("Create SSD_Device");
+	DEBUG("Create SSD_Device:");
 
 	switch (Memory_Type)
 	{
@@ -38,6 +38,7 @@ SSD_Device::SSD_Device(Device_Parameter_Set *parameters, std::vector<IO_Flow_Par
 		sim_time_type average_flash_read_latency = 0, average_flash_write_latency = 0; //Required for FTL initialization
 
 		//Step 1: create memory chips (flash chips in our case)
+		DEBUG("- Step 1: create memory chips (flash chips in our case)");
 		switch (parameters->Flash_Parameters.Flash_Technology)
 		{
 		case Flash_Technology_Type::SLC:
@@ -75,6 +76,7 @@ SSD_Device::SSD_Device(Device_Parameter_Set *parameters, std::vector<IO_Flow_Par
 		}
 
 		//Step 2: create memory channels to connect chips to the controller
+		DEBUG("- Step 2: create memory channels to connect chips to the controller");
 		this->Channel_count = parameters->Flash_Channel_Count;
 		this->Chip_no_per_channel = parameters->Chip_No_Per_Channel;
 		switch (parameters->Flash_Comm_Protocol)
@@ -101,6 +103,7 @@ SSD_Device::SSD_Device(Device_Parameter_Set *parameters, std::vector<IO_Flow_Par
 			}
 
 			//Step 3: create channel controller and connect channels to it
+			DEBUG("- Step 3: create channel controller and connect channels to it");
 			device->PHY = new SSD_Components::NVM_PHY_ONFI_NVDDR2(device->ID() + ".PHY", channels, parameters->Flash_Channel_Count, parameters->Chip_No_Per_Channel,
 																  parameters->Flash_Parameters.Die_No_Per_Chip, parameters->Flash_Parameters.Plane_No_Per_Die);
 			Simulator->AddObject(device->PHY);
@@ -113,6 +116,7 @@ SSD_Device::SSD_Device(Device_Parameter_Set *parameters, std::vector<IO_Flow_Par
 		delete[] write_latencies;
 
 		//Steps 4 - 8: create FTL components and connect them together
+		DEBUG("- Steps 4: create FTL components and connect them together");
 		SSD_Components::FTL *ftl = new SSD_Components::FTL(device->ID() + ".FTL", NULL, parameters->Flash_Channel_Count,
 														   parameters->Chip_No_Per_Channel, parameters->Flash_Parameters.Die_No_Per_Chip, parameters->Flash_Parameters.Plane_No_Per_Die,
 														   parameters->Flash_Parameters.Block_No_Per_Plane, parameters->Flash_Parameters.Page_No_Per_Block,
@@ -122,7 +126,8 @@ SSD_Device::SSD_Device(Device_Parameter_Set *parameters, std::vector<IO_Flow_Par
 		Simulator->AddObject(ftl);
 		device->Firmware = ftl;
 
-		//Step 5: create TSU
+		//Step 5: create FTL's TSU
+		DEBUG("- Step 5: create FTL's TSU");
 		SSD_Components::TSU_Base *tsu;
 		bool erase_suspension = false, program_suspension = false;
 		if (parameters->Flash_Parameters.CMD_Suspension_Support == NVM::FlashMemory::Command_Suspension_Mode::PROGRAM)
@@ -182,7 +187,8 @@ SSD_Device::SSD_Device(Device_Parameter_Set *parameters, std::vector<IO_Flow_Par
 		Simulator->AddObject(tsu);
 		ftl->TSU = tsu;
 
-		//Step 6: create Flash_Block_Manager
+		//Step 6: create FTL's Flash_Block_Manager
+		DEBUG("- Step 6: create FTL's Flash_Block_Manager");
 		SSD_Components::Flash_Block_Manager_Base *fbm;
 		fbm = new SSD_Components::Flash_Block_Manager(NULL, parameters->Flash_Parameters.Block_PE_Cycles_Limit,
 													  (unsigned int)io_flows->size(), parameters->Flash_Channel_Count, parameters->Chip_No_Per_Channel,
@@ -190,7 +196,8 @@ SSD_Device::SSD_Device(Device_Parameter_Set *parameters, std::vector<IO_Flow_Par
 													  parameters->Flash_Parameters.Block_No_Per_Plane, parameters->Flash_Parameters.Page_No_Per_Block);
 		ftl->BlockManager = fbm;
 
-		//Step 7: create Address_Mapping_Unit
+		//Step 7: create FTL's Address_Mapping_Unit
+		DEBUG("- Step 7: create FTL's Address_Mapping_Unit");
 		SSD_Components::Address_Mapping_Unit_Base *amu;
 		std::vector<std::vector<flash_channel_ID_type>> flow_channel_id_assignments;
 		std::vector<std::vector<flash_chip_ID_type>> flow_chip_id_assignments;
@@ -293,7 +300,8 @@ SSD_Device::SSD_Device(Device_Parameter_Set *parameters, std::vector<IO_Flow_Par
 		Simulator->AddObject(amu);
 		ftl->Address_Mapping_Unit = amu;
 
-		//Step 8: create GC_and_WL_unit
+		//Step 8: create FTL's GC_and_WL_unit
+		DEBUG("- Step 8: create FTL's GC_and_WL_unit");
 		double max_rho = 0;
 		for (unsigned int i = 0; i < io_flows->size(); i++)
 		{
@@ -316,6 +324,7 @@ SSD_Device::SSD_Device(Device_Parameter_Set *parameters, std::vector<IO_Flow_Par
 		ftl->GC_and_WL_Unit = gcwl;
 
 		//Step 9: create Data_Cache_Manager
+		DEBUG("- Step 9: create Data_Cache_Manager");
 		SSD_Components::Data_Cache_Manager_Base *dcm;
 		SSD_Components::Caching_Mode *caching_modes = new SSD_Components::Caching_Mode[io_flows->size()];
 		for (unsigned int i = 0; i < io_flows->size(); i++)
@@ -350,6 +359,7 @@ SSD_Device::SSD_Device(Device_Parameter_Set *parameters, std::vector<IO_Flow_Par
 		device->Cache_manager = dcm;
 
 		//Step 10: create Host_Interface
+		DEBUG("- Step 10: create Host_Interface");
 		switch (parameters->HostInterface_Type)
 		{
 		case HostInterface_Types::NVME:
@@ -418,7 +428,7 @@ void SSD_Device::Perform_preconditioning(std::vector<Utils::Workload_Statistics 
 
 void SSD_Device::Start_simulation()
 {
-	DEBUG("SSD_Device::Start_simulation()");
+	DEBUG("Start_simulation(): " << ID());
 }
 
 void SSD_Device::Validate_simulation_config()

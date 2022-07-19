@@ -81,7 +81,7 @@ void IO_Flow_Trace_Based::SATA_consume_io_request(Host_IO_Request *io_request)
 // 開始 simulation 的時候就把所有的 trace 變成
 void IO_Flow_Trace_Based::Start_simulation()
 {
-	DEBUG("IO_Flow_Trace_Based::Start_simulation()");
+	DEBUG("Start_simulation(): " << ID());
 	IO_Flow_Base::Start_simulation();
 	std::string trace_line;
 	char *pEnd;

@@ -171,7 +171,7 @@ namespace SSD_Components
 
 	void GC_and_WL_Unit_Base::Start_simulation()
 	{
-		DEBUG("GC_and_WL_Unit_Base::Start_simulation()");
+		DEBUG("Start_simulation(): " << ID());
 	}
 
 	void GC_and_WL_Unit_Base::Validate_simulation_config()
@@ -315,8 +315,10 @@ namespace SSD_Components
 
 	void GC_and_WL_Unit_Base::handle_user_request_arrived_signal(User_Request* user_request)
 	{
-		DEBUG("GC_and_WL_Unit_Base::handle_user_request_arrived_signal()");
-		_my_instance->process_zone_reset_request(user_request);
+		DEBUG("GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: " << user_request->ID);
+		if (user_request->Type == UserRequestType::RESET) {
+			_my_instance->process_zone_reset_request(user_request);
+		}
 	}
 
 	void GC_and_WL_Unit_Base::Set_host_interface(Host_Interface_Base* host_interface)

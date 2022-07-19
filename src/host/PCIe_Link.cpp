@@ -34,7 +34,7 @@ namespace Host_Components
 					return;
 				}
 				Simulator->Register_sim_event(Simulator->Time() + estimate_transfer_time(message), this, (void*)(intptr_t)PCIe_Destination_Type::HOST, static_cast<int>(PCIe_Link_Event_Type::DELIVER));
-				DEBUG("RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST): " << Simulator->Time() << " " << message->Address);
+				DEBUG("RegisterEvent (PCIe_Link::Deliver, From DEVICE to HOST)");
 				break;
 			case PCIe_Destination_Type::DEVICE://Message from Host to the SSD device
 				Message_buffer_toward_ssd_device.push(message);
@@ -42,7 +42,7 @@ namespace Host_Components
 					return;
 				}
 				Simulator->Register_sim_event(Simulator->Time() + estimate_transfer_time(message), this, (void*)(intptr_t)PCIe_Destination_Type::DEVICE, static_cast<int>(PCIe_Link_Event_Type::DELIVER));
-				DEBUG("RegisterEvent (PCIe_Link::Deliver, From HOST to DEVICE): " << Simulator->Time() << " " << message->Address);
+				DEBUG("RegisterEvent (PCIe_Link::Deliver, From HOST to DEVICE with SQ): " << Simulator->Time() << " " << message->Address);
 				break;
 			default:
 				break;
@@ -50,7 +50,7 @@ namespace Host_Components
 	}
 
 	void PCIe_Link::Start_simulation() {
-		DEBUG("PCIe_Link::Start_simulation()");
+		DEBUG("Start_simulation(): " << ID());
 	}
 
 	void PCIe_Link::Validate_simulation_config() {}
@@ -61,6 +61,7 @@ namespace Host_Components
 		PCIe_Destination_Type destination = (PCIe_Destination_Type)(intptr_t)event->Parameters;
 		switch (destination) {
 			case PCIe_Destination_Type::HOST:
+				DEBUG("PCIe_Link::Execute_simulator_event(), to HOST");
 				message = Message_buffer_toward_root_complex.front();
 				Message_buffer_toward_root_complex.pop();
 				root_complex->Consume_pcie_message(message);
@@ -71,13 +72,14 @@ namespace Host_Components
 				}
 				break;
 			case PCIe_Destination_Type::DEVICE:
+			DEBUG("PCIe_Link::Execute_simulator_event(), to DEVICE");
 				message = Message_buffer_toward_ssd_device.front();
 				Message_buffer_toward_ssd_device.pop();
 				pcie_switch->Deliver_to_device(message);
 				if (Message_buffer_toward_ssd_device.size() > 0) {
 					Simulator->Register_sim_event(Simulator->Time() + estimate_transfer_time(Message_buffer_toward_ssd_device.front()),
 						this, (void*)(intptr_t)PCIe_Destination_Type::DEVICE, static_cast<int>(PCIe_Link_Event_Type::DELIVER));
-					DEBUG("RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST): " << Simulator->Time() << " " << message->Address);
+					DEBUG("RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): " << Simulator->Time() << " " << message->Address);
 				}
 				break;
 		}

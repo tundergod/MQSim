@@ -120,7 +120,7 @@ const std::vector<Host_Components::IO_Flow_Base*> Host_System::Get_io_flows()
 
 void Host_System::Start_simulation()
 {
-	DEBUG("Host_System::Start_simulation()")
+	DEBUG("Start_simulation(): " << ID());
 	switch (ssd_device->Host_interface->GetType()) {
 		case HostInterface_Types::NVME:
 			for (uint16_t flow_cntr = 0; flow_cntr < IO_flows.size(); flow_cntr++) {

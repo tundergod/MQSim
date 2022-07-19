@@ -76,7 +76,7 @@ inline void Input_Stream_Manager_NVMe::Handle_new_arrived_request(User_Request *
 
 	if (request->Type == UserRequestType::READ)
 	{
-		DEBUG("Handle_new_arrived_request: READ");
+		DEBUG("Handle_new_arrived_request: READ, ID: " << request->ID << ", Stream_id: " << request->Stream_id << ", LBA: " << request->Start_LBA << ", size: " << request->SizeInSectors / 2 << " KB");
 		((Input_Stream_NVMe *)input_streams[request->Stream_id])->Waiting_user_requests.push_back(request);
 		((Input_Stream_NVMe *)input_streams[request->Stream_id])->STAT_number_of_read_requests++;
 		segment_user_request(request);
@@ -85,14 +85,14 @@ inline void Input_Stream_Manager_NVMe::Handle_new_arrived_request(User_Request *
 	}
 	else if (request->Type == UserRequestType::WRITE)
 	{
-		DEBUG("Handle_new_arrived_request: WRITE");
+		DEBUG("Handle_new_arrived_request: WRITE, ID: " << request->ID << ", Stream_id: " << request->Stream_id << ", LBA: " << request->Start_LBA << ", size: " << request->SizeInSectors / 2 << " KB");
 		((Input_Stream_NVMe *)input_streams[request->Stream_id])->Waiting_user_requests.push_back(request);
 		((Input_Stream_NVMe *)input_streams[request->Stream_id])->STAT_number_of_write_requests++;
 		((Host_Interface_NVMe *)host_interface)->request_fetch_unit->Fetch_write_data(request);
 	}
 	else if (request->Type == UserRequestType::RESET)
 	{
-		DEBUG("Handle_new_arrived_request: RESET");
+		DEBUG("Handle_new_arrived_request: RESET, ID: " << request->ID << ", Stream_id: " << request->Stream_id << ", LBA: " << request->Start_LBA << ", size: " << request->SizeInSectors / 2 << " KB");
 		((Input_Stream_NVMe *)input_streams[request->Stream_id])->Waiting_user_requests.push_back(request);
 		((Input_Stream_NVMe *)input_streams[request->Stream_id])->STAT_number_of_reset_requests++;
 		((Host_Interface_NVMe *)host_interface)->broadcast_user_request_arrival_signal(request);
@@ -215,14 +215,15 @@ void Input_Stream_Manager_NVMe::segment_user_request(User_Request *user_request)
 			user_request->Transaction_list.push_back(transaction);
 			input_streams[user_request->Stream_id]->STAT_number_of_read_transactions++;
 		}
-		else
-		{ //user_request->Type == UserRequestType::WRITE
+		else if (user_request->Type == UserRequestType::WRITE)
+		{
 			NVM_Transaction_Flash_WR *transaction = new NVM_Transaction_Flash_WR(Transaction_Source_Type::USERIO, user_request->Stream_id,
 																				 transaction_size * SECTOR_SIZE_IN_BYTE, lpa, user_request, user_request->Priority_class, 0, access_status_bitmap, CurrentTimeStamp);
 			user_request->Transaction_list.push_back(transaction);
 			input_streams[user_request->Stream_id]->STAT_number_of_write_transactions++;
 		}
 
+		DEBUG("Input_Stream_Manager_NVMe::segment_user_request(), lsa: " << lsa << " - " << lsa + transaction_size << ", lpa: " << lpa);
 		lsa = lsa + transaction_size;
 		handled_sectors_count += transaction_size;
 	}
@@ -425,7 +426,7 @@ void Host_Interface_NVMe::Validate_simulation_config()
 
 void Host_Interface_NVMe::Start_simulation()
 {
-	DEBUG("Host_Interface_NVMe::Start_simulation()");
+	DEBUG("Start_simulation(): " << ID());
 }
 
 void Host_Interface_NVMe::Execute_simulator_event(MQSimEngine::Sim_Event *event) {}

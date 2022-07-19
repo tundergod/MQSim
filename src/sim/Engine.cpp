@@ -58,7 +58,7 @@ namespace MQSimEngine
 		started = true;
 
 		// Set _triggersSetUp flag to "true"
-		DEBUG("Engine::Setup_triggers()");
+		DEBUG(std::endl << "Engine::Setup_triggers()");
 		for(std::unordered_map<sim_object_id_type, Sim_Object*>::iterator obj = _ObjectList.begin();
 			obj != _ObjectList.end();
 			++obj) {
@@ -68,14 +68,14 @@ namespace MQSimEngine
 		}
 
 		// Check setting and configuration, e.g., Flash, FTL, etc.
-		DEBUG("Engine::Validate_simulation_config()");
+		DEBUG(std::endl << "Engine::Validate_simulation_config()");
 		for (std::unordered_map<sim_object_id_type, Sim_Object*>::iterator obj = _ObjectList.begin();
 			obj != _ObjectList.end();
 			++obj) {
 			obj->second->Validate_simulation_config(); 
 		}
 		
-		DEBUG("Engine::Start_simulation()");
+		DEBUG(std::endl << "Engine::Start_simulation()");
 		for (std::unordered_map<sim_object_id_type, Sim_Object*>::iterator obj = _ObjectList.begin();
 			obj != _ObjectList.end();
 			++obj) {

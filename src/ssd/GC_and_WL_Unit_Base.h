@@ -1,7 +1,7 @@
 #ifndef GC_AND_WL_UNIT_BASE_H
 #define GC_AND_WL_UNIT_BASE_H
 
-//#include <vector>
+#include <vector>
 #include "../sim/Sim_Object.h"
 #include "../nvm_chip/flash_memory/Flash_Chip.h"
 #include "../nvm_chip/flash_memory/Physical_Page_Address.h"
