@@ -21,7 +21,7 @@ DEVICE XML: Data_Cache_DRAM_Data_Busrt_Size: 1
 DEVICE XML: Data_Cache_DRAM_tRCD: 13
 DEVICE XML: Data_Cache_DRAM_tCL: 13
 DEVICE XML: Data_Cache_DRAM_tRP: 13
-DEVICE XML: Address_Mapping: PAGE_LEVEL
+DEVICE XML: Address_Mapping: ZONE_LEVEL
 DEVICE XML: Ideal_Mapping_Table: false
 DEVICE XML: CMT_Capacity: 2097152
 DEVICE XML: CMT_Sharing_Mode: SHARED
@@ -90,7 +90,7 @@ WORKLOAD XML: Total_Requests_To_Generate: 0
 
 ******************************
 
-MQSim started at Tue Jul 19 15:45:55 2022
+MQSim started at Tue Jul 19 16:42:48 2022
 
 ******************************
 Executing scenario 1 out of 1 .......
@@ -106,9 +106,9 @@ Start Logical_Address_Partitioning_Unit::Allocate_logical_address_for_flows
 I/O flow 0: 8 channels, 4 chips, 4 dies, 4 planes
 I/O flow 0: 3994319360 LSA
 I/O flow 0 LSA from 0 to 3994319359
-Create Address_Mapping_Unit_Page_Level::Address_Mapping_Unit_Page_Level
+Create Address_Mapping_Unit_Zone_Level::Address_Mapping_Unit_Zone_Level
 domain 0per_stream_cmt_capacity = 2097152 bytes in total / 9 bytes per entry = 233016 entries
-Create Domain - CMT capacity:233016, CMT entry size:9, Translation entries per page:1365, Total physical sectors:4294967053, Total logical sectors:3994319360, Sectors per page:16
+Create Domain - ZMT capacity:233016, ZMT entry size:9, Translation entries per page:1365, Total physical sectors:4294967053, Total logical sectors:3994319360, Sectors per page:16
 - Step 8: create FTL's GC_and_WL_unit
 - Step 9: create Data_Cache_Manager
 - Step 10: create Host_Interface
@@ -375,16 +375,16 @@ PCIe_Link::Execute_simulator_event(), to DEVICE
 Handle_new_arrived_request: READ, ID: 0, Stream_id: 0, LBA: 2008132656, size: 16 KB
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 2008132656 - 2008132672, lpa: 125508291
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 2008132672 - 2008132688, lpa: 125508292
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 0
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:0
-Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:125508291, MISS
+Address_Mapping_Unit_Zone_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:125508291, MISS
   -> 0: 154 Issueing Transaction - Type:Read, , PPA:112198067, LPA:18446744073709551615, Channel: 3, Chip: 1
 Chip 3, 1, 1: Sending read command to chip for LPA: 18446744073709551615
 RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 154
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:125508292, MISS
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:125508292, MISS
 RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 154 1099511627776
 
  --- Event time: 154
@@ -404,16 +404,16 @@ PCIe_Link::Execute_simulator_event(), to DEVICE
 Handle_new_arrived_request: READ, ID: 2, Stream_id: 0, LBA: 2507443824, size: 16 KB
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 2507443824 - 2507443840, lpa: 156715239
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 2507443840 - 2507443856, lpa: 156715240
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 2
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:2
-Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:156715239, MISS
+Address_Mapping_Unit_Zone_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:156715239, MISS
   -> 1: 204 Issueing Transaction - Type:Read, , PPA:65012192, LPA:18446744073709551615, Channel: 1, Chip: 3
 Chip 1, 3, 3: Sending read command to chip for LPA: 18446744073709551615
 RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 204
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:156715240, MISS
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:156715240, MISS
 RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 204 1099511627920
 
  --- Event time: 204
@@ -477,16 +477,16 @@ PCIe_Link::Execute_simulator_event(), to DEVICE
 Handle_new_arrived_request: READ, ID: 8, Stream_id: 0, LBA: 2521028480, size: 16 KB
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 2521028480 - 2521028496, lpa: 157564280
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 2521028496 - 2521028512, lpa: 157564281
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 8
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:8
-Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:157564280, MISS
+Address_Mapping_Unit_Zone_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:157564280, MISS
   -> 2: 354 Issueing Transaction - Type:Read, , PPA:241697249, LPA:18446744073709551615, Channel: 7, Chip: 0
 Chip 7, 0, 3: Sending read command to chip for LPA: 18446744073709551615
 RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 354
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:157564281, MISS
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:157564281, MISS
 RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 354 1099511628352
 
  --- Event time: 354
@@ -506,16 +506,16 @@ PCIe_Link::Execute_simulator_event(), to DEVICE
 Handle_new_arrived_request: READ, ID: 10, Stream_id: 0, LBA: 2601902656, size: 16 KB
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 2601902656 - 2601902672, lpa: 162618916
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 2601902672 - 2601902688, lpa: 162618917
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 10
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:10
-Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:162618916, MISS
+Address_Mapping_Unit_Zone_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:162618916, MISS
   -> 3: 404 Issueing Transaction - Type:Read, , PPA:231735784, LPA:18446744073709551615, Channel: 6, Chip: 3
 Chip 6, 3, 2: Sending read command to chip for LPA: 18446744073709551615
 RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 404
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:162618917, MISS
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:162618917, MISS
 RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 404 1099511628496
 
  --- Event time: 404
@@ -540,16 +540,16 @@ PCIe_Link::Execute_simulator_event(), to DEVICE
 Handle_new_arrived_request: READ, ID: 12, Stream_id: 0, LBA: 3731974464, size: 16 KB
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 3731974464 - 3731974480, lpa: 233248404
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 3731974480 - 3731974496, lpa: 233248405
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 12
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:12
-Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:233248404, MISS
+Address_Mapping_Unit_Zone_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:233248404, MISS
   -> 4: 454 Issueing Transaction - Type:Read, , PPA:200278861, LPA:18446744073709551615, Channel: 5, Chip: 3
 Chip 5, 3, 3: Sending read command to chip for LPA: 18446744073709551615
 RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 454
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:233248405, MISS
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:233248405, MISS
 RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 454 1099511628640
 
  --- Event time: 454
@@ -558,13 +558,13 @@ PCIe_Link::Execute_simulator_event(), to DEVICE
 Handle_new_arrived_request: READ, ID: 13, Stream_id: 0, LBA: 3751438768, size: 16 KB
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 3751438768 - 3751438784, lpa: 234464923
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 3751438784 - 3751438800, lpa: 234464924
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 13
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:13
-Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:234464923, MISS
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:234464924, MISS
+Address_Mapping_Unit_Zone_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:234464923, MISS
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:234464924, MISS
 RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 479 1099511628712
 
  --- Event time: 479
@@ -589,13 +589,13 @@ PCIe_Link::Execute_simulator_event(), to DEVICE
 Handle_new_arrived_request: READ, ID: 15, Stream_id: 0, LBA: 2734700784, size: 16 KB
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 2734700784 - 2734700800, lpa: 170918799
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 2734700800 - 2734700816, lpa: 170918800
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 15
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:15
-Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:170918799, MISS
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:170918800, MISS
+Address_Mapping_Unit_Zone_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:170918799, MISS
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:170918800, MISS
 RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 529 1099511628856
 
  --- Event time: 529
@@ -626,16 +626,16 @@ Command execution started on channel: 7 chip: 3
 PCIe_Link::Execute_simulator_event(), to DEVICE
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 3294538352 - 3294538368, lpa: 205908647
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 3294538368 - 3294538384, lpa: 205908648
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 1
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:1
-Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:205908647, MISS
+Address_Mapping_Unit_Zone_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:205908647, MISS
   -> 6: 5521 Issueing Transaction - Type:Read, , PPA:5243686, LPA:18446744073709551615, Channel: 0, Chip: 0
 Chip 0, 0, 2: Sending read command to chip for LPA: 18446744073709551615
 RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 5521
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:205908648, MISS
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:205908648, MISS
 RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 5521 280375465082880
 
  --- Event time: 5521
@@ -648,16 +648,16 @@ Command execution started on channel: 0 chip: 0
 PCIe_Link::Execute_simulator_event(), to DEVICE
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 855457488 - 855457504, lpa: 53466093
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 855457504 - 855457520, lpa: 53466094
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 3
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:3
-Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:53466093, MISS
+Address_Mapping_Unit_Zone_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:53466093, MISS
   -> 7: 10513 Issueing Transaction - Type:Read, , PPA:34603340, LPA:18446744073709551615, Channel: 1, Chip: 0
 Chip 1, 0, 0: Sending read command to chip for LPA: 18446744073709551615
 RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 10513
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:53466094, MISS
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:53466094, MISS
 RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 10513 280375465082880
 
  --- Event time: 10513
@@ -670,16 +670,16 @@ Command execution started on channel: 1 chip: 0
 PCIe_Link::Execute_simulator_event(), to DEVICE
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 383767680 - 383767696, lpa: 23985480
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 383767696 - 383767712, lpa: 23985481
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 4
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:4
-Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:23985480, MISS
+Address_Mapping_Unit_Zone_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:23985480, MISS
   -> 8: 15505 Issueing Transaction - Type:Read, , PPA:103285026, LPA:18446744073709551615, Channel: 3, Chip: 0
 Chip 3, 0, 1: Sending read command to chip for LPA: 18446744073709551615
 RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 15505
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:23985481, MISS
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:23985481, MISS
 RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 15505 280375465082880
 
  --- Event time: 15505
@@ -692,16 +692,16 @@ Command execution started on channel: 3 chip: 0
 PCIe_Link::Execute_simulator_event(), to DEVICE
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 2962136752 - 2962136768, lpa: 185133547
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 2962136768 - 2962136784, lpa: 185133548
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 5
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:5
-Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:185133547, MISS
+Address_Mapping_Unit_Zone_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:185133547, MISS
   -> 9: 20497 Issueing Transaction - Type:Read, , PPA:148374280, LPA:18446744073709551615, Channel: 4, Chip: 1
 Chip 4, 1, 2: Sending read command to chip for LPA: 18446744073709551615
 RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 20497
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:185133548, MISS
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:185133548, MISS
 RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 20497 280375465082880
 
  --- Event time: 20497
@@ -714,13 +714,13 @@ Command execution started on channel: 4 chip: 1
 PCIe_Link::Execute_simulator_event(), to DEVICE
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 2420075872 - 2420075888, lpa: 151254742
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 2420075888 - 2420075904, lpa: 151254743
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 6
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:6
-Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:151254742, MISS
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:151254743, MISS
+Address_Mapping_Unit_Zone_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:151254742, MISS
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:151254743, MISS
 RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 25489 280375465082880
 
  --- Event time: 25489
@@ -728,16 +728,16 @@ RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have 
 PCIe_Link::Execute_simulator_event(), to DEVICE
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 574802016 - 574802032, lpa: 35925126
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 574802032 - 574802048, lpa: 35925127
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 7
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:7
-Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:35925126, MISS
+Address_Mapping_Unit_Zone_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:35925126, MISS
   -> 10: 30481 Issueing Transaction - Type:Read, , PPA:214434099, LPA:18446744073709551615, Channel: 6, Chip: 1
 Chip 6, 1, 2: Sending read command to chip for LPA: 18446744073709551615
 RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 30481
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:35925127, MISS
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:35925127, MISS
 RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 30481 280375465082880
 
  --- Event time: 30481
@@ -750,13 +750,13 @@ Command execution started on channel: 6 chip: 1
 PCIe_Link::Execute_simulator_event(), to DEVICE
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 418663568 - 418663584, lpa: 26166473
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 418663584 - 418663600, lpa: 26166474
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 9
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:9
-Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:26166473, MISS
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:26166474, MISS
+Address_Mapping_Unit_Zone_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:26166473, MISS
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:26166474, MISS
 RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 35473 280375465082880
 
  --- Event time: 35473
@@ -764,16 +764,16 @@ RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have 
 PCIe_Link::Execute_simulator_event(), to DEVICE
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 739232848 - 739232864, lpa: 46202053
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 739232864 - 739232880, lpa: 46202054
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 11
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:11
-Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:46202053, MISS
+Address_Mapping_Unit_Zone_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:46202053, MISS
   -> 11: 40465 Issueing Transaction - Type:Read, , PPA:253755714, LPA:18446744073709551615, Channel: 7, Chip: 2
 Chip 7, 2, 1: Sending read command to chip for LPA: 18446744073709551615
 RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 40465
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:46202054, MISS
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:46202054, MISS
 RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 40465 280375465082880
 
  --- Event time: 40465
@@ -786,16 +786,16 @@ Command execution started on channel: 7 chip: 2
 PCIe_Link::Execute_simulator_event(), to DEVICE
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 436578176 - 436578192, lpa: 27286136
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 436578192 - 436578208, lpa: 27286137
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 14
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:14
-Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:27286136, MISS
+Address_Mapping_Unit_Zone_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:27286136, MISS
   -> 12: 45457 Issueing Transaction - Type:Read, , PPA:184549671, LPA:18446744073709551615, Channel: 5, Chip: 2
 Chip 5, 2, 0: Sending read command to chip for LPA: 18446744073709551615
 RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 45457
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:27286137, MISS
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:27286137, MISS
 
  --- Event time: 45457
 
@@ -840,12 +840,12 @@ Chip 7, 3: finished  read command
  --- Event time: 75954
 
 Address mapping table insert entry - Stream ID:0, LPA:125508291, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
 Address mapping table update entry - Stream ID:0, LPA:125508291, PPA:105381888
 Address mapping table insert entry - Stream ID:0, LPA:125508292, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
 Address mapping table update entry - Stream ID:0, LPA:125508292, PPA:138936320
   -> 13: 77000 Issueing Transaction - Type:Read, , PPA:138936320, LPA:125508292, Channel: 4, Chip: 0
 Chip 4, 0, 2: Sending read command to chip for LPA: 125508292
@@ -854,12 +854,12 @@ RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFER
  --- Event time: 77000
 
 Address mapping table insert entry - Stream ID:0, LPA:156715239, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
 Address mapping table update entry - Stream ID:0, LPA:156715239, PPA:241696768
 Address mapping table insert entry - Stream ID:0, LPA:156715240, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
 Address mapping table update entry - Stream ID:0, LPA:156715240, PPA:15204352
   -> 14: 77050 Issueing Transaction - Type:Read, , PPA:15204352, LPA:156715240, Channel: 0, Chip: 1
 Chip 0, 1, 3: Sending read command to chip for LPA: 156715240
@@ -871,24 +871,24 @@ RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFER
  --- Event time: 77050
 
 Address mapping table insert entry - Stream ID:0, LPA:157564280, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
 Address mapping table update entry - Stream ID:0, LPA:157564280, PPA:32505856
 Address mapping table insert entry - Stream ID:0, LPA:157564281, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
 Address mapping table update entry - Stream ID:0, LPA:157564281, PPA:66060288
 RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED): 77200
 
  --- Event time: 77200
 
 Address mapping table insert entry - Stream ID:0, LPA:162618916, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
 Address mapping table update entry - Stream ID:0, LPA:162618916, PPA:136314880
 Address mapping table insert entry - Stream ID:0, LPA:162618917, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
 Address mapping table update entry - Stream ID:0, LPA:162618917, PPA:169869312
 
  --- Event time: 77250
@@ -899,12 +899,12 @@ Command execution started on channel: 4 chip: 0
  --- Event time: 77290
 
 Address mapping table insert entry - Stream ID:0, LPA:233248404, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
 Address mapping table update entry - Stream ID:0, LPA:233248404, PPA:151519232
 Address mapping table insert entry - Stream ID:0, LPA:233248405, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
 Address mapping table update entry - Stream ID:0, LPA:233248405, PPA:185073664
   -> 16: 77300 Issueing Transaction - Type:Read, , PPA:151519232, LPA:233248404, Channel: 4, Chip: 2
 Chip 4, 2, 0: Sending read command to chip for LPA: 233248404
@@ -944,12 +944,12 @@ Command execution started on channel: 0 chip: 3
  --- Event time: 77630
 
 Address mapping table insert entry - Stream ID:0, LPA:170918799, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
 Address mapping table update entry - Stream ID:0, LPA:170918799, PPA:244842496
 Address mapping table insert entry - Stream ID:0, LPA:170918800, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
 Address mapping table update entry - Stream ID:0, LPA:170918800, PPA:18350080
   -> 19: 78736 Issueing Transaction - Type:Read, , PPA:18350080, LPA:170918800, Channel: 0, Chip: 2
 Chip 0, 2, 0: Sending read command to chip for LPA: 170918800
@@ -985,10 +985,10 @@ RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED)
  --- Event time: 80831
 
 Address mapping table insert entry - Stream ID:0, LPA:205908647, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
 Address mapping table update entry - Stream ID:0, LPA:205908647, PPA:237502464
 Address mapping table insert entry - Stream ID:0, LPA:205908648, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
 Address mapping table update entry - Stream ID:0, LPA:205908648, PPA:11010048
 
  --- Event time: 82367
@@ -1000,10 +1000,10 @@ RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED)
  --- Event time: 85823
 
 Address mapping table insert entry - Stream ID:0, LPA:53466093, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
 Address mapping table update entry - Stream ID:0, LPA:53466093, PPA:184025088
 Address mapping table insert entry - Stream ID:0, LPA:53466094, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
 Address mapping table update entry - Stream ID:0, LPA:53466094, PPA:217579520
   -> 22: 87359 Issueing Transaction - Type:Write, , PPA:184025088, LPA:53466093, Channel: 5, Chip: 1
 Chip 5, 1, 3: Sending program command to chip for LPA: 53466093
@@ -1026,10 +1026,10 @@ RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED)
  --- Event time: 90815
 
 Address mapping table insert entry - Stream ID:0, LPA:23985480, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
 Address mapping table update entry - Stream ID:0, LPA:23985480, PPA:13631488
 Address mapping table insert entry - Stream ID:0, LPA:23985481, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
 Address mapping table update entry - Stream ID:0, LPA:23985481, PPA:47185920
   -> 24: 92351 Issueing Transaction - Type:Write, , PPA:47185920, LPA:23985481, Channel: 1, Chip: 1
 Chip 1, 1, 2: Sending program command to chip for LPA: 23985481
@@ -1052,10 +1052,10 @@ RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED)
  --- Event time: 95807
 
 Address mapping table insert entry - Stream ID:0, LPA:185133547, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
 Address mapping table update entry - Stream ID:0, LPA:185133547, PPA:116916224
 Address mapping table insert entry - Stream ID:0, LPA:185133548, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
 Address mapping table update entry - Stream ID:0, LPA:185133548, PPA:150470656
   -> 26: 97343 Issueing Transaction - Type:Write, , PPA:116916224, LPA:185133547, Channel: 3, Chip: 1
 Chip 3, 1, 3: Sending program command to chip for LPA: 185133547
@@ -1073,10 +1073,10 @@ RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED)
  --- Event time: 105791
 
 Address mapping table insert entry - Stream ID:0, LPA:35925126, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
 Address mapping table update entry - Stream ID:0, LPA:35925126, PPA:201850880
 Address mapping table insert entry - Stream ID:0, LPA:35925127, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
 Address mapping table update entry - Stream ID:0, LPA:35925127, PPA:235405312
   -> 28: 107327 Issueing Transaction - Type:Write, , PPA:201850880, LPA:35925126, Channel: 6, Chip: 0
 Chip 6, 0, 0: Sending program command to chip for LPA: 35925126
@@ -1101,10 +1101,10 @@ Command execution started on channel: 1 chip: 1
  --- Event time: 117288
 
 Address mapping table insert entry - Stream ID:0, LPA:46202053, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
 Address mapping table update entry - Stream ID:0, LPA:46202053, PPA:172490752
 Address mapping table insert entry - Stream ID:0, LPA:46202054, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
 Address mapping table update entry - Stream ID:0, LPA:46202054, PPA:206045184
 
  --- Event time: 117311
@@ -1126,10 +1126,10 @@ Command execution started on channel: 4 chip: 1
  --- Event time: 122280
 
 Address mapping table insert entry - Stream ID:0, LPA:27286136, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
 Address mapping table update entry - Stream ID:0, LPA:27286136, PPA:31457280
 Address mapping table insert entry - Stream ID:0, LPA:27286137, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
 Address mapping table update entry - Stream ID:0, LPA:27286137, PPA:65011712
   -> 29: 122303 Issueing Transaction - Type:Read, , PPA:185073664, LPA:233248405, Channel: 5, Chip: 2
 Chip 5, 2, 0: Sending read command to chip for LPA: 233248405
@@ -1185,12 +1185,12 @@ Chip 0, 3: finished  read command
  --- Event time: 152650
 
 Address mapping table insert entry - Stream ID:0, LPA:234464923, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
 Address mapping table update entry - Stream ID:0, LPA:234464923, PPA:126353408
 Address mapping table insert entry - Stream ID:0, LPA:234464924, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
 Address mapping table update entry - Stream ID:0, LPA:234464924, PPA:159907840
   -> 31: 153896 Issueing Transaction - Type:Read, , PPA:126353408, LPA:234464923, Channel: 3, Chip: 3
 Chip 3, 3, 0: Sending read command to chip for LPA: 234464923
@@ -1239,10 +1239,10 @@ RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED)
  --- Event time: 162669
 
 Address mapping table insert entry - Stream ID:0, LPA:26166473, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
 Address mapping table update entry - Stream ID:0, LPA:26166473, PPA:46661632
 Address mapping table insert entry - Stream ID:0, LPA:26166474, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
 Address mapping table update entry - Stream ID:0, LPA:26166474, PPA:80216064
   -> 33: 164205 Issueing Transaction - Type:Write, , PPA:80216064, LPA:26166474, Channel: 2, Chip: 1
 Chip 2, 1, 2: Sending program command to chip for LPA: 26166474
@@ -1309,13 +1309,13 @@ PCIe_Link::Execute_simulator_event(), to DEVICE
 Handle_new_arrived_request: READ, ID: 16, Stream_id: 0, LBA: 3697867664, size: 16 KB
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 3697867664 - 3697867680, lpa: 231116729
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 3697867680 - 3697867696, lpa: 231116730
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 16
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:16
-Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:231116729, MISS
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:231116730, MISS
+Address_Mapping_Unit_Zone_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:231116729, MISS
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:231116730, MISS
 
  --- Event time: 183674
 
@@ -1362,16 +1362,16 @@ PCIe_Link::Execute_simulator_event(), to DEVICE
 Handle_new_arrived_request: READ, ID: 17, Stream_id: 0, LBA: 2060361280, size: 16 KB
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 2060361280 - 2060361296, lpa: 128772580
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 2060361296 - 2060361312, lpa: 128772581
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 17
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:17
-Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:128772580, MISS
+Address_Mapping_Unit_Zone_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:128772580, MISS
   -> 35: 197289 Issueing Transaction - Type:Read, , PPA:67633592, LPA:18446744073709551615, Channel: 2, Chip: 0
 Chip 2, 0, 0: Sending read command to chip for LPA: 18446744073709551615
 RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 197289
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:128772581, MISS
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:128772581, MISS
 
  --- Event time: 197289
 
@@ -1450,10 +1450,10 @@ RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED)
  --- Event time: 229206
 
 Address mapping table insert entry - Stream ID:0, LPA:151254742, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
 Address mapping table update entry - Stream ID:0, LPA:151254742, PPA:222822400
 Address mapping table insert entry - Stream ID:0, LPA:151254743, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
 Address mapping table update entry - Stream ID:0, LPA:151254743, PPA:256376832
   -> 40: 230742 Issueing Transaction - Type:Write, , PPA:222822400, LPA:151254742, Channel: 6, Chip: 2
 Chip 6, 2, 2: Sending program command to chip for LPA: 151254742
@@ -1534,13 +1534,13 @@ PCIe_Link::Execute_simulator_event(), to DEVICE
 Handle_new_arrived_request: READ, ID: 18, Stream_id: 0, LBA: 2547264896, size: 16 KB
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 2547264896 - 2547264912, lpa: 159204056
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 2547264912 - 2547264928, lpa: 159204057
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 18
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:18
-Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:159204056, MISS
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:159204057, MISS
+Address_Mapping_Unit_Zone_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:159204056, MISS
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:159204057, MISS
 RegisterEvent (PCIe_Link::Execute_simulator_event, From DEVICE to HOST, IF have message in queue): 236135 1099511629072
 
  --- Event time: 236135
@@ -1559,13 +1559,13 @@ RegisterEvent (PCIe_Link::Deliver, From HOST to DEVICE with SQ): 236168 28037546
 PCIe_Link::Execute_simulator_event(), to DEVICE
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 2750264336 - 2750264352, lpa: 171891521
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 2750264352 - 2750264368, lpa: 171891522
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 19
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:19
-Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:171891521, MISS
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:171891522, MISS
+Address_Mapping_Unit_Zone_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:171891521, MISS
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:171891522, MISS
 
  --- Event time: 241160
 
@@ -1597,12 +1597,12 @@ RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED)
  --- Event time: 272599
 
 Address mapping table insert entry - Stream ID:0, LPA:128772580, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
 Address mapping table update entry - Stream ID:0, LPA:128772580, PPA:142082048
 Address mapping table insert entry - Stream ID:0, LPA:128772581, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
 Address mapping table update entry - Stream ID:0, LPA:128772581, PPA:175636480
 
  --- Event time: 274135
@@ -1630,12 +1630,12 @@ RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED)
  --- Event time: 301348
 
 Address mapping table insert entry - Stream ID:0, LPA:231116729, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
 Address mapping table update entry - Stream ID:0, LPA:231116729, PPA:62390272
 Address mapping table insert entry - Stream ID:0, LPA:231116730, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
 Address mapping table update entry - Stream ID:0, LPA:231116730, PPA:95944704
   -> 44: 302884 Issueing Transaction - Type:Read, , PPA:95944704, LPA:231116730, Channel: 2, Chip: 3
 Chip 2, 3, 1: Sending read command to chip for LPA: 231116730
@@ -1705,13 +1705,13 @@ RegisterEvent (PCIe_Link::Deliver, From HOST to DEVICE with SQ): 306408 28037546
 PCIe_Link::Execute_simulator_event(), to DEVICE
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 3391784448 - 3391784464, lpa: 211986528
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 3391784464 - 3391784480, lpa: 211986529
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 20
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:20
-Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:211986528, MISS
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:211986529, MISS
+Address_Mapping_Unit_Zone_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:211986528, MISS
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:211986529, MISS
 
  --- Event time: 311400
 
@@ -1761,16 +1761,16 @@ PCIe_Link::Execute_simulator_event(), to DEVICE
 Handle_new_arrived_request: READ, ID: 21, Stream_id: 0, LBA: 1090903360, size: 16 KB
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 1090903360 - 1090903376, lpa: 68181460
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 1090903376 - 1090903392, lpa: 68181461
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 21
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:21
-Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:68181460, MISS
+Address_Mapping_Unit_Zone_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:68181460, MISS
   -> 47: 335680 Issueing Transaction - Type:Read, , PPA:193986913, LPA:18446744073709551615, Channel: 5, Chip: 3
 Chip 5, 3, 0: Sending read command to chip for LPA: 18446744073709551615
 RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 335680
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:68181461, MISS
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:68181461, MISS
 
  --- Event time: 335680
 
@@ -1814,12 +1814,12 @@ RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED)
  --- Event time: 405938
 
 Address mapping table insert entry - Stream ID:0, LPA:159204056, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
 Address mapping table update entry - Stream ID:0, LPA:159204056, PPA:29884416
 Address mapping table insert entry - Stream ID:0, LPA:159204057, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
 Address mapping table update entry - Stream ID:0, LPA:159204057, PPA:63438848
   -> 49: 407474 Issueing Transaction - Type:Read, , PPA:62390272, LPA:231116729, Channel: 1, Chip: 3
 Chip 1, 3, 1: Sending read command to chip for LPA: 231116729
@@ -1865,16 +1865,16 @@ PCIe_Link::Execute_simulator_event(), to DEVICE
 Handle_new_arrived_request: READ, ID: 22, Stream_id: 0, LBA: 474250192, size: 16 KB
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 474250192 - 474250208, lpa: 29640637
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 474250208 - 474250224, lpa: 29640638
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 22
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:22
-Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:29640637, MISS
+Address_Mapping_Unit_Zone_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:29640637, MISS
   -> 50: 407822 Issueing Transaction - Type:Read, , PPA:88604970, LPA:18446744073709551615, Channel: 2, Chip: 2
 Chip 2, 2, 2: Sending read command to chip for LPA: 18446744073709551615
 RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 407822
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:29640638, MISS
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:29640638, MISS
 
  --- Event time: 407822
 
@@ -1890,12 +1890,12 @@ RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED)
  --- Event time: 410990
 
 Address mapping table insert entry - Stream ID:0, LPA:68181460, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
 Address mapping table update entry - Stream ID:0, LPA:68181460, PPA:156762112
 Address mapping table insert entry - Stream ID:0, LPA:68181461, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
 Address mapping table update entry - Stream ID:0, LPA:68181461, PPA:190316544
   -> 51: 412526 Issueing Transaction - Type:Read, , PPA:156762112, LPA:68181460, Channel: 4, Chip: 2
 Chip 4, 2, 2: Sending read command to chip for LPA: 68181460
@@ -1935,12 +1935,12 @@ RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED)
  --- Event time: 483132
 
 Address mapping table insert entry - Stream ID:0, LPA:29640637, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
 Address mapping table update entry - Stream ID:0, LPA:29640637, PPA:196608000
 Address mapping table insert entry - Stream ID:0, LPA:29640638, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
 Address mapping table update entry - Stream ID:0, LPA:29640638, PPA:230162432
   -> 53: 484668 Issueing Transaction - Type:Read, , PPA:196608000, LPA:29640637, Channel: 5, Chip: 3
 Chip 5, 3, 1: Sending read command to chip for LPA: 29640637
@@ -2025,13 +2025,13 @@ PCIe_Link::Execute_simulator_event(), to DEVICE
 Handle_new_arrived_request: READ, ID: 23, Stream_id: 0, LBA: 1127481744, size: 16 KB
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 1127481744 - 1127481760, lpa: 70467609
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 1127481760 - 1127481776, lpa: 70467610
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 23
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:23
-Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:70467609, MISS
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:70467610, MISS
+Address_Mapping_Unit_Zone_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:70467609, MISS
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:70467610, MISS
 
  --- Event time: 512412
 
@@ -2073,13 +2073,13 @@ PCIe_Link::Execute_simulator_event(), to DEVICE
 Handle_new_arrived_request: READ, ID: 24, Stream_id: 0, LBA: 3281400128, size: 16 KB
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 3281400128 - 3281400144, lpa: 205087508
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 3281400144 - 3281400160, lpa: 205087509
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 24
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:24
-Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:205087508, MISS
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:205087509, MISS
+Address_Mapping_Unit_Zone_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:205087508, MISS
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:205087509, MISS
 
  --- Event time: 532284
 
@@ -2142,13 +2142,13 @@ PCIe_Link::Execute_simulator_event(), to DEVICE
 Handle_new_arrived_request: READ, ID: 25, Stream_id: 0, LBA: 626040048, size: 16 KB
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 626040048 - 626040064, lpa: 39127503
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 626040064 - 626040080, lpa: 39127504
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 25
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:25
-Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:39127503, MISS
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:39127504, MISS
+Address_Mapping_Unit_Zone_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:39127503, MISS
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:39127504, MISS
 
  --- Event time: 589606
 
@@ -2216,16 +2216,16 @@ PCIe_Link::Execute_simulator_event(), to DEVICE
 Handle_new_arrived_request: READ, ID: 26, Stream_id: 0, LBA: 2414926576, size: 16 KB
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 2414926576 - 2414926592, lpa: 150932911
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 2414926592 - 2414926608, lpa: 150932912
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 26
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:26
-Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:150932911, MISS
+Address_Mapping_Unit_Zone_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:150932911, MISS
   -> 58: 872340 Issueing Transaction - Type:Read, , PPA:184025559, LPA:18446744073709551615, Channel: 5, Chip: 1
 Chip 5, 1, 3: Sending read command to chip for LPA: 18446744073709551615
 RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 872340
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:150932912, MISS
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:150932912, MISS
 
  --- Event time: 872340
 
@@ -2297,16 +2297,16 @@ RegisterEvent (PCIe_Link::Deliver, From HOST to DEVICE with SQ): 907269 28037546
 PCIe_Link::Execute_simulator_event(), to DEVICE
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 2233502032 - 2233502048, lpa: 139593877
 Input_Stream_Manager_NVMe::segment_user_request(), lsa: 2233502048 - 2233502064, lpa: 139593878
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 GC_and_WL_Unit_Base::handle_user_request_arrived_signal(), ID: 27
-host interface broadcasting user request arrival signal
+Host_Interface_Base::broadcast_user_request_arrival_signal()
 Data_Cache_Manager_Base handle_user_request_arrived_signal, ID:27
-Address_Mapping_Unit_Page_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:139593877, MISS
+Address_Mapping_Unit_Zone_Level::Translate_lpa_to_ppa_and_dispatch(), size = 2
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:139593877, MISS
   -> 60: 912261 Issueing Transaction - Type:Read, , PPA:99615175, LPA:18446744073709551615, Channel: 2, Chip: 3
 Chip 2, 3, 3: Sending read command to chip for LPA: 18446744073709551615
 RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_CMD_ADDR_TRANSFERRED): 912261
-Cached_Mapping_Table::Exists, Stream ID:0, LPA:139593878, MISS
+ZCached_Mapping_Table::Exists, Stream ID:0, LPA:139593878, MISS
 
  --- Event time: 912261
 
@@ -2327,12 +2327,12 @@ RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED)
  --- Event time: 947650
 
 Address mapping table insert entry - Stream ID:0, LPA:150932911, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
 Address mapping table update entry - Stream ID:0, LPA:150932911, PPA:246939648
 Address mapping table insert entry - Stream ID:0, LPA:150932912, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
 Address mapping table update entry - Stream ID:0, LPA:150932912, PPA:20447232
   -> 61: 949186 Issueing Transaction - Type:Read, , PPA:20447232, LPA:150932912, Channel: 0, Chip: 2
 Chip 0, 2, 1: Sending read command to chip for LPA: 150932912
@@ -2386,10 +2386,10 @@ RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED)
  --- Event time: 987571
 
 Address mapping table insert entry - Stream ID:0, LPA:139593877, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
 Address mapping table update entry - Stream ID:0, LPA:139593877, PPA:185073665
 Address mapping table insert entry - Stream ID:0, LPA:139593878, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
 Address mapping table update entry - Stream ID:0, LPA:139593878, PPA:218628096
   -> 65: 989107 Issueing Transaction - Type:Write, , PPA:185073665, LPA:139593877, Channel: 5, Chip: 2
 Chip 5, 2, 0: Sending program command to chip for LPA: 139593877
@@ -2478,10 +2478,10 @@ RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED)
  --- Event time: 1027433
 
 Address mapping table insert entry - Stream ID:0, LPA:211986528, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
 Address mapping table update entry - Stream ID:0, LPA:211986528, PPA:6291456
 Address mapping table insert entry - Stream ID:0, LPA:211986529, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
 Address mapping table update entry - Stream ID:0, LPA:211986529, PPA:39845888
   -> 68: 1028969 Issueing Transaction - Type:Write, , PPA:39845888, LPA:211986529, Channel: 1, Chip: 0
 Chip 1, 0, 3: Sending program command to chip for LPA: 211986529
@@ -2541,10 +2541,10 @@ PCIe_Link::Execute_simulator_event(), to DEVICE
  --- Event time: 1054083
 
 Address mapping table insert entry - Stream ID:0, LPA:171891521, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
 Address mapping table update entry - Stream ID:0, LPA:171891521, PPA:38797312
 Address mapping table insert entry - Stream ID:0, LPA:171891522, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
 Address mapping table update entry - Stream ID:0, LPA:171891522, PPA:72351744
   -> 71: 1054981 Issueing Transaction - Type:Write, , PPA:72351744, LPA:171891522, Channel: 2, Chip: 0
 Chip 2, 0, 2: Sending program command to chip for LPA: 171891522
@@ -2580,12 +2580,12 @@ RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED)
  --- Event time: 1076335
 
 Address mapping table insert entry - Stream ID:0, LPA:39127503, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
 Address mapping table update entry - Stream ID:0, LPA:39127503, PPA:249036800
 Address mapping table insert entry - Stream ID:0, LPA:39127504, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
 Address mapping table update entry - Stream ID:0, LPA:39127504, PPA:22544384
   -> 74: 1077871 Issueing Transaction - Type:Read, , PPA:249036800, LPA:39127503, Channel: 7, Chip: 1
 Chip 7, 1, 2: Sending read command to chip for LPA: 39127503
@@ -2637,12 +2637,12 @@ RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED)
  --- Event time: 1130291
 
 Address mapping table insert entry - Stream ID:0, LPA:205087508, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
 Address mapping table update entry - Stream ID:0, LPA:205087508, PPA:152043520
 Address mapping table insert entry - Stream ID:0, LPA:205087509, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
 Address mapping table update entry - Stream ID:0, LPA:205087509, PPA:185597952
   -> 77: 1131827 Issueing Transaction - Type:Read, , PPA:152043520, LPA:205087508, Channel: 4, Chip: 2
 Chip 4, 2, 0: Sending read command to chip for LPA: 205087508
@@ -2681,12 +2681,12 @@ RegisterEvent (NVM_PHY_ONFI_NVDDR2::Send_command_to_chip, READ_DATA_TRANSFERRED)
  --- Event time: 1149319
 
 Address mapping table insert entry - Stream ID:0, LPA:70467609, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
 Address mapping table update entry - Stream ID:0, LPA:70467609, PPA:58720256
 Address mapping table insert entry - Stream ID:0, LPA:70467610, PPA:18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
-Address_Mapping_Unit_Page_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), PPA: 18446744073709551615
+Address_Mapping_Unit_Zone_Level::translate_lpa_to_ppa(), online_create_entry_for_reads()
 Address mapping table update entry - Stream ID:0, LPA:70467610, PPA:92274688
   -> 79: 1150855 Issueing Transaction - Type:Read, , PPA:92274688, LPA:70467610, Channel: 2, Chip: 3
 Chip 2, 3, 0: Sending read command to chip for LPA: 70467610

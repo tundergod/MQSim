@@ -8,6 +8,7 @@
 #include "../ssd/Data_Cache_Manager_Flash_Simple.h"
 #include "../ssd/Address_Mapping_Unit_Base.h"
 #include "../ssd/Address_Mapping_Unit_Page_Level.h"
+#include "../ssd/Address_Mapping_Unit_Zone_Level.h"
 #include "../ssd/Address_Mapping_Unit_Hybrid.h"
 #include "../ssd/GC_and_WL_Unit_Page_Level.h"
 #include "../ssd/TSU_OutofOrder.h"
@@ -293,6 +294,15 @@ SSD_Device::SSD_Device(Device_Parameter_Set *parameters, std::vector<IO_Flow_Par
 																  parameters->Flash_Channel_Count, parameters->Chip_No_Per_Channel, parameters->Flash_Parameters.Die_No_Per_Chip,
 																  parameters->Flash_Parameters.Plane_No_Per_Die, parameters->Flash_Parameters.Block_No_Per_Plane, parameters->Flash_Parameters.Page_No_Per_Block,
 																  parameters->Flash_Parameters.Page_Capacity / SECTOR_SIZE_IN_BYTE, parameters->Flash_Parameters.Page_Capacity, parameters->Overprovisioning_Ratio);
+			break;
+		case SSD_Components::Flash_Address_Mapping_Type::ZONE_LEVEL:
+			amu = new SSD_Components::Address_Mapping_Unit_Zone_Level(ftl->ID() + ".AddressMappingUnit", ftl, (SSD_Components::NVM_PHY_ONFI *)device->PHY,
+																	  fbm, parameters->Ideal_Mapping_Table, parameters->CMT_Capacity, parameters->Plane_Allocation_Scheme, stream_count,
+																	  parameters->Flash_Channel_Count, parameters->Chip_No_Per_Channel, parameters->Flash_Parameters.Die_No_Per_Chip, parameters->Flash_Parameters.Plane_No_Per_Die,
+																	  flow_channel_id_assignments, flow_chip_id_assignments, flow_die_id_assignments, flow_plane_id_assignments,
+																	  parameters->Flash_Parameters.Block_No_Per_Plane, parameters->Flash_Parameters.Page_No_Per_Block,
+																	  parameters->Flash_Parameters.Page_Capacity / SECTOR_SIZE_IN_BYTE, parameters->Flash_Parameters.Page_Capacity, parameters->Overprovisioning_Ratio,
+																	  parameters->CMT_Sharing_Mode);
 			break;
 		default:
 			throw std::invalid_argument("No implementation is available fo the secified address mapping strategy");

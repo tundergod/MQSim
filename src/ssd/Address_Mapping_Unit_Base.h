@@ -18,7 +18,7 @@ namespace SSD_Components
 	typedef uint32_t MVPN_type;
 	typedef uint32_t MPPN_type;
 
-	enum class Flash_Address_Mapping_Type {PAGE_LEVEL, HYBRID};
+	enum class Flash_Address_Mapping_Type {PAGE_LEVEL, HYBRID, ZONE_LEVEL};
 	enum class Flash_Plane_Allocation_Scheme_Type
 	{
 		CWDP, CWPD, CDWP, CDPW, CPWD, CPDW,
@@ -46,7 +46,6 @@ namespace SSD_Components
 		virtual void Allocate_address_for_preconditioning(const stream_id_type stream_id, std::map<LPA_type, page_status_type>& lpa_list, std::vector<double>& steady_state_distribution) = 0;
 		virtual int Bring_to_CMT_for_preconditioning(stream_id_type stream_id, LPA_type lpa) = 0;//Used for warming up the cached mapping table during preconditioning
 		virtual void Store_mapping_table_on_flash_at_start() = 0; //It should only be invoked at the begenning of the simulation to store mapping table entries on the flash space
-
 		
 		virtual unsigned int Get_cmt_capacity() = 0;//Returns the maximum number of entries that could be stored in the cached mapping table
 		virtual unsigned int Get_current_cmt_occupancy_for_stream(stream_id_type stream_id) = 0;
@@ -79,6 +78,7 @@ namespace SSD_Components
 		virtual void Remove_barrier_for_accessing_lpa(const stream_id_type stream_id, const LPA_type lpa) = 0; //Removes the barrier that has already been set for accessing an LPA (i.e., the GC_and_WL_Unit_Base unit successfully finished relocating LPA from one physical location to another physical location).
 		virtual void Remove_barrier_for_accessing_mvpn(const stream_id_type stream_id, const MVPN_type mvpn) = 0; //Removes the barrier that has already been set for accessing an MVPN (i.e., the GC_and_WL_Unit_Base unit successfully finished relocating MVPN from one physical location to another physical location).
 		virtual void Start_servicing_writes_for_overfull_plane(const NVM::FlashMemory::Physical_Page_Address plane_address) = 0;//This function is invoked when GC execution is finished on a plane and the plane has enough number of free pages to service writes
+
 	protected:
 		FTL* ftl;
 		NVM_PHY_ONFI* flash_controller;

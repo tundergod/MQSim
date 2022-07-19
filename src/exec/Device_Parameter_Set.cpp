@@ -1,8 +1,6 @@
 #include "Device_Parameter_Set.h"
 #include <algorithm>
 
-
-
 int Device_Parameter_Set::Seed = 123;//Seed for random number generation (used in device's random number generators)
 bool Device_Parameter_Set::Enabled_Preconditioning = true;
 NVM::NVM_Type Device_Parameter_Set::Memory_Type = NVM::NVM_Type::FLASH;
@@ -153,6 +151,9 @@ void Device_Parameter_Set::XML_serialize(Utils::XmlWriter& xmlwriter)
 		case SSD_Components::Flash_Address_Mapping_Type::HYBRID:
 			val = "HYBRID";
 			break;
+		case SSD_Components::Flash_Address_Mapping_Type::ZONE_LEVEL:
+			val = "ZONE_LEVEL";
+			break;	
 		default:
 			break;
 	}
@@ -456,6 +457,8 @@ void Device_Parameter_Set::XML_deserialize(rapidxml::xml_node<> *node)
 					Address_Mapping = SSD_Components::Flash_Address_Mapping_Type::PAGE_LEVEL;
 				} else if (strcmp(val.c_str(), "HYBRID") == 0) {
 					Address_Mapping = SSD_Components::Flash_Address_Mapping_Type::HYBRID;
+				} else if (strcmp(val.c_str(), "ZONE_LEVEL") == 0) {
+					Address_Mapping = SSD_Components::Flash_Address_Mapping_Type::ZONE_LEVEL;
 				} else {
 					PRINT_ERROR("Unknown address mapping type specified in the SSD configuration file")
 				}
